@@ -12,6 +12,7 @@ import { ServicesCards } from '@/blocks/ServicesCards/Component'
 import { PartyPackages } from '@/blocks/PartyPackages/Component'
 import { Testimonials } from '@/blocks/Testimonials/Component'
 import { CTASection } from '@/blocks/CTASection/Component'
+import { ScheduleCards } from '@/blocks/ScheduleCards/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -24,6 +25,7 @@ const blockComponents = {
   partyPackages: PartyPackages,
   testimonials: Testimonials,
   ctaSection: CTASection,
+  scheduleCards: ScheduleCards,
 }
 
 export const RenderBlocks: React.FC<{

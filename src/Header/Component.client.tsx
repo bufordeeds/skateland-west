@@ -3,7 +3,7 @@ import { useHeaderTheme } from '@/providers/HeaderTheme'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-import { Phone } from 'lucide-react'
+import { Phone, MapPin, Clock } from 'lucide-react'
 
 import type { Header } from '@/payload-types'
 
@@ -16,54 +16,107 @@ interface HeaderClientProps {
 }
 
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
-  /* Storing the value in a useState to avoid hydration errors */
   const [theme, setTheme] = useState<string | null>(null)
+  const [scrolled, setScrolled] = useState(false)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
 
   useEffect(() => {
     setHeaderTheme(null)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname])
+  }, [pathname, setHeaderTheme])
 
   useEffect(() => {
     if (headerTheme && headerTheme !== theme) setTheme(headerTheme)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [headerTheme])
+  }, [headerTheme, theme])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b" {...(theme ? { 'data-theme': theme } : {})}>
-      <div className="container">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="size-10 md:size-12 bg-primary rounded-full flex items-center justify-center shadow-sm">
-              <span className="text-primary-foreground font-bold text-lg md:text-xl">SW</span>
+    <>
+      {/* Top Info Bar */}
+      <div className="hidden lg:block bg-gradient-skate text-white py-2 relative overflow-hidden">
+        <div className="absolute inset-0 animate-shimmer opacity-30"></div>
+        <div className="container relative">
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center gap-6">
+              <a href={`tel:${SITE_CONFIG.phone.replace(/\D/g, '')}`} className="flex items-center gap-2 hover:text-accent transition-colors">
+                <Phone className="size-3" />
+                {SITE_CONFIG.phone}
+              </a>
+              <a href={SITE_CONFIG.googleMapsUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-accent transition-colors">
+                <MapPin className="size-3" />
+                {SITE_CONFIG.address.street}, {SITE_CONFIG.address.city}
+              </a>
             </div>
-            <div>
-              <span className="font-bold text-lg md:text-xl text-foreground">
-                {SITE_CONFIG.name}
-              </span>
-              <p className="text-xs text-muted-foreground hidden md:block">
-                Family Fun Since 1985
-              </p>
-            </div>
-          </Link>
-          <div className="flex items-center gap-4">
-            <HeaderNav data={data} />
-            <div className="hidden md:flex items-center gap-4">
-              <Button variant="ghost" size="sm" asChild>
-                <a href={`tel:${SITE_CONFIG.phone.replace(/\D/g, '')}`}>
-                  <Phone className="size-4 mr-2" />
-                  {SITE_CONFIG.phone}
-                </a>
-              </Button>
-              <Button size="sm" asChild>
-                <Link href="/birthday-parties">Book Now</Link>
-              </Button>
+            <div className="flex items-center gap-2">
+              <Clock className="size-3" />
+              <span className="font-medium">Open Today: Check Schedule</span>
             </div>
           </div>
         </div>
       </div>
-    </header>
+
+      {/* Main Header */}
+      <header 
+        className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+          scrolled 
+            ? 'bg-background/95 backdrop-blur-lg shadow-lg border-b' 
+            : 'bg-background/80 backdrop-blur-sm'
+        }`}
+        {...(theme ? { 'data-theme': theme } : {})}
+      >
+        <div className="container">
+          <div className="flex items-center justify-between h-20 md:h-24">
+            {/* Left Nav */}
+            <div className="hidden lg:flex items-center flex-1">
+              <HeaderNav data={data} position="left" />
+            </div>
+
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-3 group mx-4">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-fun rounded-full blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+                <div className="relative size-14 md:size-16 bg-gradient-skate rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-all duration-300">
+                  <span className="text-white font-black text-xl md:text-2xl animate-pulse">SW</span>
+                </div>
+              </div>
+              <div className="hidden md:block">
+                <h1 className="font-black text-xl md:text-2xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                  {SITE_CONFIG.name}
+                </h1>
+                <p className="text-xs text-muted-foreground">
+                  Family Fun Since 1985
+                </p>
+              </div>
+            </Link>
+
+            {/* Right Nav */}
+            <div className="hidden lg:flex items-center justify-end flex-1 gap-4">
+              <HeaderNav data={data} position="right" />
+              <Button 
+                size="lg" 
+                className="bg-gradient-skate hover:opacity-90 text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                asChild
+              >
+                <Link href="/birthday-parties">
+                  Book a Party
+                </Link>
+              </Button>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <div className="lg:hidden">
+              <HeaderNav data={data} />
+            </div>
+          </div>
+        </div>
+      </header>
+    </>
   )
 }

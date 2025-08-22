@@ -191,7 +191,18 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (
+    | HeroSectionBlock
+    | ServicesCardsBlock
+    | PartyPackagesBlock
+    | TestimonialsBlock
+    | CTASectionBlock
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -391,6 +402,139 @@ export interface User {
       }[]
     | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroSectionBlock".
+ */
+export interface HeroSectionBlock {
+  title: string;
+  subtitle?: string | null;
+  description?: string | null;
+  rating?: number | null;
+  reviewCount?: number | null;
+  yearsInBusiness?: number | null;
+  partiesHosted?: string | null;
+  happyFamilies?: string | null;
+  ctaPrimary?: {
+    label?: string | null;
+    url?: string | null;
+  };
+  ctaSecondary?: {
+    label?: string | null;
+    phone?: string | null;
+  };
+  specialOffer?: {
+    title?: string | null;
+    description?: string | null;
+    buttonText?: string | null;
+    buttonUrl?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heroSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesCardsBlock".
+ */
+export interface ServicesCardsBlock {
+  title?: string | null;
+  subtitle?: string | null;
+  cards?:
+    | {
+        icon: string;
+        title: string;
+        description: string;
+        features?:
+          | {
+              feature?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        buttonText?: string | null;
+        buttonUrl?: string | null;
+        color?: ('primary' | 'secondary' | 'accent') | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'servicesCards';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PartyPackagesBlock".
+ */
+export interface PartyPackagesBlock {
+  title?: string | null;
+  subtitle?: string | null;
+  packages?:
+    | {
+        id: string;
+        name: string;
+        price: number;
+        duration: string;
+        guests: number;
+        featured?: boolean | null;
+        features?:
+          | {
+              feature?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        buttonText?: string | null;
+        buttonUrl?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'partyPackages';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock".
+ */
+export interface TestimonialsBlock {
+  title?: string | null;
+  subtitle?: string | null;
+  overallRating?: number | null;
+  reviewCount?: number | null;
+  testimonials?:
+    | {
+        id: string;
+        name: string;
+        rating: number;
+        text: string;
+        date?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonials';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CTASectionBlock".
+ */
+export interface CTASectionBlock {
+  title: string;
+  description?: string | null;
+  primaryButton?: {
+    label?: string | null;
+    url?: string | null;
+    icon?: ('' | 'calendar' | 'phone') | null;
+  };
+  secondaryButton?: {
+    label?: string | null;
+    url?: string | null;
+    phone?: string | null;
+    icon?: ('' | 'calendar' | 'phone') | null;
+  };
+  gradient?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ctaSection';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1020,6 +1164,11 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
+        heroSection?: T | HeroSectionBlockSelect<T>;
+        servicesCards?: T | ServicesCardsBlockSelect<T>;
+        partyPackages?: T | PartyPackagesBlockSelect<T>;
+        testimonials?: T | TestimonialsBlockSelect<T>;
+        ctaSection?: T | CTASectionBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
@@ -1039,6 +1188,144 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroSectionBlock_select".
+ */
+export interface HeroSectionBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  description?: T;
+  rating?: T;
+  reviewCount?: T;
+  yearsInBusiness?: T;
+  partiesHosted?: T;
+  happyFamilies?: T;
+  ctaPrimary?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+      };
+  ctaSecondary?:
+    | T
+    | {
+        label?: T;
+        phone?: T;
+      };
+  specialOffer?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        buttonText?: T;
+        buttonUrl?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesCardsBlock_select".
+ */
+export interface ServicesCardsBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  cards?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        features?:
+          | T
+          | {
+              feature?: T;
+              id?: T;
+            };
+        buttonText?: T;
+        buttonUrl?: T;
+        color?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PartyPackagesBlock_select".
+ */
+export interface PartyPackagesBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  packages?:
+    | T
+    | {
+        id?: T;
+        name?: T;
+        price?: T;
+        duration?: T;
+        guests?: T;
+        featured?: T;
+        features?:
+          | T
+          | {
+              feature?: T;
+              id?: T;
+            };
+        buttonText?: T;
+        buttonUrl?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock_select".
+ */
+export interface TestimonialsBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  overallRating?: T;
+  reviewCount?: T;
+  testimonials?:
+    | T
+    | {
+        id?: T;
+        name?: T;
+        rating?: T;
+        text?: T;
+        date?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CTASectionBlock_select".
+ */
+export interface CTASectionBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  primaryButton?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        icon?: T;
+      };
+  secondaryButton?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        phone?: T;
+        icon?: T;
+      };
+  gradient?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
