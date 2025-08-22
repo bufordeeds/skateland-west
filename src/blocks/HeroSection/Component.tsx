@@ -30,7 +30,7 @@ type Props = {
 }
 
 export const HeroSection: React.FC<Props> = ({
-  title,
+  title: _title,
   subtitle,
   rating = 4.2,
   reviewCount = 444,

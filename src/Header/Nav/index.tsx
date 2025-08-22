@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import type { Header as HeaderType } from '@/payload-types'
-import { CMSLink } from '@/components/Link'
+// import { CMSLink } from '@/components/Link'
 import Link from 'next/link'
 import { SearchIcon, Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -15,7 +15,7 @@ interface HeaderNavProps {
 
 export const HeaderNav: React.FC<HeaderNavProps> = ({ data, position = 'mobile' }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const navItems = data?.navItems || []
+  // const navItems = data?.navItems || []
   
   // Split navigation items for desktop
   const leftItems = position === 'left' ? NAVIGATION_ITEMS.slice(0, 2) : []

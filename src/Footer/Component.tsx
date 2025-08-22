@@ -83,7 +83,7 @@ export async function Footer() {
               </div>
               
               <p className="text-muted-foreground">
-                San Antonio's premier family skating destination. Where memories are made and fun never ends!
+                San Antonio&apos;s premier family skating destination. Where memories are made and fun never ends!
               </p>
               
               <div className="flex gap-2">
