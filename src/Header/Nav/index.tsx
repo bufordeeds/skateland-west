@@ -13,7 +13,7 @@ interface HeaderNavProps {
   position?: 'left' | 'right' | 'mobile'
 }
 
-export const HeaderNav: React.FC<HeaderNavProps> = ({ data, position = 'mobile' }) => {
+export const HeaderNav: React.FC<HeaderNavProps> = ({ data: _data, position = 'mobile' }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   // const navItems = data?.navItems || []
   
