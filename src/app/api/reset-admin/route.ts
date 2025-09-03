@@ -13,12 +13,11 @@ export async function GET() {
     })
 
     // Create new admin user
-    const user = await payload.create({
+    await payload.create({
       collection: 'users',
       data: {
         email: 'bufordeeds8@gmail.com',
         password: 'SkateLandWest2025!',
-        role: 'admin',
         name: 'Admin User',
       },
     })
@@ -32,10 +31,10 @@ export async function GET() {
         loginUrl: '/admin'
       }
     })
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json({ 
       success: false, 
-      error: error.message 
+      error: error instanceof Error ? error.message : 'Unknown error occurred'
     }, { 
       status: 500 
     })
