@@ -416,14 +416,10 @@ export interface HeroSectionBlock {
   yearsInBusiness?: number | null;
   partiesHosted?: string | null;
   happyFamilies?: string | null;
-  ctaPrimary?: {
-    label?: string | null;
-    url?: string | null;
-  };
-  ctaSecondary?: {
-    label?: string | null;
-    phone?: string | null;
-  };
+  ctaPrimaryLabel?: string | null;
+  ctaPrimaryUrl?: string | null;
+  ctaSecondaryLabel?: string | null;
+  ctaSecondaryPhone?: string | null;
   specialOffer?: {
     title?: string | null;
     description?: string | null;
@@ -1202,18 +1198,10 @@ export interface HeroSectionBlockSelect<T extends boolean = true> {
   yearsInBusiness?: T;
   partiesHosted?: T;
   happyFamilies?: T;
-  ctaPrimary?:
-    | T
-    | {
-        label?: T;
-        url?: T;
-      };
-  ctaSecondary?:
-    | T
-    | {
-        label?: T;
-        phone?: T;
-      };
+  ctaPrimaryLabel?: T;
+  ctaPrimaryUrl?: T;
+  ctaSecondaryLabel?: T;
+  ctaSecondaryPhone?: T;
   specialOffer?:
     | T
     | {

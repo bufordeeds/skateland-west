@@ -12,15 +12,10 @@ type Props = {
   yearsInBusiness?: number
   partiesHosted?: string
   happyFamilies?: string
-  ctaPrimary?: {
-    label: string
-    url?: string
-  }
-  ctaSecondary?: {
-    label: string
-    url?: string
-    phone?: string
-  }
+  ctaPrimaryLabel?: string
+  ctaPrimaryUrl?: string
+  ctaSecondaryLabel?: string
+  ctaSecondaryPhone?: string
   specialOffer?: {
     title: string
     description: string
@@ -37,8 +32,10 @@ export const HeroSection: React.FC<Props> = ({
   yearsInBusiness = 38,
   partiesHosted = '10K',
   happyFamilies = '50K',
-  ctaPrimary,
-  ctaSecondary,
+  ctaPrimaryLabel,
+  ctaPrimaryUrl,
+  ctaSecondaryLabel,
+  ctaSecondaryPhone,
   specialOffer,
 }) => {
   return (
@@ -87,29 +84,29 @@ export const HeroSection: React.FC<Props> = ({
             
             {/* CTA Buttons with hover effects */}
             <div className="flex flex-col sm:flex-row gap-4">
-              {ctaPrimary && (
+              {ctaPrimaryLabel && (
                 <Button 
                   size="lg" 
                   className="bg-gradient-skate hover:opacity-90 text-white font-bold text-lg px-8 py-6 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 group"
                   asChild
                 >
-                  <a href={ctaPrimary.url || '/birthday-parties'}>
+                  <a href={ctaPrimaryUrl || '/birthday-parties'}>
                     <Calendar className="size-5 mr-2 group-hover:animate-roll" />
-                    {ctaPrimary.label}
+                    {ctaPrimaryLabel}
                   </a>
                 </Button>
               )}
               
-              {ctaSecondary && ctaSecondary.phone && (
+              {ctaSecondaryLabel && ctaSecondaryPhone && (
                 <Button
                   variant="outline"
                   size="lg"
                   className="text-lg px-8 py-6 font-bold border-2 hover:bg-primary hover:text-primary-foreground hover:border-primary transform hover:scale-105 transition-all duration-300"
                   asChild
                 >
-                  <a href={`tel:${ctaSecondary.phone.replace(/\D/g, '')}`}>
+                  <a href={`tel:${ctaSecondaryPhone.replace(/\D/g, '')}`}>
                     <Phone className="size-5 mr-2" />
-                    {ctaSecondary.label}
+                    {ctaSecondaryLabel}
                   </a>
                 </Button>
               )}
