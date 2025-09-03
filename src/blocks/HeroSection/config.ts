@@ -72,42 +72,28 @@ export const HeroSection: Block = {
       ],
     },
     {
-      name: 'ctaPrimary',
-      type: 'group',
-      label: 'Primary CTA Button',
-      fields: [
-        {
-          name: 'label',
-          type: 'text',
-          label: 'Button Label',
-          defaultValue: 'Book Your Party Today',
-        },
-        {
-          name: 'url',
-          type: 'text',
-          label: 'Button URL',
-          defaultValue: '/birthday-parties',
-        },
-      ],
+      name: 'ctaPrimaryLabel',
+      type: 'text',
+      label: 'Primary CTA Button Label',
+      defaultValue: 'Book Your Party Today',
     },
     {
-      name: 'ctaSecondary',
-      type: 'group',
-      label: 'Secondary CTA Button',
-      fields: [
-        {
-          name: 'label',
-          type: 'text',
-          label: 'Button Label',
-          defaultValue: 'Call Now: (210) 523-9664',
-        },
-        {
-          name: 'phone',
-          type: 'text',
-          label: 'Phone Number',
-          defaultValue: '(210) 523-9664',
-        },
-      ],
+      name: 'ctaPrimaryUrl',
+      type: 'text',
+      label: 'Primary CTA Button URL',
+      defaultValue: '/birthday-parties',
+    },
+    {
+      name: 'ctaSecondaryLabel',
+      type: 'text',
+      label: 'Secondary CTA Button Label',
+      defaultValue: 'Call Now: (210) 523-9664',
+    },
+    {
+      name: 'ctaSecondaryPhone',
+      type: 'text',
+      label: 'Secondary CTA Phone Number',
+      defaultValue: '(210) 523-9664',
     },
     {
       name: 'specialOffer',
@@ -124,7 +110,8 @@ export const HeroSection: Block = {
           name: 'description',
           type: 'textarea',
           label: 'Offer Description',
-          defaultValue: 'Book any birthday party package and get a FREE photo session with our professional photographer.',
+          defaultValue:
+            'Book any birthday party package and get a FREE photo session with our professional photographer.',
         },
         {
           name: 'buttonText',
