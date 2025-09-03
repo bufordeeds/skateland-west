@@ -1,0 +1,6 @@
+{
+  "buildCommand": "npm run build:vercel",
+  "env": {
+    "DATABASE_MIGRATE_ON_START": "true"
+  }
+}

@@ -72,7 +72,8 @@ export default buildConfig({
   plugins: [
     ...plugins,
     // storage-adapter-placeholder
-    ...(process.env.VERCEL || process.env.BLOB_READ_WRITE_TOKEN
+    // Only add Vercel Blob storage when we have a token or are in Vercel environment
+    ...(process.env.BLOB_READ_WRITE_TOKEN || process.env.VERCEL === '1'
       ? [
           vercelBlobStorage({
             collections: {
