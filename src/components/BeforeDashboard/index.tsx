@@ -12,11 +12,39 @@ const BeforeDashboard: React.FC = () => {
         <h4>Welcome to your Skateland West Dashboard!</h4>
       </Banner>
 
-      <p style={{ fontSize: '1.1rem', marginBottom: '1.5rem' }}>
-        Hi there! I&apos;m <strong>Buford Eeds</strong>, and I built this website for you.
-        This admin panel is where you can manage all your website content - from pages
-        and blog posts to images and more.
-      </p>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: '1rem',
+        marginBottom: '1.5rem',
+      }}>
+        <p style={{ fontSize: '1.1rem', margin: 0, flex: 1 }}>
+          Hi there! I&apos;m <strong>Buford Eeds</strong>, and I built this website for you.
+          This admin panel is where you can manage all your website content.
+        </p>
+        <a
+          href="/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '10px 20px',
+            background: 'var(--theme-success-500)',
+            color: 'white',
+            borderRadius: '6px',
+            textDecoration: 'none',
+            fontWeight: 'bold',
+            fontSize: '0.95rem',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          View Website &rarr;
+        </a>
+      </div>
 
       <h3>Quick Start Guide</h3>
       <ul className={`${baseClass}__instructions`}>

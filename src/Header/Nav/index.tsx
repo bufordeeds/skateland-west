@@ -80,14 +80,14 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({ data: _data, position = 'm
         <Link
           key={i}
           href={href}
-          className="font-semibold hover:text-primary transition-colors relative group"
+          className="font-semibold text-white hover:text-cyan-300 transition-colors relative group drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]"
         >
           {label}
           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-skate group-hover:w-full transition-all duration-300"></span>
         </Link>
       ))}
       {position === 'right' && (
-        <Link href="/search" className="hover:text-primary transition-colors">
+        <Link href="/search" className="text-white hover:text-cyan-300 transition-colors drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
           <span className="sr-only">Search</span>
           <SearchIcon className="size-5" />
         </Link>

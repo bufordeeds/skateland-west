@@ -87,10 +87,10 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                 </div>
               </div>
               <div className="hidden md:block">
-                <h1 className="font-black text-xl md:text-2xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                <h1 className="font-black text-xl md:text-2xl text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
                   {SITE_CONFIG.name}
                 </h1>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs text-white/80 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
                   Family Fun Since 1985
                 </p>
               </div>
