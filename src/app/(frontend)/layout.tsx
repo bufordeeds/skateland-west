@@ -24,8 +24,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
       <head>
         <InitTheme />
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
       <body>
         <Providers>
@@ -47,9 +45,22 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
 export const metadata: Metadata = {
   metadataBase: new URL(getServerSideURL()),
+  title: {
+    default: 'Skateland West | San Antonio Roller Skating Rink',
+    template: '%s | Skateland West',
+  },
+  description:
+    "San Antonio's premier family roller skating destination. Enjoy public skating sessions, birthday parties, private events, and more at Skateland West.",
+  keywords: [
+    'roller skating',
+    'San Antonio',
+    'skating rink',
+    'birthday parties',
+    'family fun',
+    'Skateland West',
+  ],
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    creator: '@payloadcms',
   },
 }
