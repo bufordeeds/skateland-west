@@ -5,6 +5,16 @@ export const HeroSection: Block = {
   interfaceName: 'HeroSectionBlock',
   fields: [
     {
+      name: 'backgroundImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Background Image',
+      required: false,
+      admin: {
+        description: 'Full-screen background image for the hero section',
+      },
+    },
+    {
       name: 'title',
       type: 'text',
       required: true,

@@ -2,26 +2,27 @@ export const SITE_CONFIG = {
   name: "Skateland West",
   tagline: "San Antonio's Premier Family Skating Experience",
   description: "Creating magical memories for families since 1985",
-  phone: "(210) 523-9664",
+  phone: "(210) 673-2568",
+  fax: "(210) 675-0274",
   email: "info@skatelandwest.com",
   address: {
-    street: "7322 US-90",
+    street: "2327 S.W. Loop 410",
     city: "San Antonio",
     state: "TX",
     zip: "78227"
   },
   hours: {
-    monday: "Closed",
-    tuesday: "Closed", 
-    wednesday: "6:00 PM - 8:30 PM",
-    thursday: "6:00 PM - 8:30 PM",
-    friday: "7:00 PM - 11:00 PM",
-    saturday: "1:00 PM - 11:00 PM",
-    sunday: "1:00 PM - 5:00 PM"
+    sunday: "2:00 PM - 6:00 PM",
+    monday: "Private Parties Only",
+    tuesday: "Private Parties Only",
+    wednesday: "Private Parties Only",
+    thursday: "6:00 PM - 9:00 PM",
+    friday: "7:30 PM - 10:30 PM",
+    saturday: "1:30 PM - 10:30 PM"
   },
   social: {
-    facebook: "https://facebook.com/skatelandwest",
-    instagram: "https://instagram.com/skatelandwest",
+    facebook: "https://www.facebook.com/myskatelandwest/",
+    instagram: "https://www.instagram.com/skateland_west/",
     twitter: "https://twitter.com/skatelandwest"
   },
   googleMapsUrl: "https://maps.google.com/?cid=1076730678051856509",

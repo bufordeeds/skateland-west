@@ -408,6 +408,10 @@ export interface User {
  * via the `definition` "HeroSectionBlock".
  */
 export interface HeroSectionBlock {
+  /**
+   * Full-screen background image for the hero section
+   */
+  backgroundImage?: (number | null) | Media;
   title: string;
   subtitle?: string | null;
   description?: string | null;
@@ -1190,6 +1194,7 @@ export interface PagesSelect<T extends boolean = true> {
  * via the `definition` "HeroSectionBlock_select".
  */
 export interface HeroSectionBlockSelect<T extends boolean = true> {
+  backgroundImage?: T;
   title?: T;
   subtitle?: T;
   description?: T;
