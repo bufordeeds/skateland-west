@@ -2,6 +2,7 @@ import { Banner } from '@payloadcms/ui/elements/Banner'
 import React from 'react'
 
 import './index.scss'
+import { RefreshHomeButton } from './RefreshHomeButton'
 
 const baseClass = 'before-dashboard'
 
@@ -24,26 +25,29 @@ const BeforeDashboard: React.FC = () => {
           Hi there! I&apos;m <strong>Buford Eeds</strong>, and I built this website for you.
           This admin panel is where you can manage all your website content.
         </p>
-        <a
-          href="/"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            padding: '10px 20px',
-            background: 'var(--theme-success-500)',
-            color: 'white',
-            borderRadius: '6px',
-            textDecoration: 'none',
-            fontWeight: 'bold',
-            fontSize: '0.95rem',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          View Website &rarr;
-        </a>
+        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+          <RefreshHomeButton />
+          <a
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '10px 20px',
+              background: 'var(--theme-success-500)',
+              color: 'white',
+              borderRadius: '6px',
+              textDecoration: 'none',
+              fontWeight: 'bold',
+              fontSize: '0.95rem',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            View Website &rarr;
+          </a>
+        </div>
       </div>
 
       <h3>Quick Start Guide</h3>

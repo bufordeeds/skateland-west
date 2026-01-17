@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import type { Media as MediaType } from '@/payload-types'
 import { Media } from '@/components/Media'
+import { Star, Sparkles, PartyPopper, Heart } from 'lucide-react'
 
 type Props = {
   title: string
@@ -29,11 +30,11 @@ type Props = {
 export const HeroSection: React.FC<Props> = ({
   title: _title,
   subtitle,
-  rating: _rating = 4.2,
-  reviewCount: _reviewCount = 444,
-  yearsInBusiness: _yearsInBusiness = 38,
-  partiesHosted: _partiesHosted = '10K',
-  happyFamilies: _happyFamilies = '50K',
+  rating = 4.2,
+  reviewCount = 444,
+  yearsInBusiness = 39,
+  partiesHosted = '10K+',
+  happyFamilies = '50K+',
   ctaPrimaryLabel: _ctaPrimaryLabel,
   ctaPrimaryUrl: _ctaPrimaryUrl,
   ctaSecondaryLabel: _ctaSecondaryLabel,
@@ -42,7 +43,7 @@ export const HeroSection: React.FC<Props> = ({
   specialOffer: _specialOffer,
 }) => {
   return (
-    <section className="relative overflow-hidden min-h-[85vh] flex items-center">
+    <section className="relative overflow-hidden min-h-[85vh] flex items-center bg-slate-950">
       {/* Background Image with Overlay */}
       {backgroundImage && typeof backgroundImage === 'object' && (
         <>
@@ -53,84 +54,144 @@ export const HeroSection: React.FC<Props> = ({
               imgClassName="w-full h-full object-cover"
             />
           </div>
-          <div className="absolute inset-0 z-10 bg-gradient-to-b from-purple-900/70 via-purple-800/60 to-purple-900/80"></div>
+          <div className="absolute inset-0 z-10 bg-gradient-to-b from-slate-950/80 via-slate-900/70 to-slate-950/90"></div>
         </>
       )}
 
-      {/* Fallback gradient if no image */}
+      {/* Fallback dark background with subtle grid */}
       {!backgroundImage && (
         <>
-          <div className="absolute inset-0 bg-gradient-fun opacity-10 animate-disco"></div>
-          <div className="absolute inset-0 retro-grid opacity-20"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950"></div>
+          <div className="absolute inset-0 retro-grid opacity-30"></div>
         </>
       )}
 
-      <div className="relative z-20 container py-20 md:py-32">
-        <div className="max-w-5xl mx-auto text-center space-y-12 animate-skateIn">
-          {/* Large Wordmark Logo */}
-          <div className="space-y-6">
-            {/* Colorful Letter Circles - "SKATE" */}
-            <div className="flex justify-center items-center gap-2 md:gap-4 mb-8">
-              {['S', 'K', 'A', 'T', 'E'].map((letter, i) => {
-                const colors = ['bg-cyan-400', 'bg-pink-500', 'bg-purple-600', 'bg-green-500', 'bg-cyan-400']
-                return (
-                  <div
-                    key={i}
-                    className={`${colors[i]} size-16 md:size-24 lg:size-28 rounded-full flex items-center justify-center shadow-2xl border-4 border-white transform hover:scale-110 transition-transform duration-300`}
-                  >
-                    <span className="text-white font-black text-3xl md:text-5xl lg:text-6xl">
-                      {letter}
-                    </span>
-                  </div>
-                )
-              })}
+      {/* Twinkling stars decoration */}
+      <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <Sparkles
+            key={i}
+            className="absolute text-cyan-400/40 star-twinkle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              width: `${8 + Math.random() * 12}px`,
+              animationDelay: `${Math.random() * 2}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="relative z-20 container py-16 md:py-24">
+        <div className="max-w-5xl mx-auto text-center space-y-10 animate-skateIn">
+
+          {/* Retro Neon Sign */}
+          <div className="relative inline-block mx-auto">
+            {/* Outer neon border frame */}
+            <div className="neon-box rounded-2xl p-8 md:p-12 bg-slate-900/50 backdrop-blur-sm">
+              {/* Inner decorative border */}
+              <div className="border-2 border-pink-500/50 rounded-xl p-6 md:p-10 relative">
+                {/* Corner decorations */}
+                <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-cyan-400"></div>
+                <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-cyan-400"></div>
+                <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-cyan-400"></div>
+                <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-cyan-400"></div>
+
+                {/* Main neon text */}
+                <div className="space-y-2">
+                  <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight neon-text-cyan">
+                    SKATELAND
+                  </h1>
+                  <h2 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-widest neon-text-pink">
+                    WEST
+                  </h2>
+                </div>
+
+                {/* Tagline */}
+                <p className="mt-6 text-lg md:text-xl text-cyan-300 font-medium tracking-wide">
+                  San Antonio&apos;s Premier Family Skating Experience
+                </p>
+              </div>
             </div>
-
-            {/* Main Title */}
-            <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white leading-tight drop-shadow-2xl">
-              SKATELAND WEST
-            </h1>
-
-            {/* Subtitle/Description */}
-            {subtitle && (
-              <p className="text-lg md:text-xl lg:text-2xl text-white/95 max-w-3xl mx-auto leading-relaxed font-medium drop-shadow-lg">
-                {subtitle}
-              </p>
-            )}
           </div>
 
-          {/* Three CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          {/* Subtitle/Description */}
+          {subtitle && (
+            <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
+              {subtitle}
+            </p>
+          )}
+
+          {/* Trust Stats */}
+          <div className="flex flex-wrap justify-center gap-6 md:gap-10 py-6">
+            <div className="flex items-center gap-2 text-white">
+              <div className="p-2 bg-cyan-500/20 rounded-full">
+                <Star className="size-5 text-cyan-400 fill-cyan-400" />
+              </div>
+              <div className="text-left">
+                <div className="text-2xl font-black text-cyan-300">{yearsInBusiness}</div>
+                <div className="text-xs text-white/60 uppercase tracking-wide">Years Strong</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 text-white">
+              <div className="p-2 bg-pink-500/20 rounded-full">
+                <PartyPopper className="size-5 text-pink-400" />
+              </div>
+              <div className="text-left">
+                <div className="text-2xl font-black text-pink-300">{partiesHosted}</div>
+                <div className="text-xs text-white/60 uppercase tracking-wide">Parties Hosted</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 text-white">
+              <div className="p-2 bg-purple-500/20 rounded-full">
+                <Heart className="size-5 text-purple-400 fill-purple-400" />
+              </div>
+              <div className="text-left">
+                <div className="text-2xl font-black text-purple-300">{happyFamilies}</div>
+                <div className="text-xs text-white/60 uppercase tracking-wide">Happy Families</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 text-white">
+              <div className="p-2 bg-yellow-500/20 rounded-full">
+                <Star className="size-5 text-yellow-400 fill-yellow-400" />
+              </div>
+              <div className="text-left">
+                <div className="text-2xl font-black text-yellow-300">{rating}</div>
+                <div className="text-xs text-white/60 uppercase tracking-wide">{reviewCount} Reviews</div>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA Buttons with neon styling */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
             <Button
               size="lg"
-              variant="outline"
-              className="text-white border-white hover:bg-white hover:text-purple-900 font-bold text-lg px-8 py-6 min-w-[180px] backdrop-blur-sm bg-white/10"
+              className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-lg px-8 py-6 min-w-[180px] shadow-[0_0_20px_rgba(6,182,212,0.5)] hover:shadow-[0_0_30px_rgba(6,182,212,0.7)] transition-all duration-300"
               asChild
             >
               <Link href="/schedule">
-                SCHEDULE
+                VIEW SCHEDULE
               </Link>
             </Button>
 
             <Button
               size="lg"
-              variant="outline"
-              className="text-white border-white hover:bg-white hover:text-purple-900 font-bold text-lg px-8 py-6 min-w-[180px] backdrop-blur-sm bg-white/10"
+              className="bg-pink-500 hover:bg-pink-400 text-white font-bold text-lg px-8 py-6 min-w-[180px] shadow-[0_0_20px_rgba(236,72,153,0.5)] hover:shadow-[0_0_30px_rgba(236,72,153,0.7)] transition-all duration-300"
               asChild
             >
               <Link href="/birthday-parties">
-                BOOK PARTY
+                BOOK A PARTY
               </Link>
             </Button>
 
             <Button
               size="lg"
               variant="outline"
-              className="text-white border-white hover:bg-white hover:text-purple-900 font-bold text-lg px-8 py-6 min-w-[180px] backdrop-blur-sm bg-white/10"
+              className="border-2 border-purple-400 text-purple-300 hover:bg-purple-500/20 hover:text-purple-200 font-bold text-lg px-8 py-6 min-w-[180px] shadow-[0_0_15px_rgba(168,85,247,0.3)] hover:shadow-[0_0_25px_rgba(168,85,247,0.5)] transition-all duration-300"
               asChild
             >
               <Link href="/learn-to-skate">
-                LESSONS
+                SKATING LESSONS
               </Link>
             </Button>
           </div>

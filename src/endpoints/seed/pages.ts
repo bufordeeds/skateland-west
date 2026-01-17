@@ -77,59 +77,33 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           subtitle: 'More than just skating',
         },
         {
-          blockType: 'cta',
-          blockName: 'CTA',
-          richText: {
-            root: {
-              type: 'root',
-              children: [
-                {
-                  type: 'heading',
-                  tag: 'h2',
-                  children: [{ type: 'text', text: 'Ready to Roll?', version: 1 }],
-                  direction: 'ltr',
-                  format: '',
-                  indent: 0,
-                  version: 1,
-                },
-                {
-                  type: 'paragraph',
-                  children: [
-                    {
-                      type: 'text',
-                      text: 'Book your next skating session or plan an unforgettable birthday party!',
-                      version: 1,
-                    },
-                  ],
-                  direction: 'ltr',
-                  format: '',
-                  indent: 0,
-                  textFormat: 0,
-                  version: 1,
-                },
-              ],
-              direction: 'ltr',
-              format: '',
-              indent: 0,
-              version: 1,
-            },
-          },
-          links: [
+          blockType: 'testimonials',
+          blockName: 'Testimonials',
+          title: 'What Families Are Saying',
+          subtitle: 'Real reviews from our skating community',
+          overallRating: 4.2,
+          reviewCount: 444,
+          testimonials: [
             {
-              link: {
-                type: 'custom',
-                label: 'View Schedule',
-                url: '/schedule',
-                appearance: 'default',
-              },
+              id: '1',
+              name: 'Maria G.',
+              rating: 5,
+              text: "Best birthday party venue in San Antonio! The kids had a blast and the staff was incredibly helpful. We've been coming here for years.",
+              date: '2024-12-15',
             },
             {
-              link: {
-                type: 'custom',
-                label: 'Book a Party',
-                url: '/birthday-parties',
-                appearance: 'outline',
-              },
+              id: '2',
+              name: 'David R.',
+              rating: 5,
+              text: 'Great family activity! Clean facility, friendly staff, and reasonable prices. My kids love the skating lessons here.',
+              date: '2024-11-28',
+            },
+            {
+              id: '3',
+              name: 'Jennifer L.',
+              rating: 5,
+              text: 'A San Antonio institution! I skated here as a kid and now I bring my own children. The nostalgia combined with great service keeps us coming back.',
+              date: '2024-10-20',
             },
           ],
         },

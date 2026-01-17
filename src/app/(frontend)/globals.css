@@ -211,6 +211,115 @@
   text-shadow: 0 0 10px rgba(79, 70, 229, 0.5);
 }
 
+/* Retro Neon Sign Effects */
+@keyframes neonFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow:
+      0 0 4px #fff,
+      0 0 11px #fff,
+      0 0 19px #fff,
+      0 0 40px #0fa,
+      0 0 80px #0fa,
+      0 0 90px #0fa,
+      0 0 100px #0fa,
+      0 0 150px #0fa;
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
+
+@keyframes neonPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 4px #fff,
+      0 0 10px #fff,
+      0 0 20px #fff,
+      0 0 40px #00d4ff,
+      0 0 80px #00d4ff,
+      0 0 90px #00d4ff;
+    filter: brightness(1);
+  }
+  50% {
+    text-shadow:
+      0 0 2px #fff,
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 20px #00d4ff,
+      0 0 40px #00d4ff,
+      0 0 50px #00d4ff;
+    filter: brightness(0.9);
+  }
+}
+
+@keyframes neonPulsePink {
+  0%, 100% {
+    text-shadow:
+      0 0 4px #fff,
+      0 0 10px #fff,
+      0 0 20px #fff,
+      0 0 40px #ff2d95,
+      0 0 80px #ff2d95,
+      0 0 90px #ff2d95;
+  }
+  50% {
+    text-shadow:
+      0 0 2px #fff,
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 20px #ff2d95,
+      0 0 40px #ff2d95,
+      0 0 50px #ff2d95;
+  }
+}
+
+@keyframes borderGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 5px #00d4ff,
+      0 0 10px #00d4ff,
+      0 0 20px #00d4ff,
+      0 0 40px #00d4ff,
+      inset 0 0 5px #00d4ff;
+  }
+  50% {
+    box-shadow:
+      0 0 2px #00d4ff,
+      0 0 5px #00d4ff,
+      0 0 10px #00d4ff,
+      0 0 20px #00d4ff,
+      inset 0 0 2px #00d4ff;
+  }
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.neon-text-cyan {
+  color: #fff;
+  animation: neonPulse 2s ease-in-out infinite;
+}
+
+.neon-text-pink {
+  color: #fff;
+  animation: neonPulsePink 2s ease-in-out infinite;
+}
+
+.neon-text-flicker {
+  animation: neonFlicker 3s infinite alternate;
+}
+
+.neon-box {
+  border: 3px solid #00d4ff;
+  animation: borderGlow 2s ease-in-out infinite;
+}
+
+.star-twinkle {
+  animation: starTwinkle 1.5s ease-in-out infinite;
+}
+
 .neon-border {
   border: 2px solid hsl(188 94% 43%);
   box-shadow: 
