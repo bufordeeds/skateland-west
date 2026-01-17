@@ -193,6 +193,7 @@ export interface Page {
   };
   layout: (
     | HeroSectionBlock
+    | ScheduleCardsBlock
     | ServicesCardsBlock
     | PartyPackagesBlock
     | TestimonialsBlock
@@ -433,6 +434,32 @@ export interface HeroSectionBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'heroSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ScheduleCardsBlock".
+ */
+export interface ScheduleCardsBlock {
+  title?: string | null;
+  subtitle?: string | null;
+  schedule?:
+    | {
+        day: 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
+        hours: string;
+        title: string;
+        description: string;
+        price: string;
+        special?: string | null;
+        highlight?: boolean | null;
+        icon?: ('star' | 'users' | 'music' | 'sparkles') | null;
+        id?: string | null;
+      }[]
+    | null;
+  ctaText?: string | null;
+  ctaUrl?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'scheduleCards';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1165,6 +1192,7 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         heroSection?: T | HeroSectionBlockSelect<T>;
+        scheduleCards?: T | ScheduleCardsBlockSelect<T>;
         servicesCards?: T | ServicesCardsBlockSelect<T>;
         partyPackages?: T | PartyPackagesBlockSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
@@ -1215,6 +1243,31 @@ export interface HeroSectionBlockSelect<T extends boolean = true> {
         buttonText?: T;
         buttonUrl?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ScheduleCardsBlock_select".
+ */
+export interface ScheduleCardsBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  schedule?:
+    | T
+    | {
+        day?: T;
+        hours?: T;
+        title?: T;
+        description?: T;
+        price?: T;
+        special?: T;
+        highlight?: T;
+        icon?: T;
+        id?: T;
+      };
+  ctaText?: T;
+  ctaUrl?: T;
   id?: T;
   blockName?: T;
 }

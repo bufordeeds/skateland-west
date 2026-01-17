@@ -12,6 +12,7 @@ import { ServicesCards } from '../../blocks/ServicesCards/config'
 import { PartyPackages } from '../../blocks/PartyPackages/config'
 import { Testimonials } from '../../blocks/Testimonials/config'
 import { CTASection } from '../../blocks/CTASection/config'
+import { ScheduleCards } from '../../blocks/ScheduleCards/config'
 import { hero } from '@/heros/config'
 import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -82,6 +83,7 @@ export const Pages: CollectionConfig<'pages'> = {
               type: 'blocks',
               blocks: [
                 HeroSection,
+                ScheduleCards,
                 ServicesCards,
                 PartyPackages,
                 Testimonials,
