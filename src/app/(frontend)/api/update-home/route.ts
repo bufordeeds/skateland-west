@@ -99,26 +99,26 @@ export async function POST(): Promise<Response> {
     // Build new layout without duplicate CTA, with testimonials
     const newLayout = [
       {
-        blockType: 'heroSection',
+        blockType: 'heroSection' as const,
         blockName: 'Hero',
         title: 'Skateland West',
         subtitle: "San Antonio's Premier Family Skating Destination Since 1985",
         backgroundImage: backgroundImageId,
       },
       {
-        blockType: 'scheduleCards',
+        blockType: 'scheduleCards' as const,
         blockName: 'Schedule',
         title: 'Skating Sessions',
         subtitle: 'Find the perfect time to skate',
       },
       {
-        blockType: 'servicesCards',
+        blockType: 'servicesCards' as const,
         blockName: 'Services',
         title: 'Everything You Need',
         subtitle: 'More than just skating',
       },
       {
-        blockType: 'testimonials',
+        blockType: 'testimonials' as const,
         blockName: 'Testimonials',
         title: 'What Families Are Saying',
         subtitle: 'Real reviews from our skating community',
