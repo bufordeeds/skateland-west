@@ -1,7 +1,6 @@
 import { Banner } from '@payloadcms/ui/elements/Banner'
 import React from 'react'
 
-import { SeedButton } from './SeedButton'
 import './index.scss'
 
 const baseClass = 'before-dashboard'
@@ -10,63 +9,70 @@ const BeforeDashboard: React.FC = () => {
   return (
     <div className={baseClass}>
       <Banner className={`${baseClass}__banner`} type="success">
-        <h4>Welcome to your dashboard!</h4>
+        <h4>Welcome to your Skateland West Dashboard!</h4>
       </Banner>
-      Here&apos;s what to do next:
+
+      <p style={{ fontSize: '1.1rem', marginBottom: '1.5rem' }}>
+        Hi there! I&apos;m <strong>Buford Eeds</strong>, and I built this website for you.
+        This admin panel is where you can manage all your website content - from pages
+        and blog posts to images and more.
+      </p>
+
+      <h3>Quick Start Guide</h3>
       <ul className={`${baseClass}__instructions`}>
         <li>
-          <SeedButton />
-          {' with a few pages, posts, and projects to jump-start your new site, then '}
-          <a href="/" target="_blank">
-            visit your website
-          </a>
-          {' to see the results.'}
+          <strong>Pages:</strong> Edit your website pages (Schedule, Birthday Parties, etc.)
+          by clicking &quot;Pages&quot; in the sidebar. Click on any page to edit its content.
         </li>
         <li>
-          If you created this repo using Payload Cloud, head over to GitHub and clone it to your
-          local machine. It will be under the <i>GitHub Scope</i> that you selected when creating
-          this project.
+          <strong>Posts:</strong> Create blog posts or news updates. Great for announcing
+          special events or promotions!
         </li>
         <li>
-          {'Modify your '}
-          <a
-            href="https://payloadcms.com/docs/configuration/collections"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            collections
-          </a>
-          {' and add more '}
-          <a
-            href="https://payloadcms.com/docs/fields/overview"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            fields
-          </a>
-          {' as needed. If you are new to Payload, we also recommend you check out the '}
-          <a
-            href="https://payloadcms.com/docs/getting-started/what-is-payload"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Getting Started
-          </a>
-          {' docs.'}
+          <strong>Media:</strong> Upload and manage all your images. These can be used
+          throughout your pages and posts.
         </li>
         <li>
-          Commit and push your changes to the repository to trigger a redeployment of your project.
+          <strong>Header &amp; Footer:</strong> Under &quot;Globals&quot;, you can update
+          your navigation links and footer content.
         </li>
       </ul>
-      {'Pro Tip: This block is a '}
-      <a
-        href="https://payloadcms.com/docs/custom-components/overview"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        custom component
-      </a>
-      , you can remove it at any time by updating your <strong>payload.config</strong>.
+
+      <h3>How to Edit a Page</h3>
+      <ol className={`${baseClass}__instructions`}>
+        <li>Click &quot;Pages&quot; in the left sidebar</li>
+        <li>Click on the page you want to edit</li>
+        <li>Make your changes in the editor</li>
+        <li>Click &quot;Save&quot; (or &quot;Publish changes&quot;) in the top right</li>
+        <li>Your changes will be live on the website!</li>
+      </ol>
+
+      <div style={{
+        background: 'var(--theme-elevation-100)',
+        padding: '1.5rem',
+        borderRadius: '8px',
+        marginTop: '2rem',
+        border: '1px solid var(--theme-elevation-200)'
+      }}>
+        <h3 style={{ marginTop: 0 }}>Need Help or Want New Features?</h3>
+        <p>
+          If you have any questions, need support, or want to add new features to your website,
+          don&apos;t hesitate to reach out!
+        </p>
+        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+          <li style={{ marginBottom: '0.5rem' }}>
+            <strong>Contact:</strong> Buford Eeds
+          </li>
+          <li style={{ marginBottom: '0.5rem' }}>
+            <strong>Email:</strong>{' '}
+            <a href="mailto:bufordeeds8@gmail.com">bufordeeds8@gmail.com</a>
+          </li>
+          <li>
+            <strong>Phone:</strong>{' '}
+            <a href="tel:2103253989">(210) 325-3989</a>
+          </li>
+        </ul>
+      </div>
     </div>
   )
 }
