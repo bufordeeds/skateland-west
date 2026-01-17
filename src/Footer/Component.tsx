@@ -207,7 +207,7 @@ export async function Footer() {
               </h3>
               <div className="space-y-2">
                 {Object.entries(SITE_CONFIG.hours).map(([day, hours]) => {
-                  const isOpen = hours !== "Closed"
+                  const isOpen = hours !== "Private Parties Only"
                   return (
                     <div 
                       key={day} 
