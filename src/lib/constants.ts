@@ -25,7 +25,7 @@ export const SITE_CONFIG = {
     instagram: "https://www.instagram.com/skateland_west/",
     twitter: "https://twitter.com/skatelandwest"
   },
-  googleMapsUrl: "https://maps.google.com/?cid=1076730678051856509",
+  googleMapsUrl: "https://www.google.com/maps/place/Skateland+West/@29.4073877,-98.6532231,17z/data=!4m6!3m5!1s0x865c5b50ed0616bf:0x4767b14115ede262!8m2!3d29.4073831!4d-98.6506482!16s%2Fg%2F1ts_70fk",
   rating: 4.2,
   reviewCount: 444
 } as const

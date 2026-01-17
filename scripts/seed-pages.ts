@@ -291,7 +291,7 @@ async function seedPages() {
           gradient: true,
           primaryButton: {
             label: 'Get Directions',
-            url: 'https://maps.google.com/?cid=1076730678051856509',
+            url: 'https://www.google.com/maps/place/Skateland+West/@29.4073877,-98.6532231,17z',
             icon: 'calendar',
           },
           secondaryButton: {
@@ -964,7 +964,7 @@ async function seedPages() {
           gradient: true,
           primaryButton: {
             label: 'Get Directions',
-            url: 'https://maps.google.com/?cid=1076730678051856509',
+            url: 'https://www.google.com/maps/place/Skateland+West/@29.4073877,-98.6532231,17z',
             icon: 'calendar',
           },
           secondaryButton: {

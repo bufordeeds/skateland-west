@@ -236,8 +236,14 @@ export async function Footer() {
           <div className="mt-12 pt-8 border-t border-border/50">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-sm text-muted-foreground">
-                © {currentYear} {SITE_CONFIG.name}. All rights reserved. 
-                <span className="ml-2">Made with 💙 in San Antonio</span>
+                © {currentYear} {SITE_CONFIG.name}. All rights reserved.
+                <span className="mx-2">•</span>
+                <a
+                  href="mailto:bufordeeds8@gmail.com?subject=Website%20Inquiry"
+                  className="hover:text-primary transition-colors"
+                >
+                  Website by Buford Eeds
+                </a>
               </p>
               <div className="flex items-center gap-6">
                 <ThemeSelector />
