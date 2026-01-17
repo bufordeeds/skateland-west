@@ -1,6 +1,6 @@
 import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-vercel-postgres'
 
-export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
+export async function up({ db, payload: _payload, req: _req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
    ALTER TABLE "pages_blocks_hero_section" ADD COLUMN "background_image_id" integer;
   ALTER TABLE "_pages_v_blocks_hero_section" ADD COLUMN "background_image_id" integer;
@@ -10,7 +10,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "_pages_v_blocks_hero_section_background_image_idx" ON "_pages_v_blocks_hero_section" USING btree ("background_image_id");`)
 }
 
-export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
+export async function down({ db, payload: _payload, req: _req }: MigrateDownArgs): Promise<void> {
   await db.execute(sql`
    ALTER TABLE "pages_blocks_hero_section" DROP CONSTRAINT "pages_blocks_hero_section_background_image_id_media_id_fk";
   

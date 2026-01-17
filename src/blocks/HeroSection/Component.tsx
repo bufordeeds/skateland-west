@@ -1,7 +1,6 @@
 import React from 'react'
-import { Calendar, Phone, Star, Sparkles, Music, Users, GraduationCap } from 'lucide-react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import type { Media as MediaType } from '@/payload-types'
 import { Media } from '@/components/Media'
 
@@ -30,17 +29,17 @@ type Props = {
 export const HeroSection: React.FC<Props> = ({
   title: _title,
   subtitle,
-  rating = 4.2,
-  reviewCount = 444,
-  yearsInBusiness = 38,
-  partiesHosted = '10K',
-  happyFamilies = '50K',
-  ctaPrimaryLabel,
-  ctaPrimaryUrl,
-  ctaSecondaryLabel,
-  ctaSecondaryPhone,
+  rating: _rating = 4.2,
+  reviewCount: _reviewCount = 444,
+  yearsInBusiness: _yearsInBusiness = 38,
+  partiesHosted: _partiesHosted = '10K',
+  happyFamilies: _happyFamilies = '50K',
+  ctaPrimaryLabel: _ctaPrimaryLabel,
+  ctaPrimaryUrl: _ctaPrimaryUrl,
+  ctaSecondaryLabel: _ctaSecondaryLabel,
+  ctaSecondaryPhone: _ctaSecondaryPhone,
   backgroundImage,
-  specialOffer,
+  specialOffer: _specialOffer,
 }) => {
   return (
     <section className="relative overflow-hidden min-h-[85vh] flex items-center">
@@ -108,9 +107,9 @@ export const HeroSection: React.FC<Props> = ({
               className="text-white border-white hover:bg-white hover:text-purple-900 font-bold text-lg px-8 py-6 min-w-[180px] backdrop-blur-sm bg-white/10"
               asChild
             >
-              <a href="/schedule">
+              <Link href="/schedule">
                 SCHEDULE
-              </a>
+              </Link>
             </Button>
 
             <Button
@@ -119,9 +118,9 @@ export const HeroSection: React.FC<Props> = ({
               className="text-white border-white hover:bg-white hover:text-purple-900 font-bold text-lg px-8 py-6 min-w-[180px] backdrop-blur-sm bg-white/10"
               asChild
             >
-              <a href="/birthday-parties">
+              <Link href="/birthday-parties">
                 BOOK PARTY
-              </a>
+              </Link>
             </Button>
 
             <Button
@@ -130,9 +129,9 @@ export const HeroSection: React.FC<Props> = ({
               className="text-white border-white hover:bg-white hover:text-purple-900 font-bold text-lg px-8 py-6 min-w-[180px] backdrop-blur-sm bg-white/10"
               asChild
             >
-              <a href="/learn-to-skate">
+              <Link href="/learn-to-skate">
                 LESSONS
-              </a>
+              </Link>
             </Button>
           </div>
         </div>
