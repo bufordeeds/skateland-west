@@ -21,3 +21,4 @@ node_modules/
 /playwright/.cache/
 .env.local.backup
 .playwright-mcp/*
+.env.vercel

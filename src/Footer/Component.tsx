@@ -43,10 +43,10 @@ export async function Footer() {
                   Book Your Party
                 </Link>
               </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-white text-white hover:bg-white/20 font-bold"
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white text-white hover:bg-white/20 font-bold bg-transparent"
                 asChild
               >
                 <a href={`tel:${SITE_CONFIG.phone.replace(/\D/g, '')}`}>
