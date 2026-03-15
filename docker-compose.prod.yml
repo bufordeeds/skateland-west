@@ -1,0 +1,16 @@
+services:
+  skateland-west:
+    build: .
+    restart: unless-stopped
+    env_file: .env.production
+    networks:
+      - web
+      - internal
+    depends_on:
+      - postgres
+
+networks:
+  web:
+    external: true
+  internal:
+    external: true

@@ -1,6 +1,5 @@
-// storage-adapter-import-placeholder
-import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
-import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import { postgresAdapter } from '@payloadcms/db-postgres'
+import { s3Storage } from '@payloadcms/storage-s3'
 
 import sharp from 'sharp' // sharp-import
 import path from 'path'
@@ -65,7 +64,7 @@ export default buildConfig({
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
-  db: vercelPostgresAdapter({
+  db: postgresAdapter({
     pool: {
       connectionString: process.env.POSTGRES_URL || '',
     },
@@ -76,18 +75,21 @@ export default buildConfig({
   globals: [Header, Footer],
   plugins: [
     ...plugins,
-    // storage-adapter-placeholder
-    // Only add Vercel Blob storage when we have a token or are in Vercel environment
-    ...(process.env.BLOB_READ_WRITE_TOKEN || process.env.VERCEL === '1'
-      ? [
-          vercelBlobStorage({
-            collections: {
-              media: true,
-            },
-            token: process.env.BLOB_READ_WRITE_TOKEN || '',
-          }),
-        ]
-      : []),
+    s3Storage({
+      collections: {
+        media: true,
+      },
+      bucket: process.env.S3_BUCKET || 'skateland-media',
+      config: {
+        endpoint: process.env.S3_ENDPOINT || 'http://localhost:9000',
+        region: process.env.S3_REGION || 'us-east-1',
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY || '',
+          secretAccessKey: process.env.S3_SECRET_KEY || '',
+        },
+        forcePathStyle: true,
+      },
+    }),
   ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
