@@ -77,7 +77,14 @@ export default buildConfig({
     ...plugins,
     s3Storage({
       collections: {
-        media: true,
+        media: {
+          disablePayloadAccessControl: true,
+          generateFileURL: ({ filename }) => {
+            const publicUrl = process.env.S3_PUBLIC_URL || process.env.S3_ENDPOINT || 'http://localhost:9000'
+            const bucket = process.env.S3_BUCKET || 'skateland-media'
+            return `${publicUrl}/${bucket}/${filename}`
+          },
+        },
       },
       bucket: process.env.S3_BUCKET || 'skateland-media',
       config: {
