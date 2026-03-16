@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server'
 export async function GET() {
   try {
     const payload = await getPayload({ config })
-    
+
     // Delete all existing users
     await payload.delete({
       collection: 'users',
@@ -16,7 +16,7 @@ export async function GET() {
     await payload.create({
       collection: 'users',
       data: {
-        email: 'bufordeeds8@gmail.com',
+        email: 'hello@buford.dev',
         password: 'SkateLandWest2025!',
         name: 'Admin User',
       },
@@ -26,17 +26,20 @@ export async function GET() {
       success: true,
       message: 'Admin user created successfully!',
       credentials: {
-        email: 'bufordeeds8@gmail.com',
+        email: 'hello@buford.dev',
         password: 'SkateLandWest2025!',
-        loginUrl: '/admin'
-      }
+        loginUrl: '/admin',
+      },
     })
   } catch (error: unknown) {
-    return NextResponse.json({ 
-      success: false, 
-      error: error instanceof Error ? error.message : 'Unknown error occurred'
-    }, { 
-      status: 500 
-    })
+    return NextResponse.json(
+      {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error occurred',
+      },
+      {
+        status: 500,
+      },
+    )
   }
 }

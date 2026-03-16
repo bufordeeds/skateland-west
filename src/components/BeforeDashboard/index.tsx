@@ -13,17 +13,19 @@ const BeforeDashboard: React.FC = () => {
         <h4>Welcome to your Skateland West Dashboard!</h4>
       </Banner>
 
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        gap: '1rem',
-        marginBottom: '1.5rem',
-      }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '1rem',
+          marginBottom: '1.5rem',
+        }}
+      >
         <p style={{ fontSize: '1.1rem', margin: 0, flex: 1 }}>
-          Hi there! I&apos;m <strong>Buford Eeds</strong>, and I built this website for you.
-          This admin panel is where you can manage all your website content.
+          Hi there! I&apos;m <strong>Buford Eeds</strong>, and I built this website for you. This
+          admin panel is where you can manage all your website content.
         </p>
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
           <RefreshHomeButton />
@@ -53,20 +55,20 @@ const BeforeDashboard: React.FC = () => {
       <h3>Quick Start Guide</h3>
       <ul className={`${baseClass}__instructions`}>
         <li>
-          <strong>Pages:</strong> Edit your website pages (Schedule, Birthday Parties, etc.)
-          by clicking &quot;Pages&quot; in the sidebar. Click on any page to edit its content.
+          <strong>Pages:</strong> Edit your website pages (Schedule, Birthday Parties, etc.) by
+          clicking &quot;Pages&quot; in the sidebar. Click on any page to edit its content.
         </li>
         <li>
-          <strong>Posts:</strong> Create blog posts or news updates. Great for announcing
-          special events or promotions!
+          <strong>Posts:</strong> Create blog posts or news updates. Great for announcing special
+          events or promotions!
         </li>
         <li>
-          <strong>Media:</strong> Upload and manage all your images. These can be used
-          throughout your pages and posts.
+          <strong>Media:</strong> Upload and manage all your images. These can be used throughout
+          your pages and posts.
         </li>
         <li>
-          <strong>Header &amp; Footer:</strong> Under &quot;Globals&quot;, you can update
-          your navigation links and footer content.
+          <strong>Header &amp; Footer:</strong> Under &quot;Globals&quot;, you can update your
+          navigation links and footer content.
         </li>
       </ul>
 
@@ -79,13 +81,15 @@ const BeforeDashboard: React.FC = () => {
         <li>Your changes will be live on the website!</li>
       </ol>
 
-      <div style={{
-        background: 'var(--theme-elevation-100)',
-        padding: '1.5rem',
-        borderRadius: '8px',
-        marginTop: '2rem',
-        border: '1px solid var(--theme-elevation-200)'
-      }}>
+      <div
+        style={{
+          background: 'var(--theme-elevation-100)',
+          padding: '1.5rem',
+          borderRadius: '8px',
+          marginTop: '2rem',
+          border: '1px solid var(--theme-elevation-200)',
+        }}
+      >
         <h3 style={{ marginTop: 0 }}>Need Help or Want New Features?</h3>
         <p>
           If you have any questions, need support, or want to add new features to your website,
@@ -96,12 +100,10 @@ const BeforeDashboard: React.FC = () => {
             <strong>Contact:</strong> Buford Eeds
           </li>
           <li style={{ marginBottom: '0.5rem' }}>
-            <strong>Email:</strong>{' '}
-            <a href="mailto:bufordeeds8@gmail.com">bufordeeds8@gmail.com</a>
+            <strong>Email:</strong> <a href="mailto:hello@buford.dev">hello@buford.dev</a>
           </li>
           <li>
-            <strong>Phone:</strong>{' '}
-            <a href="tel:2103253989">(210) 325-3989</a>
+            <strong>Phone:</strong> <a href="tel:2103253989">(210) 325-3989</a>
           </li>
         </ul>
       </div>

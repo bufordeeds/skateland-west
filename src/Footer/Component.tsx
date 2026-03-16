@@ -1,7 +1,17 @@
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import Link from 'next/link'
 import React from 'react'
-import { Facebook, Instagram, Twitter, MapPin, Phone, Mail, Clock, Star, Sparkles } from 'lucide-react'
+import {
+  Facebook,
+  Instagram,
+  Twitter,
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  Star,
+  Sparkles,
+} from 'lucide-react'
 
 import type { Footer } from '@/payload-types'
 
@@ -22,7 +32,7 @@ export async function Footer() {
     <footer className="relative bg-gradient-to-b from-background to-muted/50 border-t-2 border-primary/10">
       {/* Fun top decoration */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-skate"></div>
-      
+
       {/* Newsletter/CTA Section */}
       <div className="bg-gradient-skate text-white py-12 relative overflow-hidden">
         <div className="absolute inset-0 animate-shimmer opacity-20"></div>
@@ -34,14 +44,12 @@ export async function Footer() {
               Join our community for exclusive deals, party invitations, and skating updates!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 className="bg-white text-primary hover:bg-white/90 font-bold shadow-lg"
                 asChild
               >
-                <Link href="/birthday-parties">
-                  Book Your Party
-                </Link>
+                <Link href="/birthday-parties">Book Your Party</Link>
               </Button>
               <Button
                 size="lg"
@@ -49,9 +57,7 @@ export async function Footer() {
                 className="border-white text-white hover:bg-white/20 font-bold bg-transparent"
                 asChild
               >
-                <a href={`tel:${SITE_CONFIG.phone.replace(/\D/g, '')}`}>
-                  Call Us Now
-                </a>
+                <a href={`tel:${SITE_CONFIG.phone.replace(/\D/g, '')}`}>Call Us Now</a>
               </Button>
             </div>
           </div>
@@ -81,15 +87,16 @@ export async function Footer() {
                   </div>
                 </div>
               </div>
-              
+
               <p className="text-muted-foreground">
-                San Antonio&apos;s premier family skating destination. Where memories are made and fun never ends!
+                San Antonio&apos;s premier family skating destination. Where memories are made and
+                fun never ends!
               </p>
-              
+
               <div className="flex gap-2">
-                <Button 
-                  variant="outline" 
-                  size="icon" 
+                <Button
+                  variant="outline"
+                  size="icon"
                   className="hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300"
                   asChild
                 >
@@ -98,8 +105,8 @@ export async function Footer() {
                     <span className="sr-only">Facebook</span>
                   </a>
                 </Button>
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   size="icon"
                   className="hover:bg-secondary hover:text-secondary-foreground hover:border-secondary transition-all duration-300"
                   asChild
@@ -109,8 +116,8 @@ export async function Footer() {
                     <span className="sr-only">Instagram</span>
                   </a>
                 </Button>
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   size="icon"
                   className="hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all duration-300"
                   asChild
@@ -132,8 +139,8 @@ export async function Footer() {
               <ul className="space-y-3">
                 {navItems.slice(0, 5).map(({ link }, i) => (
                   <li key={i}>
-                    <CMSLink 
-                      className="text-muted-foreground hover:text-primary transition-colors font-medium group flex items-center gap-2" 
+                    <CMSLink
+                      className="text-muted-foreground hover:text-primary transition-colors font-medium group flex items-center gap-2"
                       {...link}
                     >
                       <span className="w-0 h-0.5 bg-primary group-hover:w-4 transition-all duration-300"></span>
@@ -157,14 +164,16 @@ export async function Footer() {
                   </div>
                   <div>
                     <p className="font-medium">Location</p>
-                    <a 
+                    <a
                       href={SITE_CONFIG.googleMapsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-sm text-muted-foreground hover:text-primary transition-colors"
                     >
-                      {SITE_CONFIG.address.street}<br />
-                      {SITE_CONFIG.address.city}, {SITE_CONFIG.address.state} {SITE_CONFIG.address.zip}
+                      {SITE_CONFIG.address.street}
+                      <br />
+                      {SITE_CONFIG.address.city}, {SITE_CONFIG.address.state}{' '}
+                      {SITE_CONFIG.address.zip}
                     </a>
                   </div>
                 </li>
@@ -207,18 +216,20 @@ export async function Footer() {
               </h3>
               <div className="space-y-2">
                 {Object.entries(SITE_CONFIG.hours).map(([day, hours]) => {
-                  const isOpen = hours !== "Private Parties Only"
+                  const isOpen = hours !== 'Private Parties Only'
                   return (
-                    <div 
-                      key={day} 
+                    <div
+                      key={day}
                       className={`flex justify-between items-center py-1.5 px-3 rounded-lg ${
                         isOpen ? 'bg-primary/5' : ''
                       }`}
                     >
                       <span className="text-sm font-medium capitalize">{day}</span>
-                      <span className={`text-sm ${
-                        isOpen ? 'text-primary font-bold' : 'text-muted-foreground/60'
-                      }`}>
+                      <span
+                        className={`text-sm ${
+                          isOpen ? 'text-primary font-bold' : 'text-muted-foreground/60'
+                        }`}
+                      >
                         {hours}
                       </span>
                     </div>
@@ -239,7 +250,7 @@ export async function Footer() {
                 © {currentYear} {SITE_CONFIG.name}. All rights reserved.
                 <span className="mx-2">•</span>
                 <a
-                  href="mailto:bufordeeds8@gmail.com?subject=Website%20Inquiry"
+                  href="mailto:hello@buford.dev?subject=Website%20Inquiry"
                   className="hover:text-primary transition-colors"
                 >
                   Website by Buford Eeds
@@ -247,14 +258,14 @@ export async function Footer() {
               </p>
               <div className="flex items-center gap-6">
                 <ThemeSelector />
-                <Link 
-                  href="/privacy" 
+                <Link
+                  href="/privacy"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors font-medium"
                 >
                   Privacy
                 </Link>
-                <Link 
-                  href="/terms" 
+                <Link
+                  href="/terms"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors font-medium"
                 >
                   Terms
