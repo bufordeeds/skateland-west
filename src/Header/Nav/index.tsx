@@ -28,26 +28,26 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({ data: _data, position = 'm
           variant="ghost"
           size="icon"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden"
+          className="lg:hidden text-white hover:text-white hover:bg-white/10"
         >
           {mobileMenuOpen ? <X className="size-6" /> : <Menu className="size-6" />}
         </Button>
         
         {mobileMenuOpen && (
-          <div className="fixed inset-0 top-[96px] z-40 bg-background/95 backdrop-blur-lg lg:hidden">
+          <div className="fixed inset-0 top-14 z-40 bg-slate-900/95 backdrop-blur-lg lg:hidden">
             <nav className="container py-8">
               <div className="flex flex-col gap-4">
                 {NAVIGATION_ITEMS.map(({ label, href }, i) => (
                   <Link
                     key={i}
                     href={href}
-                    className="text-lg font-bold hover:text-primary transition-colors py-2"
+                    className="text-lg font-bold text-white hover:text-cyan-300 transition-colors py-2"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {label}
                   </Link>
                 ))}
-                <div className="border-t pt-4 mt-4">
+                <div className="border-t border-white/20 pt-4 mt-4">
                   <Button 
                     size="lg" 
                     className="w-full bg-gradient-skate hover:opacity-90 text-white font-bold"
@@ -58,7 +58,7 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({ data: _data, position = 'm
                 </div>
                 <Link 
                   href="/search"
-                  className="flex items-center gap-2 text-lg font-medium hover:text-primary transition-colors py-2"
+                  className="flex items-center gap-2 text-lg font-medium text-white hover:text-cyan-300 transition-colors py-2"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <SearchIcon className="size-5" />
