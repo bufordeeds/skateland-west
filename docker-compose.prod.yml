@@ -6,8 +6,6 @@ services:
     networks:
       - web
       - internal
-    depends_on:
-      - postgres
 
 networks:
   web:
