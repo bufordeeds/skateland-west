@@ -7,6 +7,8 @@ import { unstable_cache } from 'next/cache'
 type Global = keyof Config['globals']
 
 async function getGlobal(slug: Global, depth = 0) {
+  if (process.env.NEXT_BUILD_SKIP_DB) return {} as Config['globals'][typeof slug]
+
   const payload = await getPayload({ config: configPromise })
 
   const global = await payload.findGlobal({
