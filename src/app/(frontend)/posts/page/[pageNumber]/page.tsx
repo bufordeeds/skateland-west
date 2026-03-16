@@ -70,23 +70,21 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 }
 
 export async function generateStaticParams() {
-  try {
-    const payload = await getPayload({ config: configPromise })
-    const { totalDocs } = await payload.count({
-      collection: 'posts',
-      overrideAccess: false,
-    })
+  if (process.env.NEXT_BUILD_SKIP_DB) return []
 
-    const totalPages = Math.ceil(totalDocs / 10)
+  const payload = await getPayload({ config: configPromise })
+  const { totalDocs } = await payload.count({
+    collection: 'posts',
+    overrideAccess: false,
+  })
 
-    const pages: { pageNumber: string }[] = []
+  const totalPages = Math.ceil(totalDocs / 10)
 
-    for (let i = 1; i <= totalPages; i++) {
-      pages.push({ pageNumber: String(i) })
-    }
+  const pages: { pageNumber: string }[] = []
 
-    return pages
-  } catch {
-    return []
+  for (let i = 1; i <= totalPages; i++) {
+    pages.push({ pageNumber: String(i) })
   }
+
+  return pages
 }

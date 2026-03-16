@@ -26,6 +26,7 @@ ENV PAYLOAD_SECRET=build-time-placeholder
 ENV NEXT_PUBLIC_SERVER_URL=https://skateland.buford.dev
 
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV NEXT_BUILD_SKIP_DB=true
 
 RUN pnpm run build
 
