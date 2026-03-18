@@ -27,10 +27,8 @@ export const generateMeta = async (args: {
   const ogImage = getImageURL(doc?.meta?.image)
 
   const title = doc?.meta?.title
-    ? doc.meta.title.includes('Skateland West')
-      ? doc.meta.title
-      : doc.meta.title + ' | Skateland West'
-    : 'Skateland West'
+    ? doc.meta.title.replace(/\s*\|\s*Skateland West$/i, '').trim() || undefined
+    : undefined
 
   return {
     description: doc?.meta?.description,
