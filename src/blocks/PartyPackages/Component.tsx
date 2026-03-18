@@ -28,6 +28,8 @@ type Props = {
 }
 
 export const PartyPackages: React.FC<Props> = ({ title, subtitle, packages }) => {
+  if (!packages?.length) return null
+
   return (
     <section className="py-16">
       <div className="container">

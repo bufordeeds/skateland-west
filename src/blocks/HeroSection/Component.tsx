@@ -32,7 +32,7 @@ export const HeroSection: React.FC<Props> = ({
   subtitle,
   rating = 4.2,
   reviewCount = 444,
-  yearsInBusiness = 39,
+  yearsInBusiness = new Date().getFullYear() - 1985,
   partiesHosted = '10K+',
   happyFamilies = '50K+',
   ctaPrimaryLabel: _ctaPrimaryLabel,

@@ -75,7 +75,9 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
       {posts.totalDocs > 0 ? (
         <CollectionArchive posts={posts.docs as CardPostData[]} />
       ) : (
-        <div className="container">No results found.</div>
+        <div className="container text-center text-muted-foreground">
+          {query ? 'No results found.' : 'Type a search term to get started.'}
+        </div>
       )}
     </div>
   )

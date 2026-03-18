@@ -4,7 +4,6 @@ import React from 'react'
 import {
   Facebook,
   Instagram,
-  Twitter,
   MapPin,
   Phone,
   Mail,
@@ -15,7 +14,6 @@ import {
 
 import type { Footer } from '@/payload-types'
 
-import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { CMSLink } from '@/components/Link'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -27,7 +25,11 @@ export async function Footer() {
 
   const navItems = footerData?.navItems || []
 
-  const currentYear = new Date().getFullYear()
+  const now = new Date()
+  const currentYear = now.getFullYear()
+  const dayName = now.toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase() as keyof typeof SITE_CONFIG.hours
+  const todayHours = SITE_CONFIG.hours[dayName]
+  const isOpenToday = todayHours !== 'Private Parties Only'
 
   return (
     <footer className="relative bg-gradient-to-b from-background to-muted/50 border-t-2 border-primary/10">
@@ -124,8 +126,8 @@ export async function Footer() {
                   asChild
                 >
                   <a href={SITE_CONFIG.social.twitter} target="_blank" rel="noopener noreferrer">
-                    <Twitter className="size-5" />
-                    <span className="sr-only">Twitter</span>
+                    <span className="font-black text-base" aria-hidden="true">X</span>
+                    <span className="sr-only">X (Twitter)</span>
                   </a>
                 </Button>
               </div>
@@ -238,10 +240,17 @@ export async function Footer() {
                     </div>
                   )
                 })}
-                <Badge className="w-full justify-center mt-3 bg-gradient-skate text-white border-0">
-                  <Clock className="size-3 mr-1" />
-                  Open Today!
-                </Badge>
+                {isOpenToday ? (
+                  <Badge className="w-full justify-center mt-3 bg-gradient-skate text-white border-0">
+                    <Clock className="size-3 mr-1" />
+                    Open Today!
+                  </Badge>
+                ) : (
+                  <Badge variant="secondary" className="w-full justify-center mt-3">
+                    <Clock className="size-3 mr-1" />
+                    Private Parties Only
+                  </Badge>
+                )}
               </div>
             </div>
           </div>
@@ -260,7 +269,6 @@ export async function Footer() {
                 </a>
               </p>
               <div className="flex items-center gap-6">
-                <ThemeSelector />
                 <Link
                   href="/privacy"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors font-medium"

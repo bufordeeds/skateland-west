@@ -47,6 +47,8 @@ export const ScheduleCards: React.FC<Props> = ({
   ctaText = "View Full Schedule",
   ctaUrl = "/schedule"
 }) => {
+  if (!schedule?.length) return null
+
   return (
     <section className="py-16 md:py-24 bg-muted/30 relative overflow-hidden">
       <div className="absolute inset-0 retro-grid opacity-10"></div>

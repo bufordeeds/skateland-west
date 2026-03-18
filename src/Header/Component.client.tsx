@@ -74,12 +74,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       >
         <div className="container">
           <div className="flex items-center justify-between h-14 lg:h-16">
-            {/* Left Nav */}
-            <div className="hidden lg:flex items-center flex-1">
-              <HeaderNav data={data} position="left" />
-            </div>
-
-            {/* Logo */}
+            {/* Logo — left aligned */}
             <Link href="/" className="flex items-center gap-2 group">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-fun rounded-full blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
@@ -87,16 +82,14 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                   <RollerSkate className="size-5 lg:size-6 text-white" />
                 </div>
               </div>
-              <div>
-                <span className="font-black text-base lg:text-lg text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]">
-                  {SITE_CONFIG.name}
-                </span>
-              </div>
+              <span className="font-black text-base lg:text-lg text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]">
+                {SITE_CONFIG.name}
+              </span>
             </Link>
 
-            {/* Right Nav */}
-            <div className="hidden lg:flex items-center justify-end flex-1 gap-4">
-              <HeaderNav data={data} position="right" />
+            {/* Desktop Nav */}
+            <div className="hidden lg:flex items-center gap-4">
+              <HeaderNav data={data} position="desktop" />
               <Button
                 size="sm"
                 className="bg-white/15 hover:bg-white/25 text-white font-bold border border-white/20 transition-all duration-300"
