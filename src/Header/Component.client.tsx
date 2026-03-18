@@ -10,6 +10,7 @@ import type { Header } from '@/payload-types'
 import { HeaderNav } from './Nav'
 import { Button } from '@/components/ui/button'
 import { SITE_CONFIG } from '@/lib/constants'
+import { RollerSkate } from '@/components/icons/RollerSkate'
 
 interface HeaderClientProps {
   data: Header
@@ -83,7 +84,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-fun rounded-full blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
                 <div className="relative size-9 lg:size-10 bg-gradient-skate rounded-full flex items-center justify-center shadow-md transform group-hover:scale-110 transition-all duration-300">
-                  <span className="text-white font-black text-sm lg:text-base">SW</span>
+                  <RollerSkate className="size-5 lg:size-6 text-white" />
                 </div>
               </div>
               <div>

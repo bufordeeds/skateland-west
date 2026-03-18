@@ -20,6 +20,7 @@ import { CMSLink } from '@/components/Link'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { SITE_CONFIG } from '@/lib/constants'
+import { RollerSkate } from '@/components/icons/RollerSkate'
 
 export async function Footer() {
   const footerData: Footer = await getCachedGlobal('footer', 1)()
@@ -73,7 +74,7 @@ export async function Footer() {
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-fun rounded-full blur-md opacity-0 group-hover:opacity-50 transition-opacity"></div>
                   <div className="relative size-12 bg-gradient-skate rounded-full flex items-center justify-center shadow-lg">
-                    <span className="text-white font-black text-xl">SW</span>
+                    <RollerSkate className="size-7 text-white" />
                   </div>
                 </div>
                 <div>
@@ -131,25 +132,27 @@ export async function Footer() {
             </div>
 
             {/* Quick Links */}
-            <div>
-              <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
-                <div className="size-2 bg-primary rounded-full"></div>
-                Explore
-              </h3>
-              <ul className="space-y-3">
-                {navItems.slice(0, 5).map(({ link }, i) => (
-                  <li key={i}>
-                    <CMSLink
-                      className="text-muted-foreground hover:text-primary transition-colors font-medium group flex items-center gap-2"
-                      {...link}
-                    >
-                      <span className="w-0 h-0.5 bg-primary group-hover:w-4 transition-all duration-300"></span>
-                      {link.label}
-                    </CMSLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {navItems.length > 0 && (
+              <div>
+                <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
+                  <div className="size-2 bg-primary rounded-full"></div>
+                  Explore
+                </h3>
+                <ul className="space-y-3">
+                  {navItems.slice(0, 5).map(({ link }, i) => (
+                    <li key={i}>
+                      <CMSLink
+                        className="text-muted-foreground hover:text-primary transition-colors font-medium group flex items-center gap-2"
+                        {...link}
+                      >
+                        <span className="w-0 h-0.5 bg-primary group-hover:w-4 transition-all duration-300"></span>
+                        {link.label}
+                      </CMSLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {/* Visit Us */}
             <div>

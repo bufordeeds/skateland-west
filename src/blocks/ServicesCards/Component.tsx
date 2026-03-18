@@ -26,6 +26,8 @@ type Props = {
 }
 
 export const ServicesCards: React.FC<Props> = ({ title, subtitle, cards }) => {
+  if (!cards?.length) return null
+
   const getColorClass = (color?: string) => {
     switch (color) {
       case 'secondary':
