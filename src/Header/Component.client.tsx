@@ -95,9 +95,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                 className="bg-white/15 hover:bg-white/25 text-white font-bold border border-white/20 transition-all duration-300"
                 asChild
               >
-                <Link href="/birthday-parties">
+                <a href={SITE_CONFIG.bookingUrl} target="_blank" rel="noopener noreferrer">
                   Book a Party
-                </Link>
+                </a>
               </Button>
             </div>
 

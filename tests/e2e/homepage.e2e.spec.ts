@@ -31,7 +31,7 @@ test.describe('Homepage', () => {
 
     const bookParty = page.getByRole('link', { name: 'BOOK A PARTY', exact: true })
     await expect(bookParty).toBeVisible()
-    await expect(bookParty).toHaveAttribute('href', '/birthday-parties')
+    await expect(bookParty).toHaveAttribute('href', 'https://skatelandwest.pcsparty.com/bookings/index.asp')
 
     const lessons = page.getByRole('link', { name: 'SKATING LESSONS' })
     await expect(lessons).toBeVisible()

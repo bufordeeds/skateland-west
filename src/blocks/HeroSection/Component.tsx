@@ -179,9 +179,9 @@ export const HeroSection: React.FC<Props> = ({
               className="bg-pink-500 hover:bg-pink-400 text-white font-bold text-lg px-8 py-6 min-w-[180px] shadow-[0_0_20px_rgba(236,72,153,0.5)] hover:shadow-[0_0_30px_rgba(236,72,153,0.7)] transition-all duration-300"
               asChild
             >
-              <Link href="/birthday-parties">
+              <a href="https://skatelandwest.pcsparty.com/bookings/index.asp" target="_blank" rel="noopener noreferrer">
                 BOOK A PARTY
-              </Link>
+              </a>
             </Button>
 
             <Button

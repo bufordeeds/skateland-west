@@ -52,7 +52,7 @@ export async function Footer() {
                 className="bg-white text-primary hover:bg-white/90 font-bold shadow-lg"
                 asChild
               >
-                <Link href="/birthday-parties">Book Your Party</Link>
+                <a href={SITE_CONFIG.bookingUrl} target="_blank" rel="noopener noreferrer">Book Your Party</a>
               </Button>
               <Button
                 size="lg"

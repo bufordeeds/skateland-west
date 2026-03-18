@@ -25,10 +25,10 @@ test.describe('Navigation', () => {
     }
   })
 
-  test('book a party CTA links to birthday parties', async ({ page }) => {
+  test('book a party CTA links to external booking system', async ({ page }) => {
     await page.goto('/')
     const cta = page.getByRole('link', { name: /book a party/i }).first()
-    await expect(cta).toHaveAttribute('href', '/birthday-parties')
+    await expect(cta).toHaveAttribute('href', 'https://skatelandwest.pcsparty.com/bookings/index.asp')
   })
 
   test('search page loads', async ({ page }) => {

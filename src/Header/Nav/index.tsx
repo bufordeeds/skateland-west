@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { SearchIcon, Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { NAVIGATION_ITEMS } from '@/lib/constants'
+import { NAVIGATION_ITEMS, SITE_CONFIG } from '@/lib/constants'
 
 interface HeaderNavProps {
   data: HeaderType
@@ -54,7 +54,7 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({ data: _data, position = 'm
                     className="w-full bg-gradient-skate hover:opacity-90 text-white font-bold"
                     asChild
                   >
-                    <Link href="/birthday-parties">Book a Party</Link>
+                    <a href={SITE_CONFIG.bookingUrl} target="_blank" rel="noopener noreferrer">Book a Party</a>
                   </Button>
                 </div>
                 <Link
