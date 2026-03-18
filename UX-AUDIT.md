@@ -128,15 +128,21 @@ Footer social link still says "Twitter" with the bird icon. Consider updating to
 
 **Files:** `src/Footer/Component.tsx`, possibly icon swap
 
-### 18. Theme selector in footer
+### ~~18. Footer grid looks left-aligned when nav items are empty~~ FIXED
+Grid now uses `lg:grid-cols-3` when no nav items exist, `lg:grid-cols-4` when they do.
+
+### ~~19. Duplicate CTAs on birthday-parties page~~ FIXED
+Removed the hardcoded footer CTA section ("Keep the Magic Rolling!"). Pages use their own contextual CTA blocks instead.
+
+### 20. Theme selector in footer
 The theme toggle ("Auto/Light/Dark") is visible in the footer bottom bar. For a public-facing business site, users probably don't need this. Consider removing or hiding behind a setting.
 
 **Files:** `src/Footer/Component.tsx`
 
-### 19. Stats may be aspirational
+### 21. Stats may be aspirational
 "10K Parties Hosted" and "50K Happy Families" feel like placeholder numbers. If these aren't verifiable, consider using more modest or real numbers, or removing the stats from subpages.
 
-### 20. Homepage ScheduleCards block vs. Schedule page
+### 22. Homepage ScheduleCards block vs. Schedule page
 The homepage has a ScheduleCards block that links to `/schedule`, but the schedule page itself just shows the same neon hero + a content block with pricing text. There's no visual schedule on either page. Consider adding the ScheduleCards data to both, or at least to the schedule page.
 
 ---
@@ -147,14 +153,14 @@ The homepage has a ScheduleCards block that links to `/schedule`, but the schedu
 |------|--------|
 | `/` (homepage) | #1 hero is fine here, #7 empty schedule cards, #10 wrong year |
 | `/schedule` | #1 same hero, #3 no broken links (good), #12 no active nav |
-| `/birthday-parties` | #1 same hero, #3 broken /contact link, #6 empty packages, #8 wall of text |
+| `/birthday-parties` | #1 same hero, #3 broken /contact link, #6 empty packages, #8 wall of text, #19 duplicate CTAs |
 | `/private-events` | #1 same hero, #3 broken /contact link, #13 thin content |
 | `/learn-to-skate` | #1 same hero, #3 broken /contact link, #13 thin content |
 | `/about` | #1 same hero, no broken links (good), decent content |
 | `/search` | #11 "No results" on load |
 | `/privacy` | #4 page is 404 |
 | `/terms` | #4 page is 404 |
-| All pages | #2 logo alignment, #5 title duplication, #9 "Open Today" hardcoded, #12 no active nav, #14 same hero images |
+| All pages | #2 logo alignment, #5 title duplication, #9 "Open Today" hardcoded, #12 no active nav, #14 same hero images, #18 footer left-aligned |
 
 ---
 

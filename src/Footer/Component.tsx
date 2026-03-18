@@ -9,7 +9,6 @@ import {
   Mail,
   Clock,
   Star,
-  Sparkles,
 } from 'lucide-react'
 
 import type { Footer } from '@/payload-types'
@@ -36,40 +35,9 @@ export async function Footer() {
       {/* Fun top decoration */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-skate"></div>
 
-      {/* Newsletter/CTA Section */}
-      <div className="bg-gradient-skate text-white py-12 relative overflow-hidden">
-        <div className="absolute inset-0 animate-shimmer opacity-20"></div>
-        <div className="container relative">
-          <div className="max-w-2xl mx-auto text-center space-y-4">
-            <Sparkles className="size-12 mx-auto animate-pulse" />
-            <h3 className="text-3xl font-black">Keep the Magic Rolling!</h3>
-            <p className="text-white/90 text-lg">
-              Join our community for exclusive deals, party invitations, and skating updates!
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
-              <Button
-                size="lg"
-                className="bg-white text-primary hover:bg-white/90 font-bold shadow-lg"
-                asChild
-              >
-                <a href={SITE_CONFIG.bookingUrl} target="_blank" rel="noopener noreferrer">Book Your Party</a>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white text-white hover:bg-white/20 font-bold bg-transparent"
-                asChild
-              >
-                <a href={`tel:${SITE_CONFIG.phone.replace(/\D/g, '')}`}>Call Us Now</a>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div className="container">
         <div className="py-12 md:py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+          <div className={`grid grid-cols-1 md:grid-cols-2 ${navItems.length > 0 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'} gap-8 lg:gap-12`}>
             {/* Brand Column */}
             <div className="space-y-6">
               <div className="flex items-center gap-3 group">
