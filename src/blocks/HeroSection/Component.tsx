@@ -86,11 +86,11 @@ export const HeroSection: React.FC<Props> = ({
         <div className="max-w-5xl mx-auto text-center space-y-10 animate-skateIn">
 
           {/* Retro Neon Sign */}
-          <div className="relative inline-block mx-auto">
+          <div className="relative w-full max-w-4xl mx-auto px-2">
             {/* Outer neon border frame */}
-            <div className="neon-box rounded-2xl p-8 md:p-12 bg-slate-900/50 backdrop-blur-sm">
+            <div className="neon-box rounded-2xl p-4 md:p-8 lg:p-12 bg-slate-900/50 backdrop-blur-sm">
               {/* Inner decorative border */}
-              <div className="border-2 border-pink-500/50 rounded-xl p-6 md:p-10 relative">
+              <div className="border-2 border-pink-500/50 rounded-xl p-3 md:p-6 lg:p-10 relative">
                 {/* Corner decorations */}
                 <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-cyan-400"></div>
                 <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-cyan-400"></div>
@@ -98,17 +98,17 @@ export const HeroSection: React.FC<Props> = ({
                 <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-cyan-400"></div>
 
                 {/* Main neon text */}
-                <div className="space-y-2">
-                  <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight neon-text-cyan">
+                <div className="space-y-1 md:space-y-2">
+                  <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tight neon-text-cyan">
                     SKATELAND
                   </h1>
-                  <h2 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-widest neon-text-pink">
+                  <h2 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-widest neon-text-pink">
                     WEST
                   </h2>
                 </div>
 
                 {/* Tagline */}
-                <p className="mt-6 text-lg md:text-xl text-cyan-300 font-medium tracking-wide">
+                <p className="mt-4 md:mt-6 text-sm md:text-lg lg:text-xl text-cyan-300 font-medium tracking-wide">
                   San Antonio&apos;s Premier Family Skating Experience
                 </p>
               </div>
@@ -123,50 +123,50 @@ export const HeroSection: React.FC<Props> = ({
           )}
 
           {/* Trust Stats */}
-          <div className="flex flex-wrap justify-center gap-6 md:gap-10 py-6">
+          <div className="flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-10 py-6 px-2">
             <div className="flex items-center gap-2 text-white">
-              <div className="p-2 bg-cyan-500/20 rounded-full">
-                <Star className="size-5 text-cyan-400 fill-cyan-400" />
+              <div className="p-1.5 md:p-2 bg-cyan-500/20 rounded-full">
+                <Star className="size-4 md:size-5 text-cyan-400 fill-cyan-400" />
               </div>
               <div className="text-left">
-                <div className="text-2xl font-black text-cyan-300">{yearsInBusiness}</div>
+                <div className="text-xl md:text-2xl font-black text-cyan-300">{yearsInBusiness}</div>
                 <div className="text-xs text-white/60 uppercase tracking-wide">Years Strong</div>
               </div>
             </div>
             <div className="flex items-center gap-2 text-white">
-              <div className="p-2 bg-pink-500/20 rounded-full">
-                <PartyPopper className="size-5 text-pink-400" />
+              <div className="p-1.5 md:p-2 bg-pink-500/20 rounded-full">
+                <PartyPopper className="size-4 md:size-5 text-pink-400" />
               </div>
               <div className="text-left">
-                <div className="text-2xl font-black text-pink-300">{partiesHosted}</div>
+                <div className="text-xl md:text-2xl font-black text-pink-300">{partiesHosted}</div>
                 <div className="text-xs text-white/60 uppercase tracking-wide">Parties Hosted</div>
               </div>
             </div>
             <div className="flex items-center gap-2 text-white">
-              <div className="p-2 bg-purple-500/20 rounded-full">
-                <Heart className="size-5 text-purple-400 fill-purple-400" />
+              <div className="p-1.5 md:p-2 bg-purple-500/20 rounded-full">
+                <Heart className="size-4 md:size-5 text-purple-400 fill-purple-400" />
               </div>
               <div className="text-left">
-                <div className="text-2xl font-black text-purple-300">{happyFamilies}</div>
+                <div className="text-xl md:text-2xl font-black text-purple-300">{happyFamilies}</div>
                 <div className="text-xs text-white/60 uppercase tracking-wide">Happy Families</div>
               </div>
             </div>
             <div className="flex items-center gap-2 text-white">
-              <div className="p-2 bg-yellow-500/20 rounded-full">
-                <Star className="size-5 text-yellow-400 fill-yellow-400" />
+              <div className="p-1.5 md:p-2 bg-yellow-500/20 rounded-full">
+                <Star className="size-4 md:size-5 text-yellow-400 fill-yellow-400" />
               </div>
               <div className="text-left">
-                <div className="text-2xl font-black text-yellow-300">{rating}</div>
+                <div className="text-xl md:text-2xl font-black text-yellow-300">{rating}</div>
                 <div className="text-xs text-white/60 uppercase tracking-wide">{reviewCount} Reviews</div>
               </div>
             </div>
           </div>
 
           {/* CTA Buttons with neon styling */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-stretch sm:items-center pt-4 px-4 max-w-3xl mx-auto">
             <Button
               size="lg"
-              className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-lg px-8 py-6 min-w-[180px] shadow-[0_0_20px_rgba(6,182,212,0.5)] hover:shadow-[0_0_30px_rgba(6,182,212,0.7)] transition-all duration-300"
+              className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-base md:text-lg px-6 md:px-8 py-4 md:py-6 w-full sm:w-auto sm:min-w-[160px] shadow-[0_0_20px_rgba(6,182,212,0.5)] hover:shadow-[0_0_30px_rgba(6,182,212,0.7)] transition-all duration-300"
               asChild
             >
               <Link href="/schedule">
@@ -176,7 +176,7 @@ export const HeroSection: React.FC<Props> = ({
 
             <Button
               size="lg"
-              className="bg-pink-500 hover:bg-pink-400 text-white font-bold text-lg px-8 py-6 min-w-[180px] shadow-[0_0_20px_rgba(236,72,153,0.5)] hover:shadow-[0_0_30px_rgba(236,72,153,0.7)] transition-all duration-300"
+              className="bg-pink-500 hover:bg-pink-400 text-white font-bold text-base md:text-lg px-6 md:px-8 py-4 md:py-6 w-full sm:w-auto sm:min-w-[160px] shadow-[0_0_20px_rgba(236,72,153,0.5)] hover:shadow-[0_0_30px_rgba(236,72,153,0.7)] transition-all duration-300"
               asChild
             >
               <a href="https://skatelandwest.pcsparty.com/bookings/index.asp" target="_blank" rel="noopener noreferrer">
@@ -187,7 +187,7 @@ export const HeroSection: React.FC<Props> = ({
             <Button
               size="lg"
               variant="outline"
-              className="border-2 border-purple-400 text-purple-300 hover:bg-purple-500/20 hover:text-purple-200 font-bold text-lg px-8 py-6 min-w-[180px] shadow-[0_0_15px_rgba(168,85,247,0.3)] hover:shadow-[0_0_25px_rgba(168,85,247,0.5)] transition-all duration-300"
+              className="border-2 border-purple-400 text-purple-300 hover:bg-purple-500/20 hover:text-purple-200 font-bold text-base md:text-lg px-6 md:px-8 py-4 md:py-6 w-full sm:w-auto sm:min-w-[160px] shadow-[0_0_15px_rgba(168,85,247,0.3)] hover:shadow-[0_0_25px_rgba(168,85,247,0.5)] transition-all duration-300"
               asChild
             >
               <Link href="/learn-to-skate">
