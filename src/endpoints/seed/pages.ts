@@ -119,7 +119,7 @@ const SCHEDULE_DATA = [
     special: 'Lessons 1:30-2:00 PM ($15)',
     icon: 'star',
   },
-]
+] as const
 
 export const seedPages = async (payload: Payload): Promise<void> => {
   payload.logger.info('Seeding pages...')
