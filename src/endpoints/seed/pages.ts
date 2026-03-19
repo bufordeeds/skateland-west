@@ -149,7 +149,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           blockName: 'Schedule',
           title: 'Skating Sessions',
           subtitle: 'Find the perfect time to skate',
-          schedule: SCHEDULE_DATA,
+          schedule: [...SCHEDULE_DATA],
           ctaText: 'View Full Schedule',
           ctaUrl: '/schedule',
         },
