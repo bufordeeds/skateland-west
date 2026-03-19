@@ -324,7 +324,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           blockName: 'Schedule',
           title: 'Public Skating Sessions',
           subtitle: 'Join us for open skating fun',
-          schedule: SCHEDULE_DATA,
+          schedule: [...SCHEDULE_DATA],
         },
         {
           blockType: 'content',
