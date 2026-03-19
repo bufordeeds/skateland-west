@@ -200,6 +200,7 @@ export interface Page {
     | PartyPackagesBlock
     | TestimonialsBlock
     | CTASectionBlock
+    | NewsletterSignupBlock
     | CallToActionBlock
     | ContentBlock
     | MediaBlock
@@ -564,6 +565,20 @@ export interface CTASectionBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'ctaSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsletterSignupBlock".
+ */
+export interface NewsletterSignupBlock {
+  heading: string;
+  description?: string | null;
+  buttonText?: string | null;
+  successMessage?: string | null;
+  gradient?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'newsletterSignup';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1199,6 +1214,7 @@ export interface PagesSelect<T extends boolean = true> {
         partyPackages?: T | PartyPackagesBlockSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
         ctaSection?: T | CTASectionBlockSelect<T>;
+        newsletterSignup?: T | NewsletterSignupBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
@@ -1371,6 +1387,19 @@ export interface CTASectionBlockSelect<T extends boolean = true> {
         phone?: T;
         icon?: T;
       };
+  gradient?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsletterSignupBlock_select".
+ */
+export interface NewsletterSignupBlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  buttonText?: T;
+  successMessage?: T;
   gradient?: T;
   id?: T;
   blockName?: T;

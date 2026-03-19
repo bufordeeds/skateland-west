@@ -279,6 +279,17 @@ export const seedPages = async (payload: Payload): Promise<void> => {
             },
           ],
         },
+        {
+          blockType: 'newsletterSignup',
+          blockName: 'Newsletter',
+          heading: 'Get on Our Mailing List!',
+          description:
+            'Sign up to receive coupons, specials, and updates from Skateland West.',
+          buttonText: 'Subscribe',
+          successMessage:
+            "You're on the list! Watch your inbox for coupons and specials.",
+          gradient: false,
+        },
       ],
       meta: {
         title: 'Skateland West | San Antonio Roller Skating Rink',
