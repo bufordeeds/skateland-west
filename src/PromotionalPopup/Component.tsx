@@ -3,7 +3,7 @@ import type { PromotionalPopup as PromotionalPopupType } from '@/payload-types'
 import { PopupClient } from './PopupClient'
 
 export async function PromotionalPopup() {
-  const popupData: PromotionalPopupType = await getCachedGlobal('promotional-popup', 1)()
+  const popupData = (await getCachedGlobal('promotional-popup', 1)()) as PromotionalPopupType
 
   if (!popupData?.enabled) return null
 
