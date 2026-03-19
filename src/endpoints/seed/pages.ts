@@ -30,7 +30,7 @@ const boldText = (content: string) => ({
   format: 1,
   version: 1,
 })
-const paragraph = (children: object[]) => ({
+const paragraph = (children: any[]) => ({
   type: 'paragraph' as const,
   children,
   direction: 'ltr' as const,
@@ -48,7 +48,7 @@ const heading = (tag: 'h1' | 'h2' | 'h3', content: string) => ({
   indent: 0,
   version: 1,
 })
-const richTextRoot = (children: object[]) => ({
+const richTextRoot = (children: any[]) => ({
   root: {
     type: 'root' as const,
     children,
