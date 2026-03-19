@@ -93,9 +93,9 @@ export async function Footer() {
                   className="hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all duration-300"
                   asChild
                 >
-                  <a href={SITE_CONFIG.social.twitter} target="_blank" rel="noopener noreferrer">
+                  <a href={SITE_CONFIG.social.x} target="_blank" rel="noopener noreferrer">
                     <span className="font-black text-base" aria-hidden="true">X</span>
-                    <span className="sr-only">X (Twitter)</span>
+                    <span className="sr-only">X</span>
                   </a>
                 </Button>
               </div>
