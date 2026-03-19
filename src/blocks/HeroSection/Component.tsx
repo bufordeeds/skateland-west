@@ -123,41 +123,41 @@ export const HeroSection: React.FC<Props> = ({
           )}
 
           {/* Trust Stats */}
-          <div className="flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-10 py-6 px-2">
-            <div className="flex items-center gap-2 text-white">
-              <div className="p-1.5 md:p-2 bg-cyan-500/20 rounded-full">
-                <Star className="size-4 md:size-5 text-cyan-400 fill-cyan-400" />
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-4 md:gap-6 lg:gap-10 py-6 px-4">
+            <div className="flex items-center gap-1.5 sm:gap-2 text-white">
+              <div className="p-1 sm:p-1.5 md:p-2 bg-cyan-500/20 rounded-full">
+                <Star className="size-3 sm:size-4 md:size-5 text-cyan-400 fill-cyan-400" />
               </div>
               <div className="text-left">
-                <div className="text-xl md:text-2xl font-black text-cyan-300">{yearsInBusiness}</div>
-                <div className="text-xs text-white/60 uppercase tracking-wide">Years Strong</div>
+                <div className="text-base sm:text-xl md:text-2xl font-black text-cyan-300">{yearsInBusiness}</div>
+                <div className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide whitespace-nowrap">Years Strong</div>
               </div>
             </div>
-            <div className="flex items-center gap-2 text-white">
-              <div className="p-1.5 md:p-2 bg-pink-500/20 rounded-full">
-                <PartyPopper className="size-4 md:size-5 text-pink-400" />
+            <div className="flex items-center gap-1.5 sm:gap-2 text-white">
+              <div className="p-1 sm:p-1.5 md:p-2 bg-pink-500/20 rounded-full">
+                <PartyPopper className="size-3 sm:size-4 md:size-5 text-pink-400" />
               </div>
               <div className="text-left">
-                <div className="text-xl md:text-2xl font-black text-pink-300">{partiesHosted}</div>
-                <div className="text-xs text-white/60 uppercase tracking-wide">Parties Hosted</div>
+                <div className="text-base sm:text-xl md:text-2xl font-black text-pink-300">{partiesHosted}</div>
+                <div className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide whitespace-nowrap">Parties Hosted</div>
               </div>
             </div>
-            <div className="flex items-center gap-2 text-white">
-              <div className="p-1.5 md:p-2 bg-purple-500/20 rounded-full">
-                <Heart className="size-4 md:size-5 text-purple-400 fill-purple-400" />
+            <div className="flex items-center gap-1.5 sm:gap-2 text-white">
+              <div className="p-1 sm:p-1.5 md:p-2 bg-purple-500/20 rounded-full">
+                <Heart className="size-3 sm:size-4 md:size-5 text-purple-400 fill-purple-400" />
               </div>
               <div className="text-left">
-                <div className="text-xl md:text-2xl font-black text-purple-300">{happyFamilies}</div>
-                <div className="text-xs text-white/60 uppercase tracking-wide">Happy Families</div>
+                <div className="text-base sm:text-xl md:text-2xl font-black text-purple-300">{happyFamilies}</div>
+                <div className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide whitespace-nowrap">Happy Families</div>
               </div>
             </div>
-            <div className="flex items-center gap-2 text-white">
-              <div className="p-1.5 md:p-2 bg-yellow-500/20 rounded-full">
-                <Star className="size-4 md:size-5 text-yellow-400 fill-yellow-400" />
+            <div className="flex items-center gap-1.5 sm:gap-2 text-white">
+              <div className="p-1 sm:p-1.5 md:p-2 bg-yellow-500/20 rounded-full">
+                <Star className="size-3 sm:size-4 md:size-5 text-yellow-400 fill-yellow-400" />
               </div>
               <div className="text-left">
-                <div className="text-xl md:text-2xl font-black text-yellow-300">{rating}</div>
-                <div className="text-xs text-white/60 uppercase tracking-wide">{reviewCount} Reviews</div>
+                <div className="text-base sm:text-xl md:text-2xl font-black text-yellow-300">{rating}</div>
+                <div className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide whitespace-nowrap">{reviewCount} Reviews</div>
               </div>
             </div>
           </div>
