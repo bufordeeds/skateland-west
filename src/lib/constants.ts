@@ -4,7 +4,7 @@ export const SITE_CONFIG = {
   description: "Creating magical memories for families since 1985",
   phone: "(210) 673-2568",
   fax: "(210) 675-0274",
-  email: "info@skatelandwest.com",
+  email: "skatelandwest74@gmail.com",
   address: {
     street: "2327 S.W. Loop 410",
     city: "San Antonio",
@@ -17,7 +17,7 @@ export const SITE_CONFIG = {
     tuesday: "Private Parties Only",
     wednesday: "Private Parties Only",
     thursday: "6:00 PM - 9:00 PM",
-    friday: "7:30 PM - 10:30 PM",
+    friday: "6:00 PM - 10:30 PM",
     saturday: "1:30 PM - 10:30 PM"
   },
   social: {

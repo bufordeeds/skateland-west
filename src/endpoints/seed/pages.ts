@@ -22,6 +22,105 @@ const MEDIA = {
   restroomsSeating: 36,
 }
 
+// Reusable Lexical rich text helpers
+const text = (content: string) => ({ type: 'text' as const, text: content, version: 1 })
+const boldText = (content: string) => ({
+  type: 'text' as const,
+  text: content,
+  format: 1,
+  version: 1,
+})
+const paragraph = (children: object[]) => ({
+  type: 'paragraph' as const,
+  children,
+  direction: 'ltr' as const,
+  format: '' as const,
+  indent: 0,
+  textFormat: 0,
+  version: 1,
+})
+const heading = (tag: 'h1' | 'h2' | 'h3', content: string) => ({
+  type: 'heading' as const,
+  tag,
+  children: [text(content)],
+  direction: 'ltr' as const,
+  format: '' as const,
+  indent: 0,
+  version: 1,
+})
+const richTextRoot = (children: object[]) => ({
+  root: {
+    type: 'root' as const,
+    children,
+    direction: 'ltr' as const,
+    format: '' as const,
+    indent: 0,
+    version: 1,
+  },
+})
+
+// Real schedule data from old site
+const SCHEDULE_DATA = [
+  {
+    day: 'Sunday',
+    hours: '2:00 - 6:00 PM',
+    title: 'Sunday Public Skating',
+    description: 'Bring the whole family for an afternoon of skating fun.',
+    price: '$10.16*',
+    icon: 'users',
+  },
+  {
+    day: 'Monday',
+    hours: 'By Reservation',
+    title: 'Private Parties',
+    description: 'Available for private party bookings. Contact us to reserve.',
+    price: 'Contact Us',
+    icon: 'users',
+  },
+  {
+    day: 'Tuesday',
+    hours: 'By Reservation',
+    title: 'Private Parties',
+    description: 'Available for private party bookings. Contact us to reserve.',
+    price: 'Contact Us',
+    icon: 'users',
+  },
+  {
+    day: 'Wednesday',
+    hours: 'By Reservation',
+    title: 'Private Parties',
+    description: 'Available for private party bookings. Contact us to reserve.',
+    price: 'Contact Us',
+    icon: 'users',
+  },
+  {
+    day: 'Thursday',
+    hours: '6:00 - 9:00 PM',
+    title: 'Throwback Thursday',
+    description: 'An evening session with the best throwback jams.',
+    price: '$7.34*',
+    icon: 'music',
+  },
+  {
+    day: 'Friday',
+    hours: '6:00 - 10:30 PM',
+    title: 'Friday Night Skate',
+    description: 'The biggest night of the week! DJ, lights, and nonstop fun.',
+    price: '$12.01*',
+    highlight: true,
+    icon: 'sparkles',
+  },
+  {
+    day: 'Saturday',
+    hours: '2:00 - 10:30 PM',
+    title: 'All-Day Saturday',
+    description: 'Our longest session — skate all day and into the night!',
+    price: '$12.01',
+    special: 'Lessons 1:30-2:00 PM ($15)',
+    icon: 'star',
+  },
+]
+
 export const seedPages = async (payload: Payload): Promise<void> => {
   payload.logger.info('Seeding pages...')
 
@@ -34,26 +133,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
       _status: 'published',
       hero: {
         type: 'highImpact',
-        richText: {
-          root: {
-            type: 'root',
-            children: [
-              {
-                type: 'heading',
-                tag: 'h1',
-                children: [{ type: 'text', text: 'Welcome to Skateland West', version: 1 }],
-                direction: 'ltr',
-                format: '',
-                indent: 0,
-                version: 1,
-              },
-            ],
-            direction: 'ltr',
-            format: '',
-            indent: 0,
-            version: 1,
-          },
-        },
+        richText: richTextRoot([heading('h1', 'Welcome to Skateland West')]),
         media: MEDIA.rinkFront,
       },
       layout: [
@@ -61,7 +141,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           blockType: 'heroSection',
           blockName: 'Hero',
           title: 'Skateland West',
-          subtitle: "San Antonio's Premier Family Skating Destination Since 1985",
+          subtitle: "San Antonio's #1 Roller Skating Rink Since 1985",
           backgroundImage: MEDIA.rinkFront,
         },
         {
@@ -69,12 +149,104 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           blockName: 'Schedule',
           title: 'Skating Sessions',
           subtitle: 'Find the perfect time to skate',
+          schedule: SCHEDULE_DATA,
+          ctaText: 'View Full Schedule',
+          ctaUrl: '/schedule',
         },
         {
           blockType: 'servicesCards',
           blockName: 'Services',
           title: 'Everything You Need',
           subtitle: 'More than just skating',
+          cards: [
+            {
+              icon: '🎂',
+              title: 'Birthday Parties',
+              description:
+                'Celebrate with a skating party! Multiple packages available for public and private events.',
+              features: [
+                { feature: 'Public packages from $185' },
+                { feature: 'Private rink rental available' },
+                { feature: 'Glow party upgrades' },
+                { feature: 'Online booking' },
+              ],
+              buttonText: 'View Packages',
+              buttonUrl: '/birthday-parties',
+              color: 'primary',
+            },
+            {
+              icon: '🎉',
+              title: 'Private Events',
+              description:
+                'Rent the entire rink for your group. Perfect for corporate events, church groups, and special occasions.',
+              features: [
+                { feature: 'Exclusive use of entire facility' },
+                { feature: 'Professional DJ & sound system' },
+                { feature: 'Custom catering options' },
+              ],
+              buttonText: 'Plan Your Event',
+              buttonUrl: '/private-events',
+              color: 'secondary',
+            },
+            {
+              icon: '⛸️',
+              title: 'Learn to Skate',
+              description:
+                'Lessons every Saturday from 1:30-2:00 PM for all ages and abilities.',
+              features: [
+                { feature: '$15 per person' },
+                { feature: 'Beginner to advanced' },
+                { feature: 'FREE skating after lessons' },
+              ],
+              buttonText: 'Learn More',
+              buttonUrl: '/learn-to-skate',
+              color: 'accent',
+            },
+            {
+              icon: '👟',
+              title: 'Skate Sales',
+              description:
+                'We stock Sure-Grip and Riedell skates. Other brands available upon request.',
+              features: [
+                { feature: 'Sure-Grip Skate Co.' },
+                { feature: 'Riedell Skates' },
+                { feature: 'Custom orders available' },
+              ],
+              buttonText: 'Visit Pro Shop',
+              buttonUrl: '/about',
+              color: 'primary',
+            },
+            {
+              icon: '🍕',
+              title: 'Snack Bar',
+              description:
+                'Fuel up with our full snack bar! Slushies, pizza, hot dogs, nachos, and more.',
+              features: [
+                { feature: 'Personal sized pizza' },
+                { feature: 'ALL BEEF hot dogs' },
+                { feature: 'Ricos Nachos & Pretzels' },
+                { feature: 'Pepsi products & Slushies' },
+              ],
+              buttonText: 'Visit Us',
+              buttonUrl: '/about',
+              color: 'secondary',
+            },
+            {
+              icon: '🕹️',
+              title: 'Arcade & Games',
+              description:
+                'Take a break from skating and enjoy our arcade with air hockey, foosball, and video games.',
+              features: [
+                { feature: 'Air hockey tables' },
+                { feature: 'Foosball' },
+                { feature: 'Video games' },
+                { feature: 'Redemption tickets' },
+              ],
+              buttonText: 'Learn More',
+              buttonUrl: '/about',
+              color: 'accent',
+            },
+          ],
         },
         {
           blockType: 'testimonials',
@@ -111,7 +283,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
       meta: {
         title: 'Skateland West | San Antonio Roller Skating Rink',
         description:
-          "San Antonio's premier family roller skating destination since 1985. Public sessions, birthday parties, private events, and learn-to-skate lessons.",
+          "San Antonio's #1 roller skating rink since 1985. Public sessions, birthday parties, private events, and learn-to-skate lessons. The best music, prices, and experience in Texas!",
         image: MEDIA.rinkFront,
       },
     },
@@ -126,26 +298,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
       _status: 'published',
       hero: {
         type: 'lowImpact',
-        richText: {
-          root: {
-            type: 'root',
-            children: [
-              {
-                type: 'heading',
-                tag: 'h1',
-                children: [{ type: 'text', text: 'Plan Your Visit', version: 1 }],
-                direction: 'ltr',
-                format: '',
-                indent: 0,
-                version: 1,
-              },
-            ],
-            direction: 'ltr',
-            format: '',
-            indent: 0,
-            version: 1,
-          },
-        },
+        richText: richTextRoot([heading('h1', 'Plan Your Visit')]),
       },
       layout: [
         {
@@ -160,6 +313,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           blockName: 'Schedule',
           title: 'Public Skating Sessions',
           subtitle: 'Join us for open skating fun',
+          schedule: SCHEDULE_DATA,
         },
         {
           blockType: 'content',
@@ -167,79 +321,35 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           columns: [
             {
               size: 'half',
-              richText: {
-                root: {
-                  type: 'root',
-                  children: [
-                    {
-                      type: 'heading',
-                      tag: 'h2',
-                      children: [{ type: 'text', text: 'Admission Prices', version: 1 }],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      version: 1,
-                    },
-                    {
-                      type: 'paragraph',
-                      children: [
-                        {
-                          type: 'text',
-                          text: 'General Admission: $8.00\nSkate Rental: $4.00\nSpeed Skates: $6.00',
-                          version: 1,
-                        },
-                      ],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      textFormat: 0,
-                      version: 1,
-                    },
-                  ],
-                  direction: 'ltr',
-                  format: '',
-                  indent: 0,
-                  version: 1,
-                },
-              },
+              richText: richTextRoot([
+                heading('h2', 'Admission Prices'),
+                paragraph([boldText('Sunday:'), text(' $10.16*')]),
+                paragraph([boldText('Thursday:'), text(' $7.34*')]),
+                paragraph([boldText('Friday:'), text(' $12.01*')]),
+                paragraph([boldText('Saturday:'), text(' $12.01')]),
+                paragraph([boldText('Skate Lessons (Saturday 1:30-2:00 PM):'), text(' $15.00')]),
+                paragraph([boldText('Non-Skating Parents:'), text(' $5.00 (must enter with child)')]),
+                paragraph([text('*Plus State Sales Tax')]),
+              ]),
             },
             {
               size: 'half',
-              richText: {
-                root: {
-                  type: 'root',
-                  children: [
-                    {
-                      type: 'heading',
-                      tag: 'h2',
-                      children: [{ type: 'text', text: 'What to Bring', version: 1 }],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      version: 1,
-                    },
-                    {
-                      type: 'paragraph',
-                      children: [
-                        {
-                          type: 'text',
-                          text: 'Comfortable clothes and socks. We provide skates in all sizes, or bring your own!',
-                          version: 1,
-                        },
-                      ],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      textFormat: 0,
-                      version: 1,
-                    },
-                  ],
-                  direction: 'ltr',
-                  format: '',
-                  indent: 0,
-                  version: 1,
-                },
-              },
+              richText: richTextRoot([
+                heading('h2', 'Important Policies'),
+                paragraph([boldText('Payment: Cash Only!')]),
+                paragraph([text('No refunds on admission.')]),
+                paragraph([
+                  text(
+                    'Skate rental sizes: Juvenile 7 to Adult 15. Bring your own skates — all regular roller skates and inline skates welcome (must be safe and clean).',
+                  ),
+                ]),
+                paragraph([
+                  text(
+                    'No heely-type skates, hover boards, skateboards, or other non-approved equipment.',
+                  ),
+                ]),
+                paragraph([text('Prices and times subject to change without notice.')]),
+              ]),
             },
           ],
         },
@@ -264,7 +374,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
       meta: {
         title: 'Schedule & Hours',
         description:
-          'Plan your visit to Skateland West. Check our skating session times, admission prices, and special events.',
+          'Plan your visit to Skateland West. Public skating sessions, admission prices, and policies. Open Thursday-Sunday with lessons on Saturday.',
         image: MEDIA.rinkCenter,
       },
     },
@@ -279,26 +389,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
       _status: 'published',
       hero: {
         type: 'lowImpact',
-        richText: {
-          root: {
-            type: 'root',
-            children: [
-              {
-                type: 'heading',
-                tag: 'h1',
-                children: [{ type: 'text', text: 'Birthday Parties', version: 1 }],
-                direction: 'ltr',
-                format: '',
-                indent: 0,
-                version: 1,
-              },
-            ],
-            direction: 'ltr',
-            format: '',
-            indent: 0,
-            version: 1,
-          },
-        },
+        richText: richTextRoot([heading('h1', 'Birthday Parties')]),
       },
       layout: [
         {
@@ -310,9 +401,58 @@ export const seedPages = async (payload: Payload): Promise<void> => {
         },
         {
           blockType: 'partyPackages',
-          blockName: 'Packages',
-          title: 'Party Packages',
-          subtitle: 'Choose the perfect package for your celebration',
+          blockName: 'Public Packages',
+          title: 'Public Birthday Party Packages',
+          subtitle:
+            'Celebrate during a public skating session. All packages include skate rental and a dedicated party experience.',
+          packages: [
+            {
+              id: 'ultimate',
+              name: 'Ultimate Skater Package',
+              price: 185,
+              duration: '2+ hours skating',
+              guests: 10,
+              featured: false,
+              features: [
+                { feature: 'Admission & Skate Rental for 10' },
+                { feature: '2+ hours of Roller Skating' },
+                { feature: 'Birthday Song Played' },
+                { feature: 'Invitations' },
+                { feature: '10 Soft Drinks' },
+                { feature: '10 Ice Creams' },
+                { feature: '500 Redemption Tickets for Honoree' },
+                { feature: 'Free Skating Pass for Honoree' },
+                { feature: 'Discount Coupon for each Guest' },
+                { feature: 'Each additional skater: $18.50' },
+              ],
+              buttonText: 'Book This Package',
+              buttonUrl: 'https://skatelandwest.pcsparty.com/bookings/index.asp',
+            },
+            {
+              id: 'glow',
+              name: 'Glow Skater Package',
+              price: 285,
+              duration: '90 min room + 2hr skating',
+              guests: 10,
+              featured: true,
+              features: [
+                { feature: 'Admission & Skate Rental for 10' },
+                { feature: 'Glow Party Room for 90 minutes' },
+                { feature: '2+ hours of Roller Skating' },
+                { feature: 'Birthday Song Played' },
+                { feature: 'Invitations' },
+                { feature: '10 Soft Drinks in Flashing Cups' },
+                { feature: '10 Ice Creams' },
+                { feature: '500 Redemption Tickets for Honoree' },
+                { feature: '10 Glow Necklaces & Flashing Pacifiers' },
+                { feature: 'Free Skating Pass for Honoree' },
+                { feature: 'Discount Coupon for each Guest' },
+                { feature: 'Each additional skater: $28.50' },
+              ],
+              buttonText: 'Book This Package',
+              buttonUrl: 'https://skatelandwest.pcsparty.com/bookings/index.asp',
+            },
+          ],
         },
         {
           blockType: 'mediaBlock',
@@ -321,45 +461,35 @@ export const seedPages = async (payload: Payload): Promise<void> => {
         },
         {
           blockType: 'content',
-          blockName: 'Party Info',
+          blockName: 'Party Rules & Add-ons',
           columns: [
             {
-              size: 'full',
-              richText: {
-                root: {
-                  type: 'root',
-                  children: [
-                    {
-                      type: 'heading',
-                      tag: 'h2',
-                      children: [{ type: 'text', text: 'All Parties Include', version: 1 }],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      version: 1,
-                    },
-                    {
-                      type: 'paragraph',
-                      children: [
-                        {
-                          type: 'text',
-                          text: '• Private party room for 1.5 hours\n• Skating admission for all guests\n• Skate rental for all guests\n• Paper goods (plates, napkins, cups)\n• Dedicated party host\n• Ice cream cake\n• Pizza and drinks',
-                          version: 1,
-                        },
-                      ],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      textFormat: 0,
-                      version: 1,
-                    },
-                  ],
-                  direction: 'ltr',
-                  format: '',
-                  indent: 0,
-                  version: 1,
-                },
-              },
+              size: 'half',
+              richText: richTextRoot([
+                heading('h2', 'Party Rules'),
+                paragraph([text('No Outside Food or Drinks Allowed')]),
+                paragraph([text('No Parties on Thursday, Friday or Saturday Nights')]),
+                paragraph([text('Packages cannot be altered')]),
+                paragraph([text('All Prices Plus State Sales Tax')]),
+                paragraph([boldText('$100.00 Cash Deposit (Non-Refundable)')]),
+              ]),
+            },
+            {
+              size: 'half',
+              richText: richTextRoot([
+                heading('h2', 'Customize It — Add-ons'),
+                paragraph([text('12" Pizza: $15.00')]),
+                paragraph([text('Hotdogs: $3.50 each')]),
+                paragraph([text('Pitcher of Soda (refill cups): $8.00')]),
+                paragraph([text('Additional 16oz Soft Drink: $3.00')]),
+                paragraph([text('Additional Ice Cream: $2.00 each')]),
+                paragraph([text('Bag of Chips: $1.50 each')]),
+                paragraph([
+                  boldText(
+                    'Place customized food orders at least 5 DAYS prior to scheduled party time. Sales Tax added to all Customized Items.',
+                  ),
+                ]),
+              ]),
             },
           ],
         },
@@ -367,11 +497,11 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           blockType: 'ctaSection',
           blockName: 'Book Now',
           title: 'Ready to Book?',
-          description: 'Call us to reserve your party date!',
+          description: 'Book online or call us to reserve your party date!',
           gradient: true,
           primaryButton: {
-            label: 'Book Your Party',
-            url: '/contact',
+            label: 'Book Online',
+            url: 'https://skatelandwest.pcsparty.com/bookings/index.asp',
             icon: 'calendar',
           },
           secondaryButton: {
@@ -384,7 +514,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
       meta: {
         title: 'Birthday Parties',
         description:
-          'Host an unforgettable birthday party at Skateland West! Party packages include skating, private room, pizza, cake, and more.',
+          'Host an unforgettable birthday party at Skateland West! Ultimate Skater Package from $185 or Glow Skater Package from $285. Includes skating, drinks, ice cream, and more.',
         image: MEDIA.partyRoom3,
       },
     },
@@ -399,26 +529,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
       _status: 'published',
       hero: {
         type: 'lowImpact',
-        richText: {
-          root: {
-            type: 'root',
-            children: [
-              {
-                type: 'heading',
-                tag: 'h1',
-                children: [{ type: 'text', text: 'Private Events', version: 1 }],
-                direction: 'ltr',
-                format: '',
-                indent: 0,
-                version: 1,
-              },
-            ],
-            direction: 'ltr',
-            format: '',
-            indent: 0,
-            version: 1,
-          },
-        },
+        richText: richTextRoot([heading('h1', 'Private Events')]),
       },
       layout: [
         {
@@ -429,84 +540,59 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           backgroundImage: MEDIA.rinkRightSide,
         },
         {
-          blockType: 'content',
-          blockName: 'Event Info',
-          columns: [
+          blockType: 'partyPackages',
+          blockName: 'Private Packages',
+          title: 'Private Party Packages',
+          subtitle:
+            'Get the entire rink to yourselves. Perfect for birthdays, corporate events, church groups, and special celebrations.',
+          packages: [
             {
-              size: 'half',
-              richText: {
-                root: {
-                  type: 'root',
-                  children: [
-                    {
-                      type: 'heading',
-                      tag: 'h2',
-                      children: [{ type: 'text', text: 'Perfect For', version: 1 }],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      version: 1,
-                    },
-                    {
-                      type: 'paragraph',
-                      children: [
-                        {
-                          type: 'text',
-                          text: '• Corporate team building\n• Church groups\n• School fundraisers\n• Scout troops\n• Family reunions\n• Quinceañeras\n• Lock-ins',
-                          version: 1,
-                        },
-                      ],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      textFormat: 0,
-                      version: 1,
-                    },
-                  ],
-                  direction: 'ltr',
-                  format: '',
-                  indent: 0,
-                  version: 1,
-                },
-              },
+              id: 'supreme',
+              name: 'Supreme Skater Private Party',
+              price: 475,
+              duration: '2 hours (entire rink)',
+              guests: 25,
+              featured: false,
+              features: [
+                { feature: 'Admission & Skate Rental for 25' },
+                { feature: 'Entire Rink Reserved for 2 Hours' },
+                { feature: 'Birthday Song Played' },
+                { feature: "Honoree's Name Announced" },
+                { feature: 'Invitations' },
+                { feature: '25 Soft Drinks & 25 Ice Cream' },
+                { feature: '25 Plates, Forks & Napkins' },
+                { feature: '500 Redemption Tickets for Honoree' },
+                { feature: 'Free Skating Pass for Honoree' },
+                { feature: 'Discount Pass for each Guest' },
+                { feature: 'Each additional skater: $19.00' },
+              ],
+              buttonText: 'Book This Package',
+              buttonUrl: 'https://skatelandwest.pcsparty.com/bookings/index.asp',
             },
             {
-              size: 'half',
-              richText: {
-                root: {
-                  type: 'root',
-                  children: [
-                    {
-                      type: 'heading',
-                      tag: 'h2',
-                      children: [{ type: 'text', text: 'What We Offer', version: 1 }],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      version: 1,
-                    },
-                    {
-                      type: 'paragraph',
-                      children: [
-                        {
-                          type: 'text',
-                          text: '• Exclusive use of the entire facility\n• Professional DJ and sound system\n• Full snack bar service\n• Arcade games available\n• Flexible scheduling\n• Custom catering options',
-                          version: 1,
-                        },
-                      ],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      textFormat: 0,
-                      version: 1,
-                    },
-                  ],
-                  direction: 'ltr',
-                  format: '',
-                  indent: 0,
-                  version: 1,
-                },
-              },
+              id: 'glow-private',
+              name: 'Glow Private Party',
+              price: 712.5,
+              duration: '2 hours (black light)',
+              guests: 25,
+              featured: true,
+              features: [
+                { feature: 'Admission & Skate Rental for 25' },
+                { feature: '2 Hours of Black Light Skating' },
+                { feature: 'Birthday Song Played' },
+                { feature: "Honoree's Name Announced" },
+                { feature: 'Invitations' },
+                { feature: '25 Drinks in Flashing Cups' },
+                { feature: '25 Ice Creams' },
+                { feature: '25 Plates, Forks & Napkins' },
+                { feature: '500 Redemption Tickets for Honoree' },
+                { feature: '25 Glow Necklaces & 25 Flashing Pacifiers' },
+                { feature: 'Free Skating Pass for Honoree' },
+                { feature: 'Discount Coupon for each Guest' },
+                { feature: 'Each additional skater: $28.50' },
+              ],
+              buttonText: 'Book This Package',
+              buttonUrl: 'https://skatelandwest.pcsparty.com/bookings/index.asp',
             },
           ],
         },
@@ -516,14 +602,47 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           media: MEDIA.floorHostBoothAirHockey,
         },
         {
+          blockType: 'content',
+          blockName: 'Private Party Rules & Add-ons',
+          columns: [
+            {
+              size: 'half',
+              richText: richTextRoot([
+                heading('h2', 'Private Party Rules'),
+                paragraph([text('No Outside Food or Drinks Allowed')]),
+                paragraph([text('Private Parties scheduled based on availability')]),
+                paragraph([text('All Prices Plus State Sales Tax')]),
+                paragraph([boldText('$200.00 Cash Deposit (Non-Refundable)')]),
+              ]),
+            },
+            {
+              size: 'half',
+              richText: richTextRoot([
+                heading('h2', 'Customize It — Add-ons'),
+                paragraph([text('12" Pizza: $15.00 (Minimum of 4)')]),
+                paragraph([text('Hotdogs: $3.50 each (Minimum of 25)')]),
+                paragraph([text('Pitcher of Soda (refill cups): $8.00')]),
+                paragraph([text('Additional 16oz Soft Drink: $3.00')]),
+                paragraph([text('Additional Ice Cream: $2.00 each')]),
+                paragraph([text('Bag of Chips: $1.50 each')]),
+                paragraph([
+                  boldText(
+                    'Place customized food orders at least 5 DAYS prior to scheduled party time. Sales Tax added to all Customized Items.',
+                  ),
+                ]),
+              ]),
+            },
+          ],
+        },
+        {
           blockType: 'ctaSection',
           blockName: 'Contact',
-          title: 'Plan Your Event',
-          description: 'Contact us to discuss your event needs and get a custom quote.',
+          title: 'Plan Your Private Event',
+          description: 'Contact us to check availability and reserve your date.',
           gradient: true,
           primaryButton: {
-            label: 'Request a Quote',
-            url: '/contact',
+            label: 'Book Online',
+            url: 'https://skatelandwest.pcsparty.com/bookings/index.asp',
             icon: 'calendar',
           },
           secondaryButton: {
@@ -536,7 +655,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
       meta: {
         title: 'Private Events',
         description:
-          'Rent Skateland West for your private event. Perfect for corporate events, church groups, school fundraisers, and special celebrations.',
+          'Rent Skateland West for your private event. Supreme Skater from $475, Glow Private from $712.50. Entire rink reserved for your group.',
         image: MEDIA.rinkRightSide,
       },
     },
@@ -551,33 +670,14 @@ export const seedPages = async (payload: Payload): Promise<void> => {
       _status: 'published',
       hero: {
         type: 'lowImpact',
-        richText: {
-          root: {
-            type: 'root',
-            children: [
-              {
-                type: 'heading',
-                tag: 'h1',
-                children: [{ type: 'text', text: 'Learn to Skate', version: 1 }],
-                direction: 'ltr',
-                format: '',
-                indent: 0,
-                version: 1,
-              },
-            ],
-            direction: 'ltr',
-            format: '',
-            indent: 0,
-            version: 1,
-          },
-        },
+        richText: richTextRoot([heading('h1', 'Learn to Skate')]),
       },
       layout: [
         {
           blockType: 'heroSection',
           blockName: 'Hero',
           title: 'Learn to Skate',
-          subtitle: 'From first-timers to advanced skaters, we have lessons for everyone',
+          subtitle: 'Lessons every Saturday for all ages and abilities',
           backgroundImage: MEDIA.jamSkates,
         },
         {
@@ -586,79 +686,41 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           columns: [
             {
               size: 'half',
-              richText: {
-                root: {
-                  type: 'root',
-                  children: [
-                    {
-                      type: 'heading',
-                      tag: 'h2',
-                      children: [{ type: 'text', text: 'Beginner Lessons', version: 1 }],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      version: 1,
-                    },
-                    {
-                      type: 'paragraph',
-                      children: [
-                        {
-                          type: 'text',
-                          text: 'Perfect for first-time skaters of all ages. Learn the basics:\n\n• How to stand and balance\n• Forward skating\n• How to stop safely\n• Turning techniques\n• Falling and getting up safely',
-                          version: 1,
-                        },
-                      ],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      textFormat: 0,
-                      version: 1,
-                    },
-                  ],
-                  direction: 'ltr',
-                  format: '',
-                  indent: 0,
-                  version: 1,
-                },
-              },
+              richText: richTextRoot([
+                heading('h2', 'Skate Lessons'),
+                paragraph([
+                  text('Skateland West offers skate lessons every Saturday from '),
+                  boldText('1:30-2:00 PM'),
+                  text(', for only '),
+                  boldText('$15.00 per person'),
+                  text('.'),
+                ]),
+                paragraph([
+                  text(
+                    'Lessons are great for any age and ability. We teach basic beginner skating in addition to the most advanced and newest skills.',
+                  ),
+                ]),
+              ]),
             },
             {
               size: 'half',
-              richText: {
-                root: {
-                  type: 'root',
-                  children: [
-                    {
-                      type: 'heading',
-                      tag: 'h2',
-                      children: [{ type: 'text', text: 'Intermediate & Advanced', version: 1 }],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      version: 1,
-                    },
-                    {
-                      type: 'paragraph',
-                      children: [
-                        {
-                          type: 'text',
-                          text: 'Take your skills to the next level:\n\n• Crossovers and advanced turns\n• Backward skating\n• Speed techniques\n• Dance moves\n• Jam skating basics',
-                          version: 1,
-                        },
-                      ],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      textFormat: 0,
-                      version: 1,
-                    },
-                  ],
-                  direction: 'ltr',
-                  format: '',
-                  indent: 0,
-                  version: 1,
-                },
-              },
+              richText: richTextRoot([
+                heading('h2', 'Free Skating Perk'),
+                paragraph([
+                  text(
+                    "If you come to participate in Skateland West's lessons, you have the opportunity to skate during the Saturday ",
+                  ),
+                  boldText('2:00-10:30 PM'),
+                  text(' skate session '),
+                  boldText('FREE OF CHARGE'),
+                  text('!'),
+                ]),
+                paragraph([
+                  text(
+                    "That's over 8 hours of skating for just $15 — the best deal at Skateland West!",
+                  ),
+                ]),
+              ]),
             },
           ],
         },
@@ -670,16 +732,17 @@ export const seedPages = async (payload: Payload): Promise<void> => {
         {
           blockType: 'ctaSection',
           blockName: 'Sign Up',
-          title: 'Ready to Learn?',
-          description: 'Call us to schedule your lesson or ask about group rates.',
+          title: 'Join Us This Saturday!',
+          description:
+            'Lessons are every Saturday at 1:30 PM. No reservation needed — just show up and skate!',
           gradient: true,
           primaryButton: {
-            label: 'Sign Up Now',
-            url: '/contact',
+            label: 'View Schedule',
+            url: '/schedule',
             icon: 'calendar',
           },
           secondaryButton: {
-            label: 'Call to Schedule',
+            label: 'Call for Info',
             phone: '(210) 673-2568',
             icon: 'phone',
           },
@@ -688,7 +751,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
       meta: {
         title: 'Learn to Skate',
         description:
-          'Learn to roller skate at Skateland West! Lessons for beginners, intermediate, and advanced skaters of all ages.',
+          'Learn to roller skate at Skateland West! Lessons every Saturday 1:30-2:00 PM for $15. All ages and abilities. Skate FREE the rest of the day after your lesson!',
         image: MEDIA.jamSkates,
       },
     },
@@ -703,91 +766,41 @@ export const seedPages = async (payload: Payload): Promise<void> => {
       _status: 'published',
       hero: {
         type: 'lowImpact',
-        richText: {
-          root: {
-            type: 'root',
-            children: [
-              {
-                type: 'heading',
-                tag: 'h1',
-                children: [{ type: 'text', text: 'About Skateland West', version: 1 }],
-                direction: 'ltr',
-                format: '',
-                indent: 0,
-                version: 1,
-              },
-            ],
-            direction: 'ltr',
-            format: '',
-            indent: 0,
-            version: 1,
-          },
-        },
+        richText: richTextRoot([heading('h1', 'About Skateland West')]),
       },
       layout: [
         {
           blockType: 'heroSection',
           blockName: 'Hero',
           title: 'About Skateland West',
-          subtitle: 'Creating family memories since 1985',
+          subtitle: "San Antonio's #1 Roller Skating Rink",
           backgroundImage: MEDIA.skateCounter2,
         },
         {
           blockType: 'content',
-          blockName: 'Our Story',
+          blockName: 'Welcome',
           columns: [
             {
               size: 'full',
-              richText: {
-                root: {
-                  type: 'root',
-                  children: [
-                    {
-                      type: 'heading',
-                      tag: 'h2',
-                      children: [{ type: 'text', text: 'Our Story', version: 1 }],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      version: 1,
-                    },
-                    {
-                      type: 'paragraph',
-                      children: [
-                        {
-                          type: 'text',
-                          text: "For nearly four decades, Skateland West has been San Antonio's go-to destination for family fun and skating excitement. Since opening our doors in 1985, we've hosted countless birthday parties, helped thousands of people learn to skate, and created millions of memories for families across the city.",
-                          version: 1,
-                        },
-                      ],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      textFormat: 0,
-                      version: 1,
-                    },
-                    {
-                      type: 'paragraph',
-                      children: [
-                        {
-                          type: 'text',
-                          text: "Our commitment to providing a safe, clean, and fun environment has made us a beloved institution in the San Antonio community. Whether you're a first-time skater or a seasoned pro, you'll find a welcoming atmosphere at Skateland West.",
-                          version: 1,
-                        },
-                      ],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      textFormat: 0,
-                      version: 1,
-                    },
-                  ],
-                  direction: 'ltr',
-                  format: '',
-                  indent: 0,
-                  version: 1,
-                },
-              },
+              richText: richTextRoot([
+                heading('h2', 'Welcome to Skateland West'),
+                paragraph([
+                  text(
+                    'We are the #1 Roller Skating Rink in San Antonio! We have the "Best" Music, the "Best" Prices and the "Best" Customers in the great state of Texas.',
+                  ),
+                ]),
+                paragraph([
+                  text(
+                    'Skateland West\'s goal is to provide you the "Best" Roller Skating Experience. We want you to leave satisfied, happy and wanting more Roller Skating Fun.',
+                  ),
+                ]),
+                paragraph([
+                  text(
+                    "Skateland West offers a variety of public skating sessions to meet your specific needs. We play all kinds of music from Shake Rattle and Roll (50's) to Funkytown (Disco), Back in Black (Rock), Hard Knock Life (Hip Hop), All My Life (R&B) & a little Country.",
+                  ),
+                ]),
+                paragraph([text('Hope to see you skating here soon!')]),
+              ]),
             },
           ],
         },
@@ -797,117 +810,57 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           columns: [
             {
               size: 'oneThird',
-              richText: {
-                root: {
-                  type: 'root',
-                  children: [
-                    {
-                      type: 'heading',
-                      tag: 'h3',
-                      children: [{ type: 'text', text: 'The Rink', version: 1 }],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      version: 1,
-                    },
-                    {
-                      type: 'paragraph',
-                      children: [
-                        {
-                          type: 'text',
-                          text: 'Our 16,000 sq ft maple wood skating floor is one of the finest in Texas, providing the perfect surface for skaters of all skill levels.',
-                          version: 1,
-                        },
-                      ],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      textFormat: 0,
-                      version: 1,
-                    },
-                  ],
-                  direction: 'ltr',
-                  format: '',
-                  indent: 0,
-                  version: 1,
-                },
-              },
+              richText: richTextRoot([
+                heading('h3', 'The Rink'),
+                paragraph([
+                  text(
+                    'Our 16,000 sq ft maple wood skating floor is one of the finest in Texas, providing the perfect surface for skaters of all skill levels.',
+                  ),
+                ]),
+              ]),
             },
             {
               size: 'oneThird',
-              richText: {
-                root: {
-                  type: 'root',
-                  children: [
-                    {
-                      type: 'heading',
-                      tag: 'h3',
-                      children: [{ type: 'text', text: 'Cafe 2327', version: 1 }],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      version: 1,
-                    },
-                    {
-                      type: 'paragraph',
-                      children: [
-                        {
-                          type: 'text',
-                          text: 'Our snack bar offers pizza, nachos, hot dogs, candy, and drinks to keep you fueled for more skating fun.',
-                          version: 1,
-                        },
-                      ],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      textFormat: 0,
-                      version: 1,
-                    },
-                  ],
-                  direction: 'ltr',
-                  format: '',
-                  indent: 0,
-                  version: 1,
-                },
-              },
+              richText: richTextRoot([
+                heading('h3', 'Snack Bar'),
+                paragraph([
+                  text(
+                    'Fuel up at our full snack bar! We serve Slushies, Personal Sized Pizza, ALL BEEF Hot Dogs, Pretzels, and Ricos Nachos. Pepsi products available.',
+                  ),
+                ]),
+              ]),
             },
             {
               size: 'oneThird',
-              richText: {
-                root: {
-                  type: 'root',
-                  children: [
-                    {
-                      type: 'heading',
-                      tag: 'h3',
-                      children: [{ type: 'text', text: 'Arcade', version: 1 }],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      version: 1,
-                    },
-                    {
-                      type: 'paragraph',
-                      children: [
-                        {
-                          type: 'text',
-                          text: 'Take a break from skating and enjoy our arcade games including air hockey, foosball, and video games.',
-                          version: 1,
-                        },
-                      ],
-                      direction: 'ltr',
-                      format: '',
-                      indent: 0,
-                      textFormat: 0,
-                      version: 1,
-                    },
-                  ],
-                  direction: 'ltr',
-                  format: '',
-                  indent: 0,
-                  version: 1,
-                },
-              },
+              richText: richTextRoot([
+                heading('h3', 'Arcade'),
+                paragraph([
+                  text(
+                    'Take a break from skating and enjoy our arcade games including air hockey, foosball, and video games. Earn redemption tickets for prizes!',
+                  ),
+                ]),
+              ]),
+            },
+          ],
+        },
+        {
+          blockType: 'content',
+          blockName: 'Skate Sales',
+          columns: [
+            {
+              size: 'full',
+              richText: richTextRoot([
+                heading('h2', 'We Sell Skates'),
+                paragraph([
+                  text('Skateland West stocks '),
+                  boldText('Sure-Grip'),
+                  text(' and '),
+                  boldText('Riedell'),
+                  text(
+                    ' skates. Other brands of skates available upon request. Stop in today so we can help you pick out the perfect pair of skates for you!',
+                  ),
+                ]),
+              ]),
             },
           ],
         },
@@ -920,7 +873,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           blockType: 'ctaSection',
           blockName: 'Visit',
           title: 'Come See Us!',
-          description: "We're located on SW Loop 410, just minutes from anywhere in San Antonio.",
+          description: "We're located at 2327 S.W. Loop 410, San Antonio, TX 78227.",
           gradient: true,
           primaryButton: {
             label: 'Get Directions',
@@ -937,7 +890,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
       meta: {
         title: 'About Us',
         description:
-          "Learn about Skateland West, San Antonio's premier family skating destination since 1985. Discover our story, facilities, and commitment to family fun.",
+          "Learn about Skateland West, San Antonio's #1 roller skating rink since 1985. The best music, prices, and skating experience in Texas!",
         image: MEDIA.skateCounter2,
       },
     },
