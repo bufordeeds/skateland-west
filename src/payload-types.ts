@@ -103,10 +103,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    'promotional-popup': PromotionalPopup;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'promotional-popup': PromotionalPopupSelect<false> | PromotionalPopupSelect<true>;
   };
   locale: null;
   user: User & {
@@ -1939,6 +1941,47 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "promotional-popup".
+ */
+export interface PromotionalPopup {
+  id: number;
+  /**
+   * When enabled, the popup will appear once per visitor session.
+   */
+  enabled?: boolean | null;
+  title: string;
+  body?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Optional image or flyer to display in the popup.
+   */
+  image?: (number | null) | Media;
+  /**
+   * Optional button displayed at the bottom of the popup.
+   */
+  ctaButton?: {
+    label?: string | null;
+    url?: string | null;
+    newTab?: boolean | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1978,6 +2021,26 @@ export interface FooterSelect<T extends boolean = true> {
               label?: T;
             };
         id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "promotional-popup_select".
+ */
+export interface PromotionalPopupSelect<T extends boolean = true> {
+  enabled?: T;
+  title?: T;
+  body?: T;
+  image?: T;
+  ctaButton?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        newTab?: T;
       };
   updatedAt?: T;
   createdAt?: T;
