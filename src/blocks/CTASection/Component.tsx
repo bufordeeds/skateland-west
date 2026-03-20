@@ -73,7 +73,7 @@ export const CTASection: React.FC<Props> = ({
                 variant="outline"
                 className={`text-lg px-8 ${
                   gradient
-                    ? 'border-white text-black hover:bg-white hover:text-primary'
+                    ? 'border-white text-white hover:bg-white hover:text-primary dark:hover:text-primary'
                     : ''
                 }`}
                 asChild

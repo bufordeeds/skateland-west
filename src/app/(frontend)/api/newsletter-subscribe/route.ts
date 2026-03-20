@@ -25,7 +25,7 @@ export async function POST(req: Request) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Basic ${Buffer.from(`${listmonkUser}:${listmonkToken}`).toString('base64')}`,
+        Authorization: `token ${listmonkUser}:${listmonkToken}`,
       },
       body: JSON.stringify({
         email,
