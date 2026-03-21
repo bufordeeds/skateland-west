@@ -102,10 +102,30 @@ const BeforeDashboard: React.FC = () => {
           <li style={{ marginBottom: '0.5rem' }}>
             <strong>Email:</strong> <a href="mailto:hello@buford.dev">hello@buford.dev</a>
           </li>
-          <li>
+          <li style={{ marginBottom: '0.5rem' }}>
             <strong>Phone:</strong> <a href="tel:2103253989">(210) 325-3989</a>
           </li>
         </ul>
+        <a
+          href="https://calendar.app.google/qvUAdGKuThEce21g7"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '10px 20px',
+            background: 'var(--theme-elevation-800)',
+            color: 'var(--theme-elevation-0)',
+            borderRadius: '6px',
+            textDecoration: 'none',
+            fontWeight: 'bold',
+            fontSize: '0.95rem',
+            marginTop: '1rem',
+          }}
+        >
+          Book a Support Session &rarr;
+        </a>
       </div>
     </div>
   )

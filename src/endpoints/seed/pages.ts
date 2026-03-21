@@ -121,13 +121,110 @@ const SCHEDULE_DATA = [
   },
 ] as const
 
+// FAQ data from old WordPress site (all 20 Q&A pairs)
+const FAQ_ITEMS = [
+  {
+    q: 'Do you charge for Parents?',
+    a: 'Yes, everyone pays to come into the building. Non-skating parents coming in at the same time as their children are not charged at that time. If you come in later without your child, everyone pays.',
+  },
+  {
+    q: "If my friends are coming to skate, do I need to pay if I'm not skating?",
+    a: 'Everyone entering the building pays.',
+  },
+  {
+    q: 'Do you allow in and out privileges?',
+    a: 'No. When you leave, you leave. If you want to come back in, you must pay admission again.',
+  },
+  {
+    q: 'Do you sell food?',
+    a: 'Yes! Slushies, Personal Sized Pizza, ALL BEEF Hot Dogs, Pretzels & Ricos Nachos. Pepsi products.',
+  },
+  {
+    q: 'Can I bring in food from the outside?',
+    a: 'No outside food or drink. Only exception: birthday cake during an open skating session with a Public Birthday Party reservation.',
+  },
+  {
+    q: 'Do you have a dress code?',
+    a: 'Yes. Neat and clean. No suggestive or vulgar language on clothing. No bare clothing, tank tops, undershirts, or cut-off shirts. Shirts must be fully closed — no open backs or bare stomachs. No hats in the building. Strictly enforced.',
+  },
+  {
+    q: 'Can we chew gum or smoke?',
+    a: 'No. No gum chewing or smoking of any kind.',
+  },
+  {
+    q: 'Do you sell gift certificates?',
+    a: 'Yes, available at the front office.',
+  },
+  {
+    q: 'Do you take requests for songs?',
+    a: 'Yes! We have a music library with over 7,000 songs. Our Floor Host will make every effort to play your favorite song.',
+  },
+  {
+    q: 'Can I rent Skateland West privately?',
+    a: 'Yes! We offer Exclusive Events on select days. Check our Private Events page for more info.',
+  },
+  {
+    q: 'How far in advance do I need to make party reservations?',
+    a: 'Open Events: at least 2 weeks in advance. Exclusive (Private) Events: 30 days to 6 months, depending on availability. No last-minute parties.',
+  },
+  {
+    q: 'What forms of payment do you accept?',
+    a: 'Cash Only!',
+  },
+  {
+    q: 'Can I pay with a check?',
+    a: 'No personal checks.',
+  },
+  {
+    q: 'What size skates do you rent?',
+    a: 'Juvenile size 7 to adult size 15.',
+  },
+  {
+    q: 'Can I bring my own skates?',
+    a: 'Yes. All kinds of regular roller skates and inline skates are welcome. They must be safe and clean.',
+  },
+  {
+    q: 'Can I wear my Heelys?',
+    a: 'No. No heely-type skates, hover boards, skateboards, or other non-approved equipment.',
+  },
+  {
+    q: 'Can my child wear FP Grow with me skates?',
+    a: "No. No skates where you put the child's shoe into the skate.",
+  },
+  {
+    q: 'Do you sell skates?',
+    a: 'Yes! We stock Sure-Grip and Riedell skates. Other brands available upon request.',
+  },
+  {
+    q: "If my child doesn't skate well, can I walk on the floor?",
+    a: 'During open skate, parents cannot enter the skating floor with shoes on to help children.',
+  },
+  {
+    q: 'Where can I get skating lessons?',
+    a: 'Right here at Skateland West! Every Saturday from 1:30-2:00 PM for just $15.',
+  },
+]
+
+// Helper: only create a page if the slug doesn't already exist
+const createPageIfMissing = async (payload: Payload, data: any) => {
+  const existing = await payload.find({
+    collection: 'pages',
+    where: { slug: { equals: data.slug } },
+    limit: 1,
+  })
+  if (existing.docs.length > 0) {
+    payload.logger.info(`  Skipping "${data.slug}" (already exists)`)
+    return existing.docs[0]
+  }
+  payload.logger.info(`  Creating "${data.slug}"`)
+  return payload.create({ collection: 'pages', data })
+}
+
 export const seedPages = async (payload: Payload): Promise<void> => {
   payload.logger.info('Seeding pages...')
 
   // Create Home page
-  await payload.create({
-    collection: 'pages',
-    data: {
+  await createPageIfMissing(payload, {
       title: 'Home',
       slug: 'home',
       _status: 'published',
@@ -297,13 +394,10 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           "San Antonio's #1 roller skating rink since 1985. Public sessions, birthday parties, private events, and learn-to-skate lessons. The best music, prices, and experience in Texas!",
         image: MEDIA.rinkFront,
       },
-    },
   })
 
   // Create Schedule page
-  await payload.create({
-    collection: 'pages',
-    data: {
+  await createPageIfMissing(payload, {
       title: 'Schedule & Hours',
       slug: 'schedule',
       _status: 'published',
@@ -388,13 +482,10 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           'Plan your visit to Skateland West. Public skating sessions, admission prices, and policies. Open Thursday-Sunday with lessons on Saturday.',
         image: MEDIA.rinkCenter,
       },
-    },
   })
 
   // Create Birthday Parties page
-  await payload.create({
-    collection: 'pages',
-    data: {
+  await createPageIfMissing(payload, {
       title: 'Birthday Parties',
       slug: 'birthday-parties',
       _status: 'published',
@@ -528,13 +619,10 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           'Host an unforgettable birthday party at Skateland West! Ultimate Skater Package from $185 or Glow Skater Package from $285. Includes skating, drinks, ice cream, and more.',
         image: MEDIA.partyRoom3,
       },
-    },
   })
 
   // Create Private Events page
-  await payload.create({
-    collection: 'pages',
-    data: {
+  await createPageIfMissing(payload, {
       title: 'Private Events',
       slug: 'private-events',
       _status: 'published',
@@ -669,13 +757,10 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           'Rent Skateland West for your private event. Supreme Skater from $475, Glow Private from $712.50. Entire rink reserved for your group.',
         image: MEDIA.rinkRightSide,
       },
-    },
   })
 
   // Create Learn to Skate page
-  await payload.create({
-    collection: 'pages',
-    data: {
+  await createPageIfMissing(payload, {
       title: 'Learn to Skate',
       slug: 'learn-to-skate',
       _status: 'published',
@@ -765,13 +850,10 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           'Learn to roller skate at Skateland West! Lessons every Saturday 1:30-2:00 PM for $15. All ages and abilities. Skate FREE the rest of the day after your lesson!',
         image: MEDIA.jamSkates,
       },
-    },
   })
 
   // Create About page
-  await payload.create({
-    collection: 'pages',
-    data: {
+  await createPageIfMissing(payload, {
       title: 'About Us',
       slug: 'about',
       _status: 'published',
@@ -881,6 +963,50 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           media: MEDIA.cafeMain,
         },
         {
+          blockType: 'content',
+          blockName: 'Fitness Facts',
+          columns: [
+            {
+              size: 'half',
+              richText: richTextRoot([
+                heading('h2', 'Roller Skating Fitness Facts'),
+                paragraph([
+                  text(
+                    'Roller skating is one of the best full-body workouts you can do — and it\'s fun for the whole family!',
+                  ),
+                ]),
+                paragraph([
+                  boldText('Burns 480 calories per hour'),
+                  text(' — equivalent to running or cycling'),
+                ]),
+                paragraph([
+                  boldText('148 BPM average heart rate'),
+                  text(' — a great cardiovascular workout'),
+                ]),
+              ]),
+            },
+            {
+              size: 'half',
+              richText: richTextRoot([
+                heading('h2', 'Easy on Your Body'),
+                paragraph([
+                  boldText('50% less impact on joints than running'),
+                  text(' — easier on your knees and ankles'),
+                ]),
+                paragraph([
+                  boldText('30 minutes of roller skating'),
+                  text(' builds cardiovascular endurance'),
+                ]),
+                paragraph([
+                  text(
+                    'Endorsed by the Roller Skating Association (RSA) as a complete aerobic fitness activity.',
+                  ),
+                ]),
+              ]),
+            },
+          ],
+        },
+        {
           blockType: 'ctaSection',
           blockName: 'Visit',
           title: 'Come See Us!',
@@ -904,7 +1030,251 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           "Learn about Skateland West, San Antonio's #1 roller skating rink since 1985. The best music, prices, and skating experience in Texas!",
         image: MEDIA.skateCounter2,
       },
-    },
+  })
+
+  // Create FAQ page
+  await createPageIfMissing(payload, {
+      title: 'FAQ',
+      slug: 'faq',
+      _status: 'published',
+      hero: {
+        type: 'lowImpact',
+        richText: richTextRoot([heading('h1', 'Frequently Asked Questions')]),
+      },
+      layout: [
+        {
+          blockType: 'heroSection',
+          blockName: 'Hero',
+          title: 'Frequently Asked Questions',
+          subtitle: 'Everything you need to know before your visit',
+          backgroundImage: MEDIA.rinkCenter,
+        },
+        {
+          blockType: 'content',
+          blockName: 'FAQ',
+          columns: [
+            {
+              size: 'full',
+              richText: richTextRoot(
+                FAQ_ITEMS.flatMap(({ q, a }) => [heading('h3', q), paragraph([text(a)])]),
+              ),
+            },
+          ],
+        },
+        {
+          blockType: 'ctaSection',
+          blockName: 'Contact',
+          title: 'Still Have Questions?',
+          description: 'Give us a call — our friendly staff is happy to help!',
+          gradient: true,
+          primaryButton: {
+            label: 'View Schedule',
+            url: '/schedule',
+            icon: 'calendar',
+          },
+          secondaryButton: {
+            label: 'Call Us',
+            phone: '(210) 673-2568',
+            icon: 'phone',
+          },
+        },
+      ],
+      meta: {
+        title: 'FAQ',
+        description:
+          'Frequently asked questions about Skateland West. Admission, dress code, food, payment, skate rentals, party reservations, and more.',
+        image: MEDIA.rinkCenter,
+      },
+  })
+
+  // Create Contact page
+  await createPageIfMissing(payload, {
+      title: 'Contact Us',
+      slug: 'contact',
+      _status: 'published',
+      hero: {
+        type: 'lowImpact',
+        richText: richTextRoot([heading('h1', 'Contact Us')]),
+      },
+      layout: [
+        {
+          blockType: 'heroSection',
+          blockName: 'Hero',
+          title: 'Get In Touch',
+          subtitle: "We're here to help you plan your visit",
+          backgroundImage: MEDIA.rinkFront,
+        },
+        {
+          blockType: 'content',
+          blockName: 'Contact Info',
+          columns: [
+            {
+              size: 'half',
+              richText: richTextRoot([
+                heading('h2', 'Contact Information'),
+                heading('h3', 'Phone'),
+                paragraph([boldText('(210) 673-2568')]),
+                heading('h3', 'Email'),
+                paragraph([text('skatelandwest74@gmail.com')]),
+                heading('h3', 'Address'),
+                paragraph([
+                  boldText('Skateland West'),
+                ]),
+                paragraph([text('2327 S.W. Loop 410')]),
+                paragraph([text('San Antonio, TX 78227')]),
+              ]),
+            },
+            {
+              size: 'half',
+              richText: richTextRoot([
+                heading('h2', 'Follow Us'),
+                paragraph([text('Find us on Facebook for the latest updates, special events, and promotions!')]),
+                heading('h2', 'Important Notes'),
+                paragraph([boldText('Payment: Cash Only!')]),
+                paragraph([text('No personal checks.')]),
+                paragraph([
+                  text(
+                    'Prices and times subject to change without notice. Check our Schedule page for current hours.',
+                  ),
+                ]),
+              ]),
+            },
+          ],
+        },
+        {
+          blockType: 'ctaSection',
+          blockName: 'Directions',
+          title: 'Come Visit Us!',
+          description: '2327 S.W. Loop 410, San Antonio, TX 78227',
+          gradient: true,
+          primaryButton: {
+            label: 'Get Directions',
+            url: 'https://www.google.com/maps/place/Skateland+West/@29.4073877,-98.6532231,17z',
+            icon: 'calendar',
+          },
+          secondaryButton: {
+            label: 'Call Now',
+            phone: '(210) 673-2568',
+            icon: 'phone',
+          },
+        },
+      ],
+      meta: {
+        title: 'Contact Us',
+        description:
+          'Contact Skateland West in San Antonio. Call (210) 673-2568 or visit us at 2327 S.W. Loop 410, San Antonio, TX 78227.',
+        image: MEDIA.rinkFront,
+      },
+  })
+
+  // Create Pricing page
+  await createPageIfMissing(payload, {
+      title: 'Pricing',
+      slug: 'pricing',
+      _status: 'published',
+      hero: {
+        type: 'lowImpact',
+        richText: richTextRoot([heading('h1', 'Pricing')]),
+      },
+      layout: [
+        {
+          blockType: 'heroSection',
+          blockName: 'Hero',
+          title: 'Admission & Pricing',
+          subtitle: 'Affordable fun for the whole family',
+          backgroundImage: MEDIA.cafeMain,
+        },
+        {
+          blockType: 'content',
+          blockName: 'Admission Prices',
+          columns: [
+            {
+              size: 'half',
+              richText: richTextRoot([
+                heading('h2', 'Public Skating Admission'),
+                paragraph([boldText('Sunday (2:00-6:00 PM):'), text(' $10.16*')]),
+                paragraph([boldText('Thursday (6:00-9:00 PM):'), text(' $7.34*')]),
+                paragraph([boldText('Friday (6:00-10:30 PM):'), text(' $12.01*')]),
+                paragraph([boldText('Saturday (2:00-10:30 PM):'), text(' $12.01')]),
+                paragraph([boldText('Skate Lessons (Sat 1:30-2:00 PM):'), text(' $15.00')]),
+                paragraph([boldText('Non-Skating Parents:'), text(' $5.00 (must enter with child)')]),
+                paragraph([text('*Plus State Sales Tax')]),
+              ]),
+            },
+            {
+              size: 'half',
+              richText: richTextRoot([
+                heading('h2', 'Good to Know'),
+                paragraph([boldText('Payment: Cash Only!')]),
+                paragraph([text('No personal checks. No refunds on admission.')]),
+                paragraph([
+                  boldText('Skate Rental: '),
+                  text('Juvenile size 7 to adult size 15. Bring your own skates — all regular roller skates and inline skates welcome (must be safe and clean).'),
+                ]),
+                paragraph([
+                  text(
+                    'Monday, Tuesday, and Wednesday are reserved for private party bookings.',
+                  ),
+                ]),
+                paragraph([text('Prices and times subject to change without notice.')]),
+              ]),
+            },
+          ],
+        },
+        {
+          blockType: 'content',
+          blockName: 'Snack Bar',
+          columns: [
+            {
+              size: 'half',
+              richText: richTextRoot([
+                heading('h2', 'Snack Bar'),
+                paragraph([
+                  text(
+                    'Fuel up at our full snack bar! We serve Slushies, Personal Sized Pizza, ALL BEEF Hot Dogs, Pretzels, and Ricos Nachos. Pepsi products available.',
+                  ),
+                ]),
+              ]),
+            },
+            {
+              size: 'half',
+              richText: richTextRoot([
+                heading('h2', 'Party Packages'),
+                paragraph([
+                  text('We offer public birthday party packages starting at '),
+                  boldText('$185'),
+                  text(' and private party packages starting at '),
+                  boldText('$475'),
+                  text('. Visit our party pages for full details and add-on options.'),
+                ]),
+              ]),
+            },
+          ],
+        },
+        {
+          blockType: 'ctaSection',
+          blockName: 'CTA',
+          title: 'Ready to Skate?',
+          description: 'Check our schedule and plan your visit!',
+          gradient: true,
+          primaryButton: {
+            label: 'View Schedule',
+            url: '/schedule',
+            icon: 'calendar',
+          },
+          secondaryButton: {
+            label: 'Call Us',
+            phone: '(210) 673-2568',
+            icon: 'phone',
+          },
+        },
+      ],
+      meta: {
+        title: 'Pricing',
+        description:
+          'Skateland West admission prices, skate rental info, and snack bar menu. Affordable family fun in San Antonio — sessions from $7.34.',
+        image: MEDIA.cafeMain,
+      },
   })
 
   payload.logger.info('Pages seeded successfully!')
