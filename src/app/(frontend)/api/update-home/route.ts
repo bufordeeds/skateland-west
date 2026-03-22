@@ -24,6 +24,7 @@ export async function POST(): Promise<Response> {
         slug: { equals: 'home' },
       },
       limit: 1,
+      depth: 0,
     })
 
     if (homePages.docs.length === 0) {
@@ -31,6 +32,10 @@ export async function POST(): Promise<Response> {
     }
 
     const homePage = homePages.docs[0]
+    const currentLayout = (homePage.layout || []) as Array<{
+      blockType: string
+      [key: string]: unknown
+    }>
 
     // Fetch Google reviews
     const googleData = await fetchGoogleReviews()
@@ -84,49 +89,33 @@ export async function POST(): Promise<Response> {
       ]
     }
 
-    // Get the current layout and find the heroSection's backgroundImage
-    const currentLayout = (homePage.layout || []) as Array<{
-      blockType: string
-      backgroundImage?: number | { id: number }
-      [key: string]: unknown
-    }>
-    const heroBlock = currentLayout.find((b) => b.blockType === 'heroSection')
-    const backgroundImageId =
-      heroBlock?.backgroundImage && typeof heroBlock.backgroundImage === 'object'
-        ? heroBlock.backgroundImage.id
-        : heroBlock?.backgroundImage || 35 // fallback to rinkFront
+    // Only update specific blocks — preserve everything else in the layout
+    const newLayout = currentLayout.map((block) => {
+      if (block.blockType === 'heroSection') {
+        return {
+          ...block,
+          // Update rating/review count if we have Google data
+          ...(googleData
+            ? {
+                rating: googleData.rating,
+                reviewCount: googleData.totalReviews,
+              }
+            : {}),
+        }
+      }
 
-    // Build new layout without duplicate CTA, with testimonials
-    const newLayout = [
-      {
-        blockType: 'heroSection' as const,
-        blockName: 'Hero',
-        title: 'Skateland West',
-        subtitle: "San Antonio's Premier Family Skating Destination Since 1985",
-        backgroundImage: backgroundImageId,
-      },
-      {
-        blockType: 'scheduleCards' as const,
-        blockName: 'Schedule',
-        title: 'Skating Sessions',
-        subtitle: 'Find the perfect time to skate',
-      },
-      {
-        blockType: 'servicesCards' as const,
-        blockName: 'Services',
-        title: 'Everything You Need',
-        subtitle: 'More than just skating',
-      },
-      {
-        blockType: 'testimonials' as const,
-        blockName: 'Testimonials',
-        title: 'What Families Are Saying',
-        subtitle: 'Real reviews from our skating community',
-        overallRating: googleData?.rating || 4.2,
-        reviewCount: googleData?.totalReviews || 444,
-        testimonials,
-      },
-    ]
+      if (block.blockType === 'testimonials') {
+        return {
+          ...block,
+          overallRating: googleData?.rating || (block as { overallRating?: number }).overallRating || 4.2,
+          reviewCount: googleData?.totalReviews || (block as { reviewCount?: number }).reviewCount || 444,
+          testimonials,
+        }
+      }
+
+      // All other blocks pass through unchanged
+      return block
+    })
 
     // Update the home page
     await payload.update({
