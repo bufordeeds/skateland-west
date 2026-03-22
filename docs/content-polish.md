@@ -30,7 +30,7 @@ Pages updated: Schedule, Birthday Parties, Private Events, Learn to Skate, About
 
 **Fix:**
 - Corrected Thursday from $7.34 to $7.39
-- Removed asterisks, changed to "All prices include tax"
+- Removed asterisks, changed to "All prices include tax" *comment: We should verify this with the client, but it’s more customer-friendly to include tax in the displayed price rather than showing a lower price with a confusing footnote and then charging more at checkout. If the client insists on showing pre-tax prices, we can re-add the asterisks and footnote, but we should clarify the tax amount to avoid confusion. WE can estimate now by looking up the tax for san antonio, tx and updating the prices to the tax-inclusive amounts. For example, if the tax rate is 8.25%, we would multiply each price by 1.0825 to get the tax-inclusive price. So the Sunday price of $10.16 would become approximately $11.00, and the Thursday price of $7.39 would become approximately $8.00. We can round to the nearest dollar for simplicity, or we can show the exact tax-inclusive price if the client prefers that level of detail. The key is to be consistent.
 - Added session times next to each price (e.g., "Sunday (2:00-6:00 PM): $10.16")
 - Renamed "Throwback Thursday" to "Family Night Thursday" with $1.00 parent deal info
 
@@ -98,3 +98,6 @@ When using the Payload REST API to update pages, fetching with `depth=0` strips 
 | `src/blocks/ServicesCards/Component.tsx` | Handle {id, feature} objects |
 | `src/blocks/PartyPackages/Component.tsx` | Handle {id, feature} objects |
 | Live DB (via Payload API) | All page content + popup global |
+
+
+![alt text](image.png) - please no emojiis, lets implement an icon library to replace all emojis with consistent icons across the site. This will improve the professional look and feel of the site, and allow us to easily update icons in the future without relying on Unicode emoji support. We can use a popular icon library like Font Awesome, or we can create custom SVG icons that match the Skateland West branding. The key is to ensure that all icons are visually cohesive and enhance the user experience without feeling out of place or inconsistent.
