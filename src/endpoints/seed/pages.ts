@@ -296,7 +296,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
               color: 'secondary',
             },
             {
-              icon: 'snowflake',
+              icon: 'graduation-cap',
               title: 'Learn to Skate',
               description:
                 'Lessons every Saturday from 1:30-2:00 PM for all ages and abilities.',

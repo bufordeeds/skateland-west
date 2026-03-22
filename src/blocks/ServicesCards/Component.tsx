@@ -15,6 +15,7 @@ import {
   ShoppingBag,
   UtensilsCrossed,
   Gamepad2,
+  GraduationCap,
   HelpCircle,
   type LucideIcon,
 } from 'lucide-react'
@@ -26,6 +27,7 @@ const ICON_MAP: Record<string, LucideIcon> = {
   'shopping-bag': ShoppingBag,
   'utensils-crossed': UtensilsCrossed,
   gamepad: Gamepad2,
+  'graduation-cap': GraduationCap,
 }
 
 type ServiceCard = {

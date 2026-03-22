@@ -31,6 +31,7 @@ export const ServicesCards: Block = {
             { label: 'Cake (Birthday)', value: 'cake' },
             { label: 'Party Popper (Events)', value: 'party-popper' },
             { label: 'Snowflake (Skating)', value: 'snowflake' },
+            { label: 'Graduation Cap (Lessons)', value: 'graduation-cap' },
             { label: 'Shopping Bag (Sales)', value: 'shopping-bag' },
             { label: 'Utensils (Food)', value: 'utensils-crossed' },
             { label: 'Gamepad (Arcade)', value: 'gamepad' },
