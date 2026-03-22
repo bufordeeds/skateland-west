@@ -94,7 +94,6 @@ export async function POST(): Promise<Response> {
       if (block.blockType === 'heroSection') {
         return {
           ...block,
-          // Update rating/review count if we have Google data
           ...(googleData
             ? {
                 rating: googleData.rating,
@@ -113,16 +112,15 @@ export async function POST(): Promise<Response> {
         }
       }
 
-      // All other blocks pass through unchanged
       return block
     })
 
-    // Update the home page
+    // Update the home page — cast layout to satisfy Payload's strict block union type
     await payload.update({
       collection: 'pages',
       id: homePage.id,
       data: {
-        layout: newLayout,
+        layout: newLayout as typeof homePage.layout,
       },
     })
 
