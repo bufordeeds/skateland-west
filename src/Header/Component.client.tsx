@@ -10,7 +10,7 @@ import type { Header } from '@/payload-types'
 import { HeaderNav } from './Nav'
 import { Button } from '@/components/ui/button'
 import { SITE_CONFIG } from '@/lib/constants'
-import { RollerSkate } from '@/components/icons/RollerSkate'
+import Image from 'next/image'
 
 interface HeaderClientProps {
   data: Header
@@ -93,12 +93,13 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
           <div className="flex items-center justify-between h-14 lg:h-16">
             {/* Logo — left aligned */}
             <Link href="/" className="flex items-center gap-2 group">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-fun rounded-full blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
-                <div className="relative size-9 lg:size-10 bg-gradient-skate rounded-full flex items-center justify-center shadow-md transform group-hover:scale-110 transition-all duration-300">
-                  <RollerSkate className="size-5 lg:size-6 text-white" />
-                </div>
-              </div>
+              <Image
+                src="/skateland-logo.png"
+                alt=""
+                width={40}
+                height={40}
+                className="size-9 lg:size-10 rounded-full shadow-md transform group-hover:scale-110 transition-all duration-300"
+              />
               <span className="font-black text-base lg:text-lg text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]">
                 {SITE_CONFIG.name}
               </span>

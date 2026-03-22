@@ -17,7 +17,7 @@ import { CMSLink } from '@/components/Link'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { SITE_CONFIG } from '@/lib/constants'
-import { RollerSkate } from '@/components/icons/RollerSkate'
+import Image from 'next/image'
 
 export async function Footer() {
   const footerData: Footer = await getCachedGlobal('footer', 1)()
@@ -41,12 +41,13 @@ export async function Footer() {
             {/* Brand Column */}
             <div className="space-y-6">
               <div className="flex items-center gap-3 group">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-fun rounded-full blur-md opacity-0 group-hover:opacity-50 transition-opacity"></div>
-                  <div className="relative size-12 bg-gradient-skate rounded-full flex items-center justify-center shadow-lg">
-                    <RollerSkate className="size-7 text-white" />
-                  </div>
-                </div>
+                <Image
+                  src="/skateland-logo.png"
+                  alt=""
+                  width={48}
+                  height={48}
+                  className="size-12 rounded-full shadow-lg"
+                />
                 <div>
                   <span className="font-black text-xl">{SITE_CONFIG.name}</span>
                   <div className="flex items-center gap-1">
