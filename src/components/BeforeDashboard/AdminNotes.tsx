@@ -5,11 +5,42 @@ import { ChevronDown, ChevronUp } from 'lucide-react'
 
 type NoteSection = {
   title: string
-  status: 'question' | 'suggestion' | 'guideline'
+  status: 'question' | 'suggestion' | 'guideline' | 'demo' | 'plan'
   items: string[]
 }
 
 const notes: NoteSection[] = [
+  {
+    title: 'Next Demo Meeting (Date TBD)',
+    status: 'demo',
+    items: [
+      'Promotional Popup — how to update seasonal announcements with images, text, and call-to-action buttons (Globals > Promotional Popup)',
+      'Payload Admin Dashboard — walkthrough of editing pages, managing content blocks, uploading media, and using the "Refresh Home + Reviews" button',
+      'Newsletter Management — managing subscribers and sending campaigns via Listmonk at email.buford.dev',
+    ],
+  },
+  {
+    title: 'Questions for Megan',
+    status: 'question',
+    items: [
+      'Turbify: What are the login credentials for your Turbify (Yahoo Small Business) account? We need access to unlock the domain and get the transfer authorization code.',
+      'Pricing display: The Schedule page currently shows tax-inclusive prices (e.g. $10.16 instead of $9.38 + tax). Do you prefer showing tax-inclusive numbers, or pre-tax prices with a note about tax?',
+    ],
+  },
+  {
+    title: 'Domain Transfer Plan — myskatelandwest.com',
+    status: 'plan',
+    items: [
+      'Current setup: myskatelandwest.com is registered and hosted at Turbify (formerly Yahoo Small Business) with an older WordPress site',
+      'Plan: Transfer the domain to Cloudflare (~$10/year vs Turbify\'s bundled pricing) and point it to your new site on our private server',
+      'Step 1: Log into Turbify, unlock the domain, and get the authorization code',
+      'Step 2: Initiate transfer at Cloudflare — takes 5-7 days to complete, no downtime during transfer',
+      'Step 3: Once transferred, update DNS to point to the new site — your site goes live at myskatelandwest.com',
+      'Email is unaffected — you use Gmail (skatelandwest74@gmail.com), not Turbify email',
+      'We\'ll keep the old WordPress site accessible during the transition for reference',
+      'After everything is confirmed working, cancel Turbify to stop recurring charges',
+    ],
+  },
   {
     title: 'Promotional Popup Image Guidelines',
     status: 'guideline',
@@ -45,24 +76,14 @@ const notes: NoteSection[] = [
       'Track recurring complaints from the feedback form and address them — fewer bad experiences = fewer bad reviews',
     ],
   },
-  {
-    title: 'Questions for Megan',
-    status: 'question',
-    items: [
-      'Prices: Are the current prices on the Schedule page accurate? Should we show pre-tax or tax-inclusive prices?',
-      'Skate rental: Is skate rental included in admission or is there a separate fee? If so, how much?',
-      'Special offers: The hero section has a placeholder "This Week\'s Special" — do you want to feature a real offer or remove this section?',
-      'Photos: Do you have high-quality photos of the rink interior, parties, or events we could use on the site? The current hero background could be upgraded',
-      'Social media: Are the Facebook, Instagram, and X links in the footer correct and active?',
-      'Domain: When you\'re ready, we can move the site to skatelandwest.com — do you have that domain or want to purchase it?',
-    ],
-  },
 ]
 
 const statusColors: Record<NoteSection['status'], { bg: string; label: string }> = {
+  demo: { bg: '#7c3aed', label: 'Demo' },
   question: { bg: '#e3a008', label: 'Questions' },
-  suggestion: { bg: '#2563eb', label: 'Suggestion' },
+  plan: { bg: '#0891b2', label: 'Plan' },
   guideline: { bg: '#16a34a', label: 'Guidelines' },
+  suggestion: { bg: '#2563eb', label: 'Suggestion' },
 }
 
 export const AdminNotes: React.FC = () => {
