@@ -425,31 +425,12 @@ export const seedPages = async (payload: Payload): Promise<void> => {
         },
         {
           blockType: 'content',
-          blockName: 'Admission Info',
+          blockName: 'Pricing Note',
           columns: [
             {
-              size: 'half',
+              size: 'full',
               richText: richTextRoot([
-                heading('h2', 'Admission Prices'),
-                paragraph([boldText('Sunday (2:00-6:00 PM):'), text(' $10.16')]),
-                paragraph([boldText('Thursday (6:00-9:00 PM):'), text(' $7.39 — Family Night')]),
-                paragraph([boldText('Friday (6:00-10:30 PM):'), text(' $12.01')]),
-                paragraph([boldText('Saturday (2:00-10:30 PM):'), text(' $12.01')]),
-                paragraph([boldText('Skate Lessons (Saturday 1:30-2:00 PM):'), text(' $15.00')]),
-                paragraph([boldText('Non-Skating Parents:'), text(' $5.00 (must enter with child)')]),
-                paragraph([boldText('All prices include tax.')]),
-              ]),
-            },
-            {
-              size: 'half',
-              richText: richTextRoot([
-                heading('h2', 'Policies'),
-                paragraph([boldText('Payment: Cash Only!'), text(' No refunds.')]),
-                paragraph([boldText('Saturday after 6 PM:'), text(' everyone pays.')]),
-                paragraph([boldText('Thursday Family Night:'), text(' one parent per child $1.00 (must enter with child).')]),
-                paragraph([text('Possible blackout during session — glow items will be needed.')]),
-                paragraph([boldText('Skate rental:'), text(' Juvenile size 7 to Adult size 15. Bring your own skates — all regular roller skates and inline skates welcome (must be safe and clean).')]),
-                paragraph([text('Prices and times subject to change without notice. See our '), link('/pricing', [text('Pricing page')]), text(' for full details.')]),
+                paragraph([text('All prices include tax. Cash only. See our '), link('/pricing', [text('Pricing page')]), text(' for full details, policies, and skate rental info.')]),
               ]),
             },
           ],
@@ -461,8 +442,8 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           description: 'Give us a call or stop by!',
           gradient: true,
           primaryButton: {
-            label: 'Get Directions',
-            url: 'https://www.google.com/maps/place/Skateland+West/@29.4073877,-98.6532231,17z',
+            label: 'View Full Pricing',
+            url: '/pricing',
             icon: 'calendar',
           },
           secondaryButton: {
@@ -1152,17 +1133,15 @@ export const seedPages = async (payload: Payload): Promise<void> => {
               size: 'half',
               richText: richTextRoot([
                 heading('h2', 'Good to Know'),
-                paragraph([boldText('Payment: Cash Only!')]),
-                paragraph([text('No personal checks. No refunds on admission.')]),
+                paragraph([boldText('Payment: Cash Only!'), text(' No personal checks. No refunds on admission.')]),
+                paragraph([boldText('Saturday after 6 PM:'), text(' everyone pays.')]),
+                paragraph([boldText('Thursday Family Night:'), text(' one parent per child $1.00 (must enter with child).')]),
+                paragraph([text('Possible blackout during session — glow items will be needed.')]),
                 paragraph([
                   boldText('Skate Rental: '),
                   text('Juvenile size 7 to adult size 15. Bring your own skates — all regular roller skates and inline skates welcome (must be safe and clean).'),
                 ]),
-                paragraph([
-                  text(
-                    'Monday, Tuesday, and Wednesday are reserved for private party bookings.',
-                  ),
-                ]),
+                paragraph([text('Monday, Tuesday, and Wednesday are reserved for private party bookings.')]),
                 paragraph([text('Prices and times subject to change without notice.')]),
               ]),
             },

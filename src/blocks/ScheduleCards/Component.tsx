@@ -44,8 +44,8 @@ export const ScheduleCards: React.FC<Props> = ({
   title = "Weekly Schedule",
   subtitle = "Every Day Brings a New Adventure",
   schedule,
-  ctaText = "View Full Schedule",
-  ctaUrl = "/schedule"
+  ctaText,
+  ctaUrl
 }) => {
   if (!schedule?.length) return null
 
@@ -125,18 +125,20 @@ export const ScheduleCards: React.FC<Props> = ({
           })}
         </div>
         
-        <div className="text-center">
-          <Button 
-            size="lg"
-            className="bg-gradient-skate hover:opacity-90 text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-            asChild
-          >
-            <a href={ctaUrl}>
-              <Calendar className="size-5 mr-2" />
-              {ctaText}
-            </a>
-          </Button>
-        </div>
+        {ctaText && ctaUrl && (
+          <div className="text-center">
+            <Button
+              size="lg"
+              className="bg-gradient-skate hover:opacity-90 text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+              asChild
+            >
+              <a href={ctaUrl}>
+                <Calendar className="size-5 mr-2" />
+                {ctaText}
+              </a>
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   )
