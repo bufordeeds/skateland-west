@@ -1,0 +1,164 @@
+'use client'
+
+import React, { useState } from 'react'
+import { ChevronDown, ChevronUp } from 'lucide-react'
+
+type NoteSection = {
+  title: string
+  status: 'question' | 'suggestion' | 'guideline'
+  items: string[]
+}
+
+const notes: NoteSection[] = [
+  {
+    title: 'Promotional Popup Image Guidelines',
+    status: 'guideline',
+    items: [
+      'Recommended image size: 800x600 pixels (4:3 ratio) or 800x800 (square)',
+      'Keep important text/faces in the center — edges may be cropped on mobile',
+      'The popup overlays your title and description on the bottom of the image with a dark gradient, so bright/busy bottoms may clash with the text',
+      'Best results: photos with a clear subject and lighter/simpler bottom half',
+      'File format: JPG or PNG, under 1MB for fast loading',
+      'To update: go to Globals > Promotional Popup > upload a new image',
+    ],
+  },
+  {
+    title: 'Customer Feedback Form',
+    status: 'suggestion',
+    items: [
+      'Add a simple feedback form to the website where customers can share their experience',
+      'This gives unhappy customers a private channel to voice concerns instead of leaving a public negative review',
+      'Actionable feedback helps identify real issues (cleanliness, staff, music, pricing) that can be addressed',
+      'Happy customers who fill out the form can be encouraged to leave a Google review, gradually raising the overall rating (currently 3.9/5 from 932 reviews)',
+      'The form could collect: name (optional), visit date, rating (1-5), what they enjoyed, what could be improved',
+      'Submissions would appear in the admin under Form Submissions for easy review',
+    ],
+  },
+  {
+    title: 'Google Review Rating Strategy',
+    status: 'suggestion',
+    items: [
+      'Current rating: 3.9/5 from 932 reviews — raising this to 4.2+ would significantly boost visibility in Google Maps searches',
+      'Idea: place a small sign or QR code at the exit or snack bar that says "Loved your visit? Leave us a review!" linking directly to the Google review page',
+      'The website could include a "Leave a Review" link in the footer or on a thank-you page after booking',
+      'Respond to negative reviews on Google — a thoughtful reply shows future customers you care and can turn a negative into a positive impression',
+      'Track recurring complaints from the feedback form and address them — fewer bad experiences = fewer bad reviews',
+    ],
+  },
+  {
+    title: 'Questions for Megan',
+    status: 'question',
+    items: [
+      'Prices: Are the current prices on the Schedule page accurate? Should we show pre-tax or tax-inclusive prices?',
+      'Skate rental: Is skate rental included in admission or is there a separate fee? If so, how much?',
+      'Special offers: The hero section has a placeholder "This Week\'s Special" — do you want to feature a real offer or remove this section?',
+      'Photos: Do you have high-quality photos of the rink interior, parties, or events we could use on the site? The current hero background could be upgraded',
+      'Social media: Are the Facebook, Instagram, and X links in the footer correct and active?',
+      'Domain: When you\'re ready, we can move the site to skatelandwest.com — do you have that domain or want to purchase it?',
+    ],
+  },
+]
+
+const statusColors: Record<NoteSection['status'], { bg: string; label: string }> = {
+  question: { bg: '#e3a008', label: 'Questions' },
+  suggestion: { bg: '#2563eb', label: 'Suggestion' },
+  guideline: { bg: '#16a34a', label: 'Guidelines' },
+}
+
+export const AdminNotes: React.FC = () => {
+  const [expanded, setExpanded] = useState(false)
+
+  return (
+    <div
+      style={{
+        marginTop: '1rem',
+        border: '1px solid var(--theme-elevation-200)',
+        borderRadius: '8px',
+        overflow: 'hidden',
+      }}
+    >
+      <button
+        onClick={() => setExpanded(!expanded)}
+        style={{
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '1rem 1.5rem',
+          background: 'var(--theme-elevation-50)',
+          border: 'none',
+          cursor: 'pointer',
+          fontSize: '1.1rem',
+          fontWeight: 'bold',
+          color: 'var(--theme-text)',
+        }}
+      >
+        <span>Notes &amp; Suggestions from Buford</span>
+        {expanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+      </button>
+
+      {expanded && (
+        <div style={{ padding: '1.5rem' }}>
+          <p style={{ marginTop: 0, color: 'var(--theme-elevation-600)', fontSize: '0.9rem' }}>
+            Questions, suggestions, and guidelines for the website. Updated as new items come up.
+          </p>
+
+          {notes.map((section, i) => {
+            const status = statusColors[section.status]
+            return (
+              <div
+                key={i}
+                style={{
+                  marginBottom: '1.5rem',
+                  paddingBottom: '1.5rem',
+                  borderBottom:
+                    i < notes.length - 1 ? '1px solid var(--theme-elevation-150)' : 'none',
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.75rem',
+                    marginBottom: '0.5rem',
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: '0.7rem',
+                      fontWeight: 'bold',
+                      color: 'white',
+                      background: status.bg,
+                      padding: '2px 8px',
+                      borderRadius: '4px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                    }}
+                  >
+                    {status.label}
+                  </span>
+                  <strong style={{ fontSize: '1rem' }}>{section.title}</strong>
+                </div>
+                <ul style={{ margin: 0, paddingLeft: '1.25rem' }}>
+                  {section.items.map((item, j) => (
+                    <li
+                      key={j}
+                      style={{
+                        fontSize: '0.9rem',
+                        marginBottom: '0.35rem',
+                        color: 'var(--theme-elevation-800)',
+                        lineHeight: '1.4',
+                      }}
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}

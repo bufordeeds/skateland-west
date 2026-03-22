@@ -4,6 +4,7 @@ import React from 'react'
 import './index.scss'
 import { RefreshHomeButton } from './RefreshHomeButton'
 import { Changelog } from './Changelog'
+import { AdminNotes } from './AdminNotes'
 
 const baseClass = 'before-dashboard'
 
@@ -125,6 +126,7 @@ const BeforeDashboard: React.FC = () => {
         <li>Your changes will be live on the website!</li>
       </ol>
 
+      <AdminNotes />
       <Changelog />
     </div>
   )
