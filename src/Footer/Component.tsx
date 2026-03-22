@@ -116,7 +116,6 @@ export async function Footer() {
                         {...link}
                       >
                         <span className="w-0 h-0.5 bg-primary group-hover:w-4 transition-all duration-300"></span>
-                        {link.label}
                       </CMSLink>
                     </li>
                   ))}
