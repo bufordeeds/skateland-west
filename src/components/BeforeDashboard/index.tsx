@@ -3,6 +3,7 @@ import React from 'react'
 
 import './index.scss'
 import { RefreshHomeButton } from './RefreshHomeButton'
+import { Changelog } from './Changelog'
 
 const baseClass = 'before-dashboard'
 
@@ -15,6 +16,50 @@ const BeforeDashboard: React.FC = () => {
 
       <div
         style={{
+          background: 'var(--theme-elevation-100)',
+          padding: '1.25rem 1.5rem',
+          borderRadius: '8px',
+          marginBottom: '1.5rem',
+          border: '1px solid var(--theme-elevation-200)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '1rem',
+        }}
+      >
+        <div>
+          <p style={{ margin: 0, fontSize: '1rem' }}>
+            Website built by <strong>Buford Eeds</strong> &mdash;{' '}
+            <a href="mailto:hello@buford.dev">hello@buford.dev</a>
+            {' '}&middot;{' '}
+            <a href="tel:2103253989">(210) 325-3989</a>
+          </p>
+        </div>
+        <a
+          href="https://calendar.app.google/qvUAdGKuThEce21g7"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '8px 16px',
+            background: 'var(--theme-elevation-800)',
+            color: 'var(--theme-elevation-0)',
+            borderRadius: '6px',
+            textDecoration: 'none',
+            fontWeight: 'bold',
+            fontSize: '0.9rem',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          Book a Support Session &rarr;
+        </a>
+      </div>
+
+      <div
+        style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -24,8 +69,7 @@ const BeforeDashboard: React.FC = () => {
         }}
       >
         <p style={{ fontSize: '1.1rem', margin: 0, flex: 1 }}>
-          Hi there! I&apos;m <strong>Buford Eeds</strong>, and I built this website for you. This
-          admin panel is where you can manage all your website content.
+          This admin panel is where you can manage all your website content.
         </p>
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
           <RefreshHomeButton />
@@ -81,52 +125,7 @@ const BeforeDashboard: React.FC = () => {
         <li>Your changes will be live on the website!</li>
       </ol>
 
-      <div
-        style={{
-          background: 'var(--theme-elevation-100)',
-          padding: '1.5rem',
-          borderRadius: '8px',
-          marginTop: '2rem',
-          border: '1px solid var(--theme-elevation-200)',
-        }}
-      >
-        <h3 style={{ marginTop: 0 }}>Need Help or Want New Features?</h3>
-        <p>
-          If you have any questions, need support, or want to add new features to your website,
-          don&apos;t hesitate to reach out!
-        </p>
-        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-          <li style={{ marginBottom: '0.5rem' }}>
-            <strong>Contact:</strong> Buford Eeds
-          </li>
-          <li style={{ marginBottom: '0.5rem' }}>
-            <strong>Email:</strong> <a href="mailto:hello@buford.dev">hello@buford.dev</a>
-          </li>
-          <li style={{ marginBottom: '0.5rem' }}>
-            <strong>Phone:</strong> <a href="tel:2103253989">(210) 325-3989</a>
-          </li>
-        </ul>
-        <a
-          href="https://calendar.app.google/qvUAdGKuThEce21g7"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            padding: '10px 20px',
-            background: 'var(--theme-elevation-800)',
-            color: 'var(--theme-elevation-0)',
-            borderRadius: '6px',
-            textDecoration: 'none',
-            fontWeight: 'bold',
-            fontSize: '0.95rem',
-            marginTop: '1rem',
-          }}
-        >
-          Book a Support Session &rarr;
-        </a>
-      </div>
+      <Changelog />
     </div>
   )
 }
