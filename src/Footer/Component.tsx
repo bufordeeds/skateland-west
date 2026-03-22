@@ -112,11 +112,9 @@ export async function Footer() {
                   {navItems.slice(0, 5).map(({ link }, i) => (
                     <li key={i}>
                       <CMSLink
-                        className="text-muted-foreground hover:text-primary transition-colors font-medium group flex items-center gap-2"
+                        className="text-muted-foreground hover:text-primary transition-colors font-medium"
                         {...link}
-                      >
-                        <span className="w-0 h-0.5 bg-primary group-hover:w-4 transition-all duration-300"></span>
-                      </CMSLink>
+                      />
                     </li>
                   ))}
                 </ul>

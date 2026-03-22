@@ -78,7 +78,7 @@ export const ServicesCards: React.FC<Props> = ({ title, subtitle, cards }) => {
           {cards?.map((card, index) => (
             <Card
               key={index}
-              className="hover:shadow-lg transition-shadow cursor-pointer h-full"
+              className="hover:shadow-lg transition-shadow cursor-pointer h-full flex flex-col"
             >
               <CardHeader className="text-center pb-4">
                 <div
@@ -89,20 +89,19 @@ export const ServicesCards: React.FC<Props> = ({ title, subtitle, cards }) => {
                   {(() => {
                     const Icon = ICON_MAP[card.icon]
                     if (Icon) return <Icon className="w-6 h-6 text-primary" />
-                    // Fallback: render as text (handles legacy emoji values)
                     return <span className="text-2xl">{card.icon}</span>
                   })()}
                 </div>
                 <CardTitle className="text-lg">{card.title}</CardTitle>
                 <CardDescription>{card.description}</CardDescription>
               </CardHeader>
-              <CardContent className="text-center">
+              <CardContent className="text-center mt-auto">
                 <ul className="text-sm text-muted-foreground space-y-1 mb-4">
                   {card.features?.map((feature, idx) => (
                     <li key={idx}>• {typeof feature === 'string' ? feature : feature.feature}</li>
                   ))}
                 </ul>
-                <Button variant="outline" size="sm" className="w-full" asChild>
+                <Button variant="outline" size="sm" className="w-full hover:bg-primary hover:text-primary-foreground" asChild>
                   <Link href={card.buttonUrl || '#'}>
                     {card.buttonText}
                   </Link>
