@@ -44,9 +44,9 @@ export async function Footer() {
                 <Image
                   src="/skateland-logo.png"
                   alt=""
-                  width={48}
+                  width={56}
                   height={48}
-                  className="size-12 rounded-full shadow-lg"
+                  className="h-12 w-auto"
                 />
                 <div>
                   <span className="font-black text-xl">{SITE_CONFIG.name}</span>

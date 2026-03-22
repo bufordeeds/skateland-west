@@ -97,8 +97,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                 src="/skateland-logo.png"
                 alt=""
                 width={40}
-                height={40}
-                className="size-9 lg:size-10 rounded-full shadow-md transform group-hover:scale-110 transition-all duration-300"
+                height={34}
+                className="h-9 lg:h-10 w-auto transform group-hover:scale-110 transition-all duration-300"
               />
               <span className="font-black text-base lg:text-lg text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]">
                 {SITE_CONFIG.name}
