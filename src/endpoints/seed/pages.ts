@@ -58,6 +58,15 @@ const richTextRoot = (children: any[]) => ({
     version: 1,
   },
 })
+const link = (url: string, children: any[]) => ({
+  type: 'link' as const,
+  version: 3,
+  fields: { linkType: 'custom' as const, url },
+  children,
+  direction: 'ltr' as const,
+  format: '' as const,
+  indent: 0,
+})
 
 // Real schedule data from old site
 const SCHEDULE_DATA = [
@@ -66,7 +75,7 @@ const SCHEDULE_DATA = [
     hours: '2:00 - 6:00 PM',
     title: 'Sunday Public Skating',
     description: 'Bring the whole family for an afternoon of skating fun.',
-    price: '$10.16*',
+    price: '$10.16',
     icon: 'users',
   },
   {
@@ -96,9 +105,9 @@ const SCHEDULE_DATA = [
   {
     day: 'Thursday',
     hours: '6:00 - 9:00 PM',
-    title: 'Throwback Thursday',
-    description: 'An evening session with the best throwback jams.',
-    price: '$7.34*',
+    title: 'Family Night Thursday',
+    description: 'Family Night! One parent per child just $1.00 (must enter with child).',
+    price: '$7.39',
     icon: 'music',
   },
   {
@@ -106,7 +115,7 @@ const SCHEDULE_DATA = [
     hours: '6:00 - 10:30 PM',
     title: 'Friday Night Skate',
     description: 'The biggest night of the week! DJ, lights, and nonstop fun.',
-    price: '$12.01*',
+    price: '$12.01',
     highlight: true,
     icon: 'sparkles',
   },
@@ -162,6 +171,7 @@ const FAQ_ITEMS = [
   {
     q: 'Can I rent Skateland West privately?',
     a: 'Yes! We offer Exclusive Events on select days. Check our Private Events page for more info.',
+    richA: [text('Yes! We offer Exclusive Events on select days. Check our '), link('/private-events', [text('Private Events page')]), text(' for more info.')],
   },
   {
     q: 'How far in advance do I need to make party reservations?',
@@ -407,13 +417,6 @@ export const seedPages = async (payload: Payload): Promise<void> => {
       },
       layout: [
         {
-          blockType: 'heroSection',
-          blockName: 'Hero',
-          title: 'Plan Your Visit',
-          subtitle: 'Check our schedule and admission prices',
-          backgroundImage: MEDIA.rinkCenter,
-        },
-        {
           blockType: 'scheduleCards',
           blockName: 'Schedule',
           title: 'Public Skating Sessions',
@@ -428,32 +431,25 @@ export const seedPages = async (payload: Payload): Promise<void> => {
               size: 'half',
               richText: richTextRoot([
                 heading('h2', 'Admission Prices'),
-                paragraph([boldText('Sunday:'), text(' $10.16*')]),
-                paragraph([boldText('Thursday:'), text(' $7.34*')]),
-                paragraph([boldText('Friday:'), text(' $12.01*')]),
-                paragraph([boldText('Saturday:'), text(' $12.01')]),
+                paragraph([boldText('Sunday (2:00-6:00 PM):'), text(' $10.16')]),
+                paragraph([boldText('Thursday (6:00-9:00 PM):'), text(' $7.39 — Family Night')]),
+                paragraph([boldText('Friday (6:00-10:30 PM):'), text(' $12.01')]),
+                paragraph([boldText('Saturday (2:00-10:30 PM):'), text(' $12.01')]),
                 paragraph([boldText('Skate Lessons (Saturday 1:30-2:00 PM):'), text(' $15.00')]),
                 paragraph([boldText('Non-Skating Parents:'), text(' $5.00 (must enter with child)')]),
-                paragraph([text('*Plus State Sales Tax')]),
+                paragraph([boldText('All prices include tax.')]),
               ]),
             },
             {
               size: 'half',
               richText: richTextRoot([
-                heading('h2', 'Important Policies'),
-                paragraph([boldText('Payment: Cash Only!')]),
-                paragraph([text('No refunds on admission.')]),
-                paragraph([
-                  text(
-                    'Skate rental sizes: Juvenile 7 to Adult 15. Bring your own skates — all regular roller skates and inline skates welcome (must be safe and clean).',
-                  ),
-                ]),
-                paragraph([
-                  text(
-                    'No heely-type skates, hover boards, skateboards, or other non-approved equipment.',
-                  ),
-                ]),
-                paragraph([text('Prices and times subject to change without notice.')]),
+                heading('h2', 'Policies'),
+                paragraph([boldText('Payment: Cash Only!'), text(' No refunds.')]),
+                paragraph([boldText('Saturday after 6 PM:'), text(' everyone pays.')]),
+                paragraph([boldText('Thursday Family Night:'), text(' one parent per child $1.00 (must enter with child).')]),
+                paragraph([text('Possible blackout during session — glow items will be needed.')]),
+                paragraph([boldText('Skate rental:'), text(' Juvenile size 7 to Adult size 15. Bring your own skates — all regular roller skates and inline skates welcome (must be safe and clean).')]),
+                paragraph([text('Prices and times subject to change without notice. See our '), link('/pricing', [text('Pricing page')]), text(' for full details.')]),
               ]),
             },
           ],
@@ -494,13 +490,6 @@ export const seedPages = async (payload: Payload): Promise<void> => {
         richText: richTextRoot([heading('h1', 'Birthday Parties')]),
       },
       layout: [
-        {
-          blockType: 'heroSection',
-          blockName: 'Hero',
-          title: 'Birthday Parties',
-          subtitle: 'Create unforgettable memories with a skating party!',
-          backgroundImage: MEDIA.partyRoom3,
-        },
         {
           blockType: 'partyPackages',
           blockName: 'Public Packages',
@@ -631,13 +620,6 @@ export const seedPages = async (payload: Payload): Promise<void> => {
         richText: richTextRoot([heading('h1', 'Private Events')]),
       },
       layout: [
-        {
-          blockType: 'heroSection',
-          blockName: 'Hero',
-          title: 'Private Events',
-          subtitle: 'Rent the entire rink for your special occasion',
-          backgroundImage: MEDIA.rinkRightSide,
-        },
         {
           blockType: 'partyPackages',
           blockName: 'Private Packages',
@@ -770,13 +752,6 @@ export const seedPages = async (payload: Payload): Promise<void> => {
       },
       layout: [
         {
-          blockType: 'heroSection',
-          blockName: 'Hero',
-          title: 'Learn to Skate',
-          subtitle: 'Lessons every Saturday for all ages and abilities',
-          backgroundImage: MEDIA.jamSkates,
-        },
-        {
           blockType: 'content',
           blockName: 'Lesson Info',
           columns: [
@@ -862,13 +837,6 @@ export const seedPages = async (payload: Payload): Promise<void> => {
         richText: richTextRoot([heading('h1', 'About Skateland West')]),
       },
       layout: [
-        {
-          blockType: 'heroSection',
-          blockName: 'Hero',
-          title: 'About Skateland West',
-          subtitle: "San Antonio's #1 Roller Skating Rink",
-          backgroundImage: MEDIA.skateCounter2,
-        },
         {
           blockType: 'content',
           blockName: 'Welcome',
@@ -1043,20 +1011,13 @@ export const seedPages = async (payload: Payload): Promise<void> => {
       },
       layout: [
         {
-          blockType: 'heroSection',
-          blockName: 'Hero',
-          title: 'Frequently Asked Questions',
-          subtitle: 'Everything you need to know before your visit',
-          backgroundImage: MEDIA.rinkCenter,
-        },
-        {
           blockType: 'content',
           blockName: 'FAQ',
           columns: [
             {
               size: 'full',
               richText: richTextRoot(
-                FAQ_ITEMS.flatMap(({ q, a }) => [heading('h3', q), paragraph([text(a)])]),
+                FAQ_ITEMS.flatMap((item) => [heading('h3', item.q), paragraph(item.richA || [text(item.a)])]),
               ),
             },
           ],
@@ -1098,13 +1059,6 @@ export const seedPages = async (payload: Payload): Promise<void> => {
       },
       layout: [
         {
-          blockType: 'heroSection',
-          blockName: 'Hero',
-          title: 'Get In Touch',
-          subtitle: "We're here to help you plan your visit",
-          backgroundImage: MEDIA.rinkFront,
-        },
-        {
           blockType: 'content',
           blockName: 'Contact Info',
           columns: [
@@ -1133,9 +1087,9 @@ export const seedPages = async (payload: Payload): Promise<void> => {
                 paragraph([boldText('Payment: Cash Only!')]),
                 paragraph([text('No personal checks.')]),
                 paragraph([
-                  text(
-                    'Prices and times subject to change without notice. Check our Schedule page for current hours.',
-                  ),
+                  text('Prices and times subject to change without notice. Check our '),
+                  link('/schedule', [text('Schedule page')]),
+                  text(' for current hours.'),
                 ]),
               ]),
             },
@@ -1178,13 +1132,6 @@ export const seedPages = async (payload: Payload): Promise<void> => {
       },
       layout: [
         {
-          blockType: 'heroSection',
-          blockName: 'Hero',
-          title: 'Admission & Pricing',
-          subtitle: 'Affordable fun for the whole family',
-          backgroundImage: MEDIA.cafeMain,
-        },
-        {
           blockType: 'content',
           blockName: 'Admission Prices',
           columns: [
@@ -1192,13 +1139,13 @@ export const seedPages = async (payload: Payload): Promise<void> => {
               size: 'half',
               richText: richTextRoot([
                 heading('h2', 'Public Skating Admission'),
-                paragraph([boldText('Sunday (2:00-6:00 PM):'), text(' $10.16*')]),
-                paragraph([boldText('Thursday (6:00-9:00 PM):'), text(' $7.34*')]),
-                paragraph([boldText('Friday (6:00-10:30 PM):'), text(' $12.01*')]),
+                paragraph([boldText('Sunday (2:00-6:00 PM):'), text(' $10.16')]),
+                paragraph([boldText('Thursday (6:00-9:00 PM):'), text(' $7.39 — Family Night')]),
+                paragraph([boldText('Friday (6:00-10:30 PM):'), text(' $12.01')]),
                 paragraph([boldText('Saturday (2:00-10:30 PM):'), text(' $12.01')]),
                 paragraph([boldText('Skate Lessons (Sat 1:30-2:00 PM):'), text(' $15.00')]),
                 paragraph([boldText('Non-Skating Parents:'), text(' $5.00 (must enter with child)')]),
-                paragraph([text('*Plus State Sales Tax')]),
+                paragraph([boldText('All prices include tax.')]),
               ]),
             },
             {
@@ -1272,7 +1219,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
       meta: {
         title: 'Pricing',
         description:
-          'Skateland West admission prices, skate rental info, and snack bar menu. Affordable family fun in San Antonio — sessions from $7.34.',
+          'Skateland West admission prices, skate rental info, and snack bar menu. Affordable family fun in San Antonio — sessions from $7.39.',
         image: MEDIA.cafeMain,
       },
   })

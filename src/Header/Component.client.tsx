@@ -19,6 +19,7 @@ interface HeaderClientProps {
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   const [theme, setTheme] = useState<string | null>(null)
   const [scrolled, setScrolled] = useState(false)
+  const [todayHours, setTodayHours] = useState<{ hours: string; isOpen: boolean } | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
 
@@ -29,6 +30,14 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   useEffect(() => {
     if (headerTheme && headerTheme !== theme) setTheme(headerTheme)
   }, [headerTheme, theme])
+
+  useEffect(() => {
+    const dayName = new Date()
+      .toLocaleDateString('en-US', { weekday: 'long' })
+      .toLowerCase() as keyof typeof SITE_CONFIG.hours
+    const hours = SITE_CONFIG.hours[dayName]
+    setTodayHours({ hours, isOpen: hours !== 'Private Parties Only' })
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,7 +66,15 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
             </div>
             <div className="flex items-center gap-2">
               <Clock className="size-3" />
-              <span className="font-medium">Open Today: Check Schedule</span>
+              {todayHours ? (
+                todayHours.isOpen ? (
+                  <span className="font-medium">Open Today: {todayHours.hours}</span>
+                ) : (
+                  <span className="font-medium">Private Parties Only Today</span>
+                )
+              ) : (
+                <span className="font-medium">Open Today: Check Schedule</span>
+              )}
             </div>
           </div>
         </div>
