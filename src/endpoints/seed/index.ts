@@ -311,13 +311,11 @@ export const seed = async ({
       slug: 'footer',
       data: {
         navItems: [
-          {
-            link: {
-              type: 'custom',
-              label: 'Admin',
-              url: '/admin',
-            },
-          },
+          { link: { type: 'custom', label: 'Plan Visit', url: '/schedule' } },
+          { link: { type: 'custom', label: 'Birthday Parties', url: '/birthday-parties' } },
+          { link: { type: 'custom', label: 'Learn to Skate', url: '/learn-to-skate' } },
+          { link: { type: 'custom', label: 'Pricing', url: '/pricing' } },
+          { link: { type: 'custom', label: 'Contact', url: '/contact' } },
         ],
       },
     }),

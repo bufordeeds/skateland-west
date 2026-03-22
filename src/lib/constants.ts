@@ -33,8 +33,9 @@ export const SITE_CONFIG = {
 
 export const NAVIGATION_ITEMS = [
   { label: "Plan Visit", href: "/schedule" },
+  { label: "Pricing", href: "/pricing" },
   { label: "Birthday Parties", href: "/birthday-parties" },
   { label: "Private Events", href: "/private-events" },
-  { label: "Learn to Skate", href: "/learn-to-skate" },
-  { label: "About", href: "/about" }
+  { label: "FAQ", href: "/faq" },
+  { label: "About", href: "/about" },
 ] as const
