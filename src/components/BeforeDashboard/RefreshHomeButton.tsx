@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { RefreshCw } from 'lucide-react'
 
 export const RefreshHomeButton: React.FC = () => {
   const [loading, setLoading] = useState(false)
@@ -46,7 +47,8 @@ export const RefreshHomeButton: React.FC = () => {
           whiteSpace: 'nowrap',
         }}
       >
-        {loading ? 'Updating...' : '🔄 Refresh Home + Reviews'}
+        <RefreshCw size={16} className={loading ? 'animate-spin' : ''} />
+        {loading ? 'Updating...' : 'Refresh Home + Reviews'}
       </button>
       {message && (
         <span style={{ fontSize: '0.8rem', color: message.startsWith('Error') ? 'red' : 'green' }}>

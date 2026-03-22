@@ -8,6 +8,25 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import {
+  Cake,
+  PartyPopper,
+  Snowflake,
+  ShoppingBag,
+  UtensilsCrossed,
+  Gamepad2,
+  HelpCircle,
+  type LucideIcon,
+} from 'lucide-react'
+
+const ICON_MAP: Record<string, LucideIcon> = {
+  cake: Cake,
+  'party-popper': PartyPopper,
+  snowflake: Snowflake,
+  'shopping-bag': ShoppingBag,
+  'utensils-crossed': UtensilsCrossed,
+  gamepad: Gamepad2,
+}
 
 type ServiceCard = {
   icon: string
@@ -63,9 +82,14 @@ export const ServicesCards: React.FC<Props> = ({ title, subtitle, cards }) => {
                 <div
                   className={`mx-auto w-12 h-12 ${getColorClass(
                     card.color
-                  )} rounded-full flex items-center justify-center mb-4 text-2xl`}
+                  )} rounded-full flex items-center justify-center mb-4`}
                 >
-                  {card.icon}
+                  {(() => {
+                    const Icon = ICON_MAP[card.icon]
+                    if (Icon) return <Icon className="w-6 h-6 text-primary" />
+                    // Fallback: render as text (handles legacy emoji values)
+                    return <span className="text-2xl">{card.icon}</span>
+                  })()}
                 </div>
                 <CardTitle className="text-lg">{card.title}</CardTitle>
                 <CardDescription>{card.description}</CardDescription>

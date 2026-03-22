@@ -267,7 +267,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
           subtitle: 'More than just skating',
           cards: [
             {
-              icon: '🎂',
+              icon: 'cake',
               title: 'Birthday Parties',
               description:
                 'Celebrate with a skating party! Multiple packages available for public and private events.',
@@ -282,7 +282,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
               color: 'primary',
             },
             {
-              icon: '🎉',
+              icon: 'party-popper',
               title: 'Private Events',
               description:
                 'Rent the entire rink for your group. Perfect for corporate events, church groups, and special occasions.',
@@ -296,7 +296,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
               color: 'secondary',
             },
             {
-              icon: '⛸️',
+              icon: 'snowflake',
               title: 'Learn to Skate',
               description:
                 'Lessons every Saturday from 1:30-2:00 PM for all ages and abilities.',
@@ -310,7 +310,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
               color: 'accent',
             },
             {
-              icon: '👟',
+              icon: 'shopping-bag',
               title: 'Skate Sales',
               description:
                 'We stock Sure-Grip and Riedell skates. Other brands available upon request.',
@@ -324,7 +324,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
               color: 'primary',
             },
             {
-              icon: '🍕',
+              icon: 'utensils-crossed',
               title: 'Snack Bar',
               description:
                 'Fuel up with our full snack bar! Slushies, pizza, hot dogs, nachos, and more.',
@@ -339,7 +339,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
               color: 'secondary',
             },
             {
-              icon: '🕹️',
+              icon: 'gamepad',
               title: 'Arcade & Games',
               description:
                 'Take a break from skating and enjoy our arcade with air hockey, foosball, and video games.',

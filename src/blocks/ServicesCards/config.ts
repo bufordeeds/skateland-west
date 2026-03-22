@@ -23,13 +23,18 @@ export const ServicesCards: Block = {
       fields: [
         {
           name: 'icon',
-          type: 'text',
-          label: 'Icon (Emoji)',
+          type: 'select',
+          label: 'Icon',
           required: true,
-          defaultValue: '🎉',
-          admin: {
-            placeholder: 'Enter an emoji like 🎉',
-          },
+          defaultValue: 'party-popper',
+          options: [
+            { label: 'Cake (Birthday)', value: 'cake' },
+            { label: 'Party Popper (Events)', value: 'party-popper' },
+            { label: 'Snowflake (Skating)', value: 'snowflake' },
+            { label: 'Shopping Bag (Sales)', value: 'shopping-bag' },
+            { label: 'Utensils (Food)', value: 'utensils-crossed' },
+            { label: 'Gamepad (Arcade)', value: 'gamepad' },
+          ],
         },
         {
           name: 'title',
