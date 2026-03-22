@@ -13,7 +13,7 @@ type ServiceCard = {
   icon: string
   title: string
   description: string
-  features: string[]
+  features: (string | { id?: string; feature: string })[]
   buttonText: string
   buttonUrl: string
   color?: 'primary' | 'secondary' | 'accent'
@@ -73,7 +73,7 @@ export const ServicesCards: React.FC<Props> = ({ title, subtitle, cards }) => {
               <CardContent className="text-center">
                 <ul className="text-sm text-muted-foreground space-y-1 mb-4">
                   {card.features?.map((feature, idx) => (
-                    <li key={idx}>• {feature}</li>
+                    <li key={idx}>• {typeof feature === 'string' ? feature : feature.feature}</li>
                   ))}
                 </ul>
                 <Button variant="outline" size="sm" className="w-full" asChild>

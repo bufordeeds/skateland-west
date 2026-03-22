@@ -16,7 +16,7 @@ type Package = {
   duration: string
   guests: number
   featured?: boolean
-  features: string[]
+  features: (string | { id?: string; feature: string })[]
   buttonText?: string
   buttonUrl?: string
 }
@@ -77,7 +77,7 @@ export const PartyPackages: React.FC<Props> = ({ title, subtitle, packages }) =>
                   {pkg.features?.map((feature, idx) => (
                     <li key={idx} className="flex items-start gap-2 text-sm">
                       <span className="text-primary mt-1 flex-shrink-0">✓</span>
-                      <span>{feature}</span>
+                      <span>{typeof feature === 'string' ? feature : feature.feature}</span>
                     </li>
                   ))}
                 </ul>
