@@ -8,7 +8,6 @@ import {
   Phone,
   Mail,
   Clock,
-  Star,
 } from 'lucide-react'
 
 import type { Footer } from '@/payload-types'
@@ -48,16 +47,7 @@ export async function Footer() {
                   height={48}
                   className="h-12 w-auto"
                 />
-                <div>
-                  <span className="font-black text-xl">{SITE_CONFIG.name}</span>
-                  <div className="flex items-center gap-1">
-                    <Star className="size-3 fill-primary text-primary" />
-                    <Star className="size-3 fill-primary text-primary" />
-                    <Star className="size-3 fill-primary text-primary" />
-                    <Star className="size-3 fill-primary text-primary" />
-                    <span className="text-xs text-muted-foreground ml-1">4.2/5</span>
-                  </div>
-                </div>
+                <span className="font-black text-xl">{SITE_CONFIG.name}</span>
               </div>
 
               <p className="text-muted-foreground">
