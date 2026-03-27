@@ -75,7 +75,7 @@ const SCHEDULE_DATA = [
     hours: '2:00 - 6:00 PM',
     title: 'Sunday Public Skating',
     description: 'Bring the whole family for an afternoon of skating fun.',
-    price: '$10.16',
+    price: '$11',
     icon: 'users',
   },
   {
@@ -107,7 +107,7 @@ const SCHEDULE_DATA = [
     hours: '6:00 - 9:00 PM',
     title: 'Family Night Thursday',
     description: 'Family Night! One parent per child just $1.00 (must enter with child).',
-    price: '$7.39',
+    price: '$8',
     icon: 'music',
   },
   {
@@ -115,7 +115,7 @@ const SCHEDULE_DATA = [
     hours: '6:00 - 10:30 PM',
     title: 'Friday Night Skate',
     description: 'The biggest night of the week! DJ, lights, and nonstop fun.',
-    price: '$12.01',
+    price: '$13',
     highlight: true,
     icon: 'sparkles',
   },
@@ -124,7 +124,7 @@ const SCHEDULE_DATA = [
     hours: '2:00 - 10:30 PM',
     title: 'All-Day Saturday',
     description: 'Our longest session — skate all day and into the night!',
-    price: '$12.01',
+    price: '$13',
     special: 'Lessons 1:30-2:00 PM ($15)',
     icon: 'star',
   },
@@ -1120,10 +1120,10 @@ export const seedPages = async (payload: Payload): Promise<void> => {
               size: 'half',
               richText: richTextRoot([
                 heading('h2', 'Public Skating Admission'),
-                paragraph([boldText('Sunday (2:00-6:00 PM):'), text(' $10.16')]),
-                paragraph([boldText('Thursday (6:00-9:00 PM):'), text(' $7.39 — Family Night')]),
-                paragraph([boldText('Friday (6:00-10:30 PM):'), text(' $12.01')]),
-                paragraph([boldText('Saturday (2:00-10:30 PM):'), text(' $12.01')]),
+                paragraph([boldText('Sunday (2:00-6:00 PM):'), text(' $11')]),
+                paragraph([boldText('Thursday (6:00-9:00 PM):'), text(' $8 — Family Night')]),
+                paragraph([boldText('Friday (6:00-10:30 PM):'), text(' $13')]),
+                paragraph([boldText('Saturday (2:00-10:30 PM):'), text(' $13')]),
                 paragraph([boldText('Skate Lessons (Sat 1:30-2:00 PM):'), text(' $15.00')]),
                 paragraph([boldText('Non-Skating Parents:'), text(' $5.00 (must enter with child)')]),
                 paragraph([boldText('All prices include tax.')]),
@@ -1198,7 +1198,7 @@ export const seedPages = async (payload: Payload): Promise<void> => {
       meta: {
         title: 'Pricing',
         description:
-          'Skateland West admission prices, skate rental info, and snack bar menu. Affordable family fun in San Antonio — sessions from $7.39.',
+          'Skateland West admission prices, skate rental info, and snack bar menu. Affordable family fun in San Antonio — sessions from $8.',
         image: MEDIA.cafeMain,
       },
   })

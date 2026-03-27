@@ -1,4 +1,5 @@
 import React from 'react'
+import { Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
@@ -76,7 +77,7 @@ export const PartyPackages: React.FC<Props> = ({ title, subtitle, packages }) =>
                 <ul className="space-y-2 mb-6 flex-grow">
                   {pkg.features?.map((feature, idx) => (
                     <li key={idx} className="flex items-start gap-2 text-sm">
-                      <span className="text-primary mt-1 flex-shrink-0">✓</span>
+                      <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                       <span>{typeof feature === 'string' ? feature : feature.feature}</span>
                     </li>
                   ))}

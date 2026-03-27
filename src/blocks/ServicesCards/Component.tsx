@@ -17,6 +17,7 @@ import {
   Gamepad2,
   GraduationCap,
   HelpCircle,
+  Check,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -87,9 +88,8 @@ export const ServicesCards: React.FC<Props> = ({ title, subtitle, cards }) => {
                   )} rounded-full flex items-center justify-center mb-4`}
                 >
                   {(() => {
-                    const Icon = ICON_MAP[card.icon]
-                    if (Icon) return <Icon className="w-6 h-6 text-primary" />
-                    return <span className="text-2xl">{card.icon}</span>
+                    const Icon = ICON_MAP[card.icon] || HelpCircle
+                    return <Icon className="w-6 h-6 text-primary" />
                   })()}
                 </div>
                 <CardTitle className="text-lg">{card.title}</CardTitle>
@@ -98,7 +98,10 @@ export const ServicesCards: React.FC<Props> = ({ title, subtitle, cards }) => {
               <CardContent className="text-center mt-auto">
                 <ul className="text-sm text-muted-foreground space-y-1 mb-4">
                   {card.features?.map((feature, idx) => (
-                    <li key={idx}>• {typeof feature === 'string' ? feature : feature.feature}</li>
+                    <li key={idx} className="flex items-start gap-1.5">
+                      <Check className="w-3.5 h-3.5 text-primary mt-0.5 flex-shrink-0" />
+                      <span>{typeof feature === 'string' ? feature : feature.feature}</span>
+                    </li>
                   ))}
                 </ul>
                 <Button variant="outline" size="sm" className="w-full hover:bg-primary hover:text-primary-foreground" asChild>

@@ -473,7 +473,14 @@ export interface ServicesCardsBlock {
   subtitle?: string | null;
   cards?:
     | {
-        icon: string;
+        icon:
+          | 'cake'
+          | 'party-popper'
+          | 'snowflake'
+          | 'graduation-cap'
+          | 'shopping-bag'
+          | 'utensils-crossed'
+          | 'gamepad';
         title: string;
         description: string;
         features?:

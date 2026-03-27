@@ -24,7 +24,15 @@ const notes: NoteSection[] = [
     status: 'question',
     items: [
       'Turbify: What are the login credentials for your Turbify (Yahoo Small Business) account? We need access to unlock the domain and get the transfer authorization code.',
-      'Pricing display: The Schedule page currently shows tax-inclusive prices (e.g. $10.16 instead of $9.38 + tax). Do you prefer showing tax-inclusive numbers, or pre-tax prices with a note about tax?',
+    ],
+  },
+  {
+    title: 'Pricing Strategy (Resolved)',
+    status: 'guideline',
+    items: [
+      'Admission prices (cash at the door) are shown tax-inclusive and rounded: Sunday $11, Thursday $8, Friday $13, Saturday $13',
+      'Party package prices are shown pre-tax to match the PCS Party booking system, which adds 8.25% sales tax at checkout',
+      'Food add-on prices are also pre-tax to match PCS Party (e.g. pizza $15, hotdogs $3.50)',
     ],
   },
   {
