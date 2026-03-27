@@ -45,7 +45,7 @@ export const PartyPackages: React.FC<Props> = ({ title, subtitle, packages }) =>
           </div>
         )}
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl mx-auto">
           {packages?.map((pkg) => (
             <Card
               key={pkg.id}
@@ -61,7 +61,7 @@ export const PartyPackages: React.FC<Props> = ({ title, subtitle, packages }) =>
                 <CardDescription className="space-y-1">
                   <div>
                     <span className="text-3xl font-bold text-primary">
-                      ${pkg.price}
+                      ${pkg.price.toFixed(2)}
                     </span>
                     <span className="text-muted-foreground">
                       {' '}
