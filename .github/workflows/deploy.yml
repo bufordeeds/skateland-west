@@ -125,7 +125,7 @@ jobs:
             "docker pull '$MIGRATOR_IMAGE' && \
              docker run --rm \
                --env-file ~/projects/skateland-west/.env.production \
-               --network buford_internal \
+               --network internal \
                '$MIGRATOR_IMAGE' \
                pnpm run payload migrate"
 
