@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  # One CI run per ref. New pushes cancel in-progress runs for the same
+  # branch/PR so we don't queue up stale work.
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test (unit)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run unit tests
+        run: pnpm run test:unit
+
+  build:
+    name: Lint + typecheck + build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      # These mirror the dummy values baked into the Dockerfile so the
+      # Payload config can be imported and Next can build without touching
+      # a real database or storage. Overridden at runtime on the VPS.
+      POSTGRES_URL: postgresql://dummy:dummy@localhost:5432/dummy
+      PAYLOAD_SECRET: build-time-placeholder
+      NEXT_PUBLIC_SERVER_URL: https://skateland.buford.dev
+      NEXT_TELEMETRY_DISABLED: "1"
+      NEXT_BUILD_SKIP_DB: "true"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Typecheck
+        run: pnpm exec tsc --noEmit
+
+      - name: Build
+        run: pnpm run build
