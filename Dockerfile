@@ -30,6 +30,21 @@ ENV NEXT_BUILD_SKIP_DB=true
 
 RUN pnpm run build
 
+# Migrator stage: same base as the runner, but preserves the Payload CLI
+# and its transitive deps (cross-env, payload binary, tsx, etc) that the
+# Next standalone tracer strips out of the runner image. The deploy
+# workflow publishes this as a second tag (`:<sha>-migrator`) and runs it
+# as a one-off container to apply pending Payload migrations BEFORE the
+# live service container is swapped, so a failing migration aborts the
+# deploy instead of leaving a half-migrated DB.
+FROM base AS migrator
+WORKDIR /app
+ENV NODE_ENV=production
+COPY --from=deps /app/node_modules ./node_modules
+COPY package.json pnpm-lock.yaml tsconfig.json next.config.js ./
+COPY src ./src
+# No CMD — override via `docker run ... pnpm payload migrate`
+
 # Production image, copy all the files and run next
 FROM base AS runner
 WORKDIR /app

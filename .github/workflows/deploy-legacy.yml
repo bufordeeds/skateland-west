@@ -1,0 +1,33 @@
+name: Deploy (legacy, manual fallback)
+
+# Legacy deploy path: git pull + docker compose build on the VPS.
+# Retained as a manual fallback only. The primary deploy flow is
+# `deploy.yml`, which builds images on the runner, pushes to GHCR,
+# runs `payload migrate` as a one-off container, then swaps the live
+# service.
+#
+# Trigger this manually from the Actions tab when the primary flow
+# is broken and you need to force a deploy from `main`. It will do a
+# full `--no-cache` build on the VPS, which is slow but independent
+# of GHCR, the runner image pipeline, and the migrator image.
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-legacy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Deploy to VPS (git pull + docker compose build)
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} \
+            'cd ~/projects/skateland-west && git pull && cd ~ && docker compose build --no-cache skateland-west && docker compose up -d skateland-west'

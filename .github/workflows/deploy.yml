@@ -1,22 +1,152 @@
 name: Deploy
 
+# Primary deploy flow. Triggered by a successful CI run on main.
+#
+# Shape:
+#   1. Check out the EXACT SHA CI validated (not HEAD of main — prevents
+#      racing a newer commit past a validated one).
+#   2. Build + push two GHCR tags from that SHA:
+#        - ghcr.io/<repo>:<sha>            (target=runner, lean serving image)
+#        - ghcr.io/<repo>:latest           (retag of runner)
+#        - ghcr.io/<repo>:<sha>-migrator   (target=migrator, carries the
+#                                           Payload CLI + src for one-off
+#                                           migration runs)
+#   3. SSH into the VPS and run `pnpm run payload migrate` as a one-off
+#      container from the migrator image, joined to the internal network
+#      so it can reach Postgres. If migrate fails, the live container stays
+#      on the old image and the workflow aborts here — no half-migrated DB.
+#   4. Swap the live container via `docker compose pull skateland-west &&
+#      docker compose up -d skateland-west` against ~/docker-compose.yml on
+#      the VPS. The compose file must reference
+#      `image: ghcr.io/bufordeeds/skateland-west:latest` (see deploy-legacy
+#      doc for the fallback build-on-VPS path).
+#
+# The legacy build-on-VPS path lives in deploy-legacy.yml and stays
+# available as a manual fallback via workflow_dispatch.
+
 on:
-  push:
-    branches: [main]
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+    branches:
+      - main
 
 concurrency:
-  group: deploy-${{ github.ref }}
-  cancel-in-progress: true
+  # One deploy at a time, queued (not cancelled). Two back-to-back merges
+  # to main cause two sequential deploys — never a half-overwritten one.
+  group: deploy-main
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write # push to ghcr.io
 
 jobs:
   deploy:
+    name: Build, push, migrate, deploy
     runs-on: ubuntu-latest
+    # Only deploy if the triggering CI run actually succeeded. workflow_run
+    # also fires on failed runs, so this gate is mandatory.
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    timeout-minutes: 25
+    env:
+      REGISTRY: ghcr.io
+      IMAGE: ghcr.io/${{ github.repository }}
+      # The SHA that CI validated, not github.sha of this workflow run.
+      # workflow_run fires in the context of the default branch, so
+      # github.sha here is HEAD of main, which may already be newer.
+      DEPLOY_SHA: ${{ github.event.workflow_run.head_sha }}
+
     steps:
-      - name: Deploy to VPS
+      - name: Checkout at CI-validated SHA
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push runner image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          target: runner
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}:${{ github.event.workflow_run.head_sha }}
+            ghcr.io/${{ github.repository }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build and push migrator image
+        # Runs after the runner build so the `deps` and `builder` layers
+        # are already populated in the local builder cache; only the
+        # migrator-specific COPY layers are new work.
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          target: migrator
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}:${{ github.event.workflow_run.head_sha }}-migrator
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Set up SSH for VPS
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/deploy_key
+          printf '%s\n' "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
-            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} \
-            'cd ~/projects/skateland-west && git pull && cd ~ && docker compose build --no-cache skateland-west && docker compose up -d skateland-west'
+          printf '%s\n' "${{ secrets.VPS_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Run Payload migrations as a one-off container
+        # Pulls the migrator image, runs `pnpm run payload migrate` against
+        # the production DB via the internal docker network, then exits.
+        # `--rm` ensures the container is gone after. If migrate exits
+        # non-zero, this step fails the workflow and the next step (which
+        # would swap the live container) never runs.
+        env:
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          MIGRATOR_IMAGE: ghcr.io/${{ github.repository }}:${{ github.event.workflow_run.head_sha }}-migrator
+        run: |
+          set -euo pipefail
+          ssh -i ~/.ssh/deploy_key -o UserKnownHostsFile=~/.ssh/known_hosts \
+            "$VPS_USER@$VPS_HOST" \
+            "docker pull '$MIGRATOR_IMAGE' && \
+             docker run --rm \
+               --env-file ~/projects/skateland-west/.env.production \
+               --network buford_internal \
+               '$MIGRATOR_IMAGE' \
+               pnpm run payload migrate"
+
+      - name: Swap live container (compose pull + up -d)
+        env:
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+        run: |
+          set -euo pipefail
+          ssh -i ~/.ssh/deploy_key -o UserKnownHostsFile=~/.ssh/known_hosts \
+            "$VPS_USER@$VPS_HOST" \
+            "cd ~ && docker compose pull skateland-west && docker compose up -d skateland-west"
+
+      - name: Deploy summary
+        if: always()
+        run: |
+          {
+            echo "### Deploy summary"
+            echo ""
+            echo "- Validated SHA: \`${{ github.event.workflow_run.head_sha }}\`"
+            echo "- Runner image: \`ghcr.io/${{ github.repository }}:${{ github.event.workflow_run.head_sha }}\`"
+            echo "- Migrator image: \`ghcr.io/${{ github.repository }}:${{ github.event.workflow_run.head_sha }}-migrator\`"
+            echo "- Status: \`${{ job.status }}\`"
+          } >> "$GITHUB_STEP_SUMMARY"
