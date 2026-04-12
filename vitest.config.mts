@@ -7,6 +7,13 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
-    include: ['tests/int/**/*.int.spec.ts'],
+    include: [
+      // Integration tests — may boot Payload / talk to the DB. Run locally
+      // via `pnpm test:int`; not wired into CI because they require infra.
+      'tests/int/**/*.int.spec.ts',
+      // Pure-logic unit tests — safe to run anywhere. CI gate uses
+      // `pnpm test:unit`, which targets this glob only.
+      'tests/unit/**/*.unit.spec.ts',
+    ],
   },
 })
