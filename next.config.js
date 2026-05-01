@@ -9,6 +9,8 @@ const nextConfig = {
   output: 'standalone',
   images: {
     remotePatterns: [
+      { protocol: 'https', hostname: 'skateland.buford.dev' },
+      { protocol: 'https', hostname: 'media.buford.dev' },
       ...[NEXT_PUBLIC_SERVER_URL, process.env.S3_PUBLIC_URL].filter(Boolean).map((item) => {
         const url = new URL(item)
 
