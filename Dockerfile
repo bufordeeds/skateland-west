@@ -24,6 +24,8 @@ COPY . .
 ENV POSTGRES_URL=postgresql://dummy:dummy@localhost:5432/dummy
 ENV PAYLOAD_SECRET=build-time-placeholder
 ENV NEXT_PUBLIC_SERVER_URL=https://skateland.buford.dev
+# Turnstile site key is public (rendered in client HTML); inlined at build time.
+ENV NEXT_PUBLIC_TURNSTILE_SITE_KEY=0x4AAAAAADI5iv2BQq2r45sg
 
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NEXT_BUILD_SKIP_DB=true
