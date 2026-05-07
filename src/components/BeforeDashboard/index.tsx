@@ -31,8 +31,8 @@ const BeforeDashboard: React.FC = () => {
       >
         <div>
           <p style={{ margin: 0, fontSize: '1rem' }}>
-            Website built by <strong>Buford Eeds</strong> &mdash;{' '}
-            <a href="mailto:hello@buford.dev">hello@buford.dev</a>
+            Website built by <strong>Buford Eeds</strong> at <strong>Moss Creek Digital</strong> &mdash;{' '}
+            <a href="mailto:hello@mosscreekdigital.com">hello@mosscreekdigital.com</a>
             {' '}&middot;{' '}
             <a href="tel:2103253989">(210) 325-3989</a>
           </p>
