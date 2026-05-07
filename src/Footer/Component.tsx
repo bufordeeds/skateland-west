@@ -218,7 +218,9 @@ export async function Footer() {
                 © {currentYear} {SITE_CONFIG.name}. All rights reserved.
                 <span className="mx-2">•</span>
                 <a
-                  href="mailto:hello@mosscreekdigital.com?subject=Website%20Inquiry"
+                  href="https://mosscreekdigital.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:text-primary transition-colors"
                 >
                   Website by Moss Creek Digital
