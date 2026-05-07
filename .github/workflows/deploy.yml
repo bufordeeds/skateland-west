@@ -108,6 +108,26 @@ jobs:
           printf '%s\n' "${{ secrets.VPS_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
+      - name: Clear any stale GHCR creds on the VPS
+        # The skateland-west GHCR package is public, so the VPS pulls
+        # anonymously. But `docker pull` will NOT fall back to anonymous
+        # when ~/.docker/config.json contains a stored ghcr.io credential
+        # — it sends the stored token, and if the token has expired GHCR
+        # rejects with `denied`, killing the pull. (Bit us 2026-05-07
+        # when an old `ghs_*` token from a manual login expired.)
+        #
+        # Logging out preemptively guarantees subsequent pulls in this
+        # workflow go anonymous. Idempotent — `|| true` handles the
+        # already-logged-out case.
+        env:
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+        run: |
+          set -euo pipefail
+          ssh -i ~/.ssh/deploy_key -o UserKnownHostsFile=~/.ssh/known_hosts \
+            "$VPS_USER@$VPS_HOST" \
+            "docker logout ghcr.io >/dev/null 2>&1 || true"
+
       - name: Run Payload migrations as a one-off container
         # Pulls the migrator image, runs `pnpm run payload migrate` against
         # the production DB via the internal docker network, then exits.
