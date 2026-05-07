@@ -218,10 +218,10 @@ export async function Footer() {
                 © {currentYear} {SITE_CONFIG.name}. All rights reserved.
                 <span className="mx-2">•</span>
                 <a
-                  href="mailto:hello@buford.dev?subject=Website%20Inquiry"
+                  href="mailto:hello@mosscreekdigital.com?subject=Website%20Inquiry"
                   className="hover:text-primary transition-colors"
                 >
-                  Website by Buford Eeds
+                  Website by Moss Creek Digital
                 </a>
               </p>
               <div className="flex items-center gap-6">
