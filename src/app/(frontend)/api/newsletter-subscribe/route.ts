@@ -67,6 +67,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Captcha verification failed.' }, { status: 400 })
   }
 
+  // Captcha already verified. Any failure from here is a sink (Google Sheets,
+  // future Mailchimp, etc.) failure. Propagate it as a 502 so the user sees
+  // a real error instead of a false success — silently swallowing this is
+  // what MOS-60 was filed to fix.
   try {
     await appendSubscriber({
       name,
@@ -78,6 +82,10 @@ export async function POST(req: Request) {
     })
   } catch (err) {
     console.error('appendSubscriber failed:', err)
+    return NextResponse.json(
+      { error: "Couldn't save you right now — please try again in a minute." },
+      { status: 502 },
+    )
   }
 
   return NextResponse.json({ success: true })
