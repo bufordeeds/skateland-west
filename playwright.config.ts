@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test'
 
 import 'dotenv/config'
 
-const baseURL = process.env.PLAYWRIGHT_BASE_URL || 'https://skateland.buford.dev'
+const baseURL = process.env.PLAYWRIGHT_BASE_URL || 'https://myskatelandwest.com'
 
 export default defineConfig({
   testDir: './tests/e2e',

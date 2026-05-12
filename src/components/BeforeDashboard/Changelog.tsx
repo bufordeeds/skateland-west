@@ -11,6 +11,16 @@ type ChangelogEntry = {
 
 const changelog: ChangelogEntry[] = [
   {
+    date: 'May 12, 2026',
+    title: 'Custom Domain Live',
+    items: [
+      'Website is now live at myskatelandwest.com — the custom domain transferred from your old hosting provider to a managed setup',
+      'www.myskatelandwest.com works too — both go to the same site',
+      'Old preview URL (skateland.buford.dev) now redirects to myskatelandwest.com so any old bookmarks still work',
+      'Your email at myskatelandwest.com is untouched — still managed by Yahoo Small Business',
+    ],
+  },
+  {
     date: 'March 22, 2026',
     title: 'Icon Library & Popup Image',
     items: [

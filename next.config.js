@@ -9,6 +9,10 @@ const nextConfig = {
   output: 'standalone',
   images: {
     remotePatterns: [
+      { protocol: 'https', hostname: 'myskatelandwest.com' },
+      { protocol: 'https', hostname: 'www.myskatelandwest.com' },
+      // Legacy hostname kept whitelisted in case any historical content still
+      // references it; Caddy 301s the user-facing path anyway.
       { protocol: 'https', hostname: 'skateland.buford.dev' },
       { protocol: 'https', hostname: 'media.buford.dev' },
       ...[NEXT_PUBLIC_SERVER_URL, process.env.S3_PUBLIC_URL].filter(Boolean).map((item) => {
