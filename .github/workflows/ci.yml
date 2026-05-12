@@ -47,7 +47,7 @@ jobs:
       # a real database or storage. Overridden at runtime on the VPS.
       POSTGRES_URL: postgresql://dummy:dummy@localhost:5432/dummy
       PAYLOAD_SECRET: build-time-placeholder
-      NEXT_PUBLIC_SERVER_URL: https://skateland.buford.dev
+      NEXT_PUBLIC_SERVER_URL: https://myskatelandwest.com
       NEXT_TELEMETRY_DISABLED: "1"
       NEXT_BUILD_SKIP_DB: "true"
     steps:

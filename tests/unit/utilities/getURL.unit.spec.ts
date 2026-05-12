@@ -18,8 +18,8 @@ describe('getServerSideURL', () => {
   })
 
   it('uses NEXT_PUBLIC_SERVER_URL when set', () => {
-    vi.stubEnv('NEXT_PUBLIC_SERVER_URL', 'https://skateland.buford.dev')
-    expect(getServerSideURL()).toBe('https://skateland.buford.dev')
+    vi.stubEnv('NEXT_PUBLIC_SERVER_URL', 'https://myskatelandwest.com')
+    expect(getServerSideURL()).toBe('https://myskatelandwest.com')
   })
 
   it('falls back to VERCEL_PROJECT_PRODUCTION_URL with an https:// prefix', () => {
@@ -28,9 +28,9 @@ describe('getServerSideURL', () => {
   })
 
   it('prefers NEXT_PUBLIC_SERVER_URL over the Vercel fallback', () => {
-    vi.stubEnv('NEXT_PUBLIC_SERVER_URL', 'https://skateland.buford.dev')
+    vi.stubEnv('NEXT_PUBLIC_SERVER_URL', 'https://myskatelandwest.com')
     vi.stubEnv('VERCEL_PROJECT_PRODUCTION_URL', 'skateland-west.vercel.app')
-    expect(getServerSideURL()).toBe('https://skateland.buford.dev')
+    expect(getServerSideURL()).toBe('https://myskatelandwest.com')
   })
 
   it('falls back to http://localhost:3000 when nothing is set', () => {
@@ -38,7 +38,7 @@ describe('getServerSideURL', () => {
   })
 
   it('never returns a value with a trailing slash when env is set cleanly', () => {
-    vi.stubEnv('NEXT_PUBLIC_SERVER_URL', 'https://skateland.buford.dev')
+    vi.stubEnv('NEXT_PUBLIC_SERVER_URL', 'https://myskatelandwest.com')
     // Trailing slash would silently break absolute URL building in several
     // spots (e.g. generateMeta, sitemaps). Callers pass this value straight
     // into string concatenation, so guard the contract here.

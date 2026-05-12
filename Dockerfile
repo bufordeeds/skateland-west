@@ -23,7 +23,7 @@ COPY . .
 # This dummy value is overridden at runtime by the real env vars.
 ENV POSTGRES_URL=postgresql://dummy:dummy@localhost:5432/dummy
 ENV PAYLOAD_SECRET=build-time-placeholder
-ENV NEXT_PUBLIC_SERVER_URL=https://skateland.buford.dev
+ENV NEXT_PUBLIC_SERVER_URL=https://myskatelandwest.com
 # Turnstile site key is public (rendered in client HTML); inlined at build time.
 ENV NEXT_PUBLIC_TURNSTILE_SITE_KEY=0x4AAAAAADI5iv2BQq2r45sg
 
