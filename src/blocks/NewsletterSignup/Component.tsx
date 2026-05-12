@@ -38,6 +38,13 @@ declare global {
 
 const TURNSTILE_SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
 
+// Visible-to-users message when the Turnstile site key is missing at build
+// time. Without it, the captcha widget never renders, no token is set, and
+// the Subscribe button stays disabled forever — the form looks fine but is
+// dead. Rather than silently break, swap the form for this notice and log
+// loudly to the console so the regression is obvious to engineers too.
+const UNAVAILABLE_MESSAGE = 'Newsletter signup is temporarily unavailable. Please check back soon.'
+
 export const NewsletterSignup: React.FC<Props> = ({
   heading,
   description,
@@ -46,6 +53,19 @@ export const NewsletterSignup: React.FC<Props> = ({
   gradient = false,
 }) => {
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
+  // Surface the missing-config state in dev tools too — `console.error` so
+  // it stands out in the browser console and any error-reporting integration
+  // picks it up. Fires once per mount (intentional; cheap).
+  useEffect(() => {
+    if (!siteKey) {
+      console.error(
+        'NewsletterSignup: NEXT_PUBLIC_TURNSTILE_SITE_KEY is not set. ' +
+          'The form is rendering the unavailable-fallback state. ' +
+          'Set the env at build time (Dockerfile / CI) and redeploy.',
+      )
+    }
+  }, [siteKey])
+
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [website, setWebsite] = useState('')
@@ -144,7 +164,14 @@ export const NewsletterSignup: React.FC<Props> = ({
             </p>
           )}
 
-          {status === 'success' ? (
+          {!siteKey ? (
+            <p
+              className={`text-base ${gradient ? 'opacity-90' : 'text-muted-foreground'}`}
+              role="status"
+            >
+              {UNAVAILABLE_MESSAGE}
+            </p>
+          ) : status === 'success' ? (
             <div className="flex items-center justify-center gap-2 py-4">
               <CheckCircle className="size-6 text-green-500" />
               <p className="text-lg font-medium">{successMessage}</p>
