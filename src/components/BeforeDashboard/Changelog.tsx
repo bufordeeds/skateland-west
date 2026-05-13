@@ -12,6 +12,18 @@ type ChangelogEntry = {
 const changelog: ChangelogEntry[] = [
   {
     date: 'May 12, 2026',
+    title: 'Photo Refresh & Schedule Sync',
+    items: [
+      'Replaced every photo on the site with the new unwatermarked versions you sent in March — home hero, Birthday Parties, Private Events, Learn to Skate, About Us, plus the social-share preview images',
+      'Added 21 new photos to your Media library, each with a clear description so they\'re easy to find when you\'re editing pages — try searching by "rink", "café", "staff", "arcade", or "mural"',
+      'Cleared the old watermarked photos out of your Media library so the picker is tidy',
+      'Schedule page price cards now match the home page format — $10.16* / $7.39* / $12.01* with the "PLUS STATE SALES TAX" notice on each, matching the legal disclosure style you wanted',
+      'Saturday card on both home and Schedule mentions the 1:30-2:00 PM lessons ($15) so visitors discover it from either page',
+      'Newsletter signup form: if anything ever goes wrong (sheet unreachable, etc.), visitors now see a clear "please try again in a minute" message instead of a fake success — no more silent failures',
+    ],
+  },
+  {
+    date: 'May 12, 2026',
     title: 'Custom Domain Live',
     items: [
       'Website is now live at myskatelandwest.com — the custom domain transferred from your old hosting provider to a managed setup',
