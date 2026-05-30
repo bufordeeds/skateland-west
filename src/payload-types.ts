@@ -104,11 +104,13 @@ export interface Config {
     header: Header;
     footer: Footer;
     'promotional-popup': PromotionalPopup;
+    'site-settings': SiteSetting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     'promotional-popup': PromotionalPopupSelect<false> | PromotionalPopupSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
   locale: null;
   user: User & {
@@ -2018,6 +2020,90 @@ export interface PromotionalPopup {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: number;
+  businessName?: string | null;
+  /**
+   * Destination for the "Book a Party" buttons.
+   */
+  bookingUrl?: string | null;
+  contact?: {
+    phone?: string | null;
+    email?: string | null;
+  };
+  address?: {
+    street?: string | null;
+    city?: string | null;
+    state?: string | null;
+    zip?: string | null;
+    googleMapsUrl?: string | null;
+  };
+  social?: {
+    facebook?: string | null;
+    instagram?: string | null;
+    x?: string | null;
+  };
+  /**
+   * Set each day. Uncheck "Open to the public" for days that are private parties only.
+   */
+  hours?: {
+    sunday?: {
+      /**
+       * Leave unchecked to show "Private Parties Only".
+       */
+      isOpen?: boolean | null;
+      hours?: string | null;
+    };
+    monday?: {
+      /**
+       * Leave unchecked to show "Private Parties Only".
+       */
+      isOpen?: boolean | null;
+      hours?: string | null;
+    };
+    tuesday?: {
+      /**
+       * Leave unchecked to show "Private Parties Only".
+       */
+      isOpen?: boolean | null;
+      hours?: string | null;
+    };
+    wednesday?: {
+      /**
+       * Leave unchecked to show "Private Parties Only".
+       */
+      isOpen?: boolean | null;
+      hours?: string | null;
+    };
+    thursday?: {
+      /**
+       * Leave unchecked to show "Private Parties Only".
+       */
+      isOpen?: boolean | null;
+      hours?: string | null;
+    };
+    friday?: {
+      /**
+       * Leave unchecked to show "Private Parties Only".
+       */
+      isOpen?: boolean | null;
+      hours?: string | null;
+    };
+    saturday?: {
+      /**
+       * Leave unchecked to show "Private Parties Only".
+       */
+      isOpen?: boolean | null;
+      hours?: string | null;
+    };
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -2077,6 +2163,85 @@ export interface PromotionalPopupSelect<T extends boolean = true> {
         label?: T;
         url?: T;
         newTab?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  businessName?: T;
+  bookingUrl?: T;
+  contact?:
+    | T
+    | {
+        phone?: T;
+        email?: T;
+      };
+  address?:
+    | T
+    | {
+        street?: T;
+        city?: T;
+        state?: T;
+        zip?: T;
+        googleMapsUrl?: T;
+      };
+  social?:
+    | T
+    | {
+        facebook?: T;
+        instagram?: T;
+        x?: T;
+      };
+  hours?:
+    | T
+    | {
+        sunday?:
+          | T
+          | {
+              isOpen?: T;
+              hours?: T;
+            };
+        monday?:
+          | T
+          | {
+              isOpen?: T;
+              hours?: T;
+            };
+        tuesday?:
+          | T
+          | {
+              isOpen?: T;
+              hours?: T;
+            };
+        wednesday?:
+          | T
+          | {
+              isOpen?: T;
+              hours?: T;
+            };
+        thursday?:
+          | T
+          | {
+              isOpen?: T;
+              hours?: T;
+            };
+        friday?:
+          | T
+          | {
+              isOpen?: T;
+              hours?: T;
+            };
+        saturday?:
+          | T
+          | {
+              isOpen?: T;
+              hours?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;

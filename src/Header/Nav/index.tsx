@@ -6,14 +6,19 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { SearchIcon, Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { NAVIGATION_ITEMS, SITE_CONFIG } from '@/lib/constants'
+import { NAVIGATION_ITEMS } from '@/lib/constants'
 
 interface HeaderNavProps {
   data: HeaderType
   position?: 'desktop' | 'mobile'
+  bookingUrl: string
 }
 
-export const HeaderNav: React.FC<HeaderNavProps> = ({ data: _data, position = 'mobile' }) => {
+export const HeaderNav: React.FC<HeaderNavProps> = ({
+  data: _data,
+  position = 'mobile',
+  bookingUrl,
+}) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const pathname = usePathname()
 
@@ -54,7 +59,7 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({ data: _data, position = 'm
                     className="w-full bg-gradient-skate hover:opacity-90 text-white font-bold"
                     asChild
                   >
-                    <a href={SITE_CONFIG.bookingUrl} target="_blank" rel="noopener noreferrer">Book a Party</a>
+                    <a href={bookingUrl} target="_blank" rel="noopener noreferrer">Book a Party</a>
                   </Button>
                 </div>
                 <Link

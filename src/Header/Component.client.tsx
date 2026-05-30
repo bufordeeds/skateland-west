@@ -6,17 +6,19 @@ import React, { useEffect, useState } from 'react'
 import { Phone, MapPin, Clock } from 'lucide-react'
 
 import type { Header } from '@/payload-types'
+import type { ResolvedSiteSettings } from '@/lib/siteSettings'
 
 import { HeaderNav } from './Nav'
 import { Button } from '@/components/ui/button'
-import { SITE_CONFIG } from '@/lib/constants'
+import { getTodayHours } from '@/lib/siteSettings'
 import Image from 'next/image'
 
 interface HeaderClientProps {
   data: Header
+  settings: ResolvedSiteSettings
 }
 
-export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
+export const HeaderClient: React.FC<HeaderClientProps> = ({ data, settings }) => {
   const [theme, setTheme] = useState<string | null>(null)
   const [scrolled, setScrolled] = useState(false)
   const [todayHours, setTodayHours] = useState<{ hours: string; isOpen: boolean } | null>(null)
@@ -32,12 +34,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   }, [headerTheme, theme])
 
   useEffect(() => {
-    const dayName = new Date()
-      .toLocaleDateString('en-US', { weekday: 'long' })
-      .toLowerCase() as keyof typeof SITE_CONFIG.hours
-    const hours = SITE_CONFIG.hours[dayName]
-    setTodayHours({ hours, isOpen: hours !== 'Private Parties Only' })
-  }, [])
+    const today = getTodayHours(settings.hours)
+    if (today) setTodayHours({ hours: today.hours, isOpen: today.isOpen })
+  }, [settings])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,13 +54,13 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         <div className="container relative">
           <div className="flex items-center justify-between text-sm">
             <div className="flex items-center gap-6">
-              <a href={`tel:${SITE_CONFIG.phone.replace(/\D/g, '')}`} className="flex items-center gap-2 hover:text-accent transition-colors">
+              <a href={`tel:${settings.phone.replace(/\D/g, '')}`} className="flex items-center gap-2 hover:text-accent transition-colors">
                 <Phone className="size-3" />
-                {SITE_CONFIG.phone}
+                {settings.phone}
               </a>
-              <a href={SITE_CONFIG.googleMapsUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-accent transition-colors">
+              <a href={settings.googleMapsUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-accent transition-colors">
                 <MapPin className="size-3" />
-                {SITE_CONFIG.address.street}, {SITE_CONFIG.address.city}
+                {settings.address.street}, {settings.address.city}
               </a>
             </div>
             <div className="flex items-center gap-2">
@@ -101,19 +100,19 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                 className="h-9 lg:h-10 w-auto transform group-hover:scale-110 transition-all duration-300"
               />
               <span className="font-black text-base lg:text-lg text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]">
-                {SITE_CONFIG.name}
+                {settings.businessName}
               </span>
             </Link>
 
             {/* Desktop Nav */}
             <div className="hidden lg:flex items-center gap-4">
-              <HeaderNav data={data} position="desktop" />
+              <HeaderNav data={data} position="desktop" bookingUrl={settings.bookingUrl} />
               <Button
                 size="sm"
                 className="bg-white/15 hover:bg-white/25 text-white font-bold border border-white/20 transition-all duration-300"
                 asChild
               >
-                <a href={SITE_CONFIG.bookingUrl} target="_blank" rel="noopener noreferrer">
+                <a href={settings.bookingUrl} target="_blank" rel="noopener noreferrer">
                   Book a Party
                 </a>
               </Button>
@@ -121,7 +120,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
 
             {/* Mobile Menu Button */}
             <div className="lg:hidden">
-              <HeaderNav data={data} />
+              <HeaderNav data={data} bookingUrl={settings.bookingUrl} />
             </div>
           </div>
         </div>
