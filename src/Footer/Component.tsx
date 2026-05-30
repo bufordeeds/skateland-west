@@ -10,24 +10,22 @@ import {
   Clock,
 } from 'lucide-react'
 
-import type { Footer } from '@/payload-types'
+import type { Footer as FooterType, SiteSetting } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { SITE_CONFIG } from '@/lib/constants'
+import { getTodayHours, resolveSiteSettings } from '@/lib/siteSettings'
 import Image from 'next/image'
 
 export async function Footer() {
-  const footerData: Footer = await getCachedGlobal('footer', 1)()
+  const footerData: FooterType = await getCachedGlobal('footer', 1)()
+  const settings = resolveSiteSettings(await getCachedGlobal('site-settings', 1)() as SiteSetting)
 
   const navItems = footerData?.navItems || []
 
-  const now = new Date()
-  const currentYear = now.getFullYear()
-  const dayName = now.toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase() as keyof typeof SITE_CONFIG.hours
-  const todayHours = SITE_CONFIG.hours[dayName]
-  const isOpenToday = todayHours !== 'Private Parties Only'
+  const currentYear = new Date().getFullYear()
+  const isOpenToday = getTodayHours(settings.hours)?.isOpen ?? false
 
   return (
     <footer className="relative bg-gradient-to-b from-background to-muted/50 border-t-2 border-primary/10">
@@ -47,7 +45,7 @@ export async function Footer() {
                   height={48}
                   className="h-12 w-auto"
                 />
-                <span className="font-black text-xl">{SITE_CONFIG.name}</span>
+                <span className="font-black text-xl">{settings.businessName}</span>
               </div>
 
               <p className="text-muted-foreground">
@@ -62,7 +60,7 @@ export async function Footer() {
                   className="hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300"
                   asChild
                 >
-                  <a href={SITE_CONFIG.social.facebook} target="_blank" rel="noopener noreferrer">
+                  <a href={settings.social.facebook} target="_blank" rel="noopener noreferrer">
                     <Facebook className="size-5" />
                     <span className="sr-only">Facebook</span>
                   </a>
@@ -73,7 +71,7 @@ export async function Footer() {
                   className="hover:bg-secondary hover:text-secondary-foreground hover:border-secondary transition-all duration-300"
                   asChild
                 >
-                  <a href={SITE_CONFIG.social.instagram} target="_blank" rel="noopener noreferrer">
+                  <a href={settings.social.instagram} target="_blank" rel="noopener noreferrer">
                     <Instagram className="size-5" />
                     <span className="sr-only">Instagram</span>
                   </a>
@@ -84,7 +82,7 @@ export async function Footer() {
                   className="hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all duration-300"
                   asChild
                 >
-                  <a href={SITE_CONFIG.social.x} target="_blank" rel="noopener noreferrer">
+                  <a href={settings.social.x} target="_blank" rel="noopener noreferrer">
                     <span className="font-black text-base" aria-hidden="true">X</span>
                     <span className="sr-only">X</span>
                   </a>
@@ -126,15 +124,15 @@ export async function Footer() {
                   <div>
                     <p className="font-medium">Location</p>
                     <a
-                      href={SITE_CONFIG.googleMapsUrl}
+                      href={settings.googleMapsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-sm text-muted-foreground hover:text-primary transition-colors"
                     >
-                      {SITE_CONFIG.address.street}
+                      {settings.address.street}
                       <br />
-                      {SITE_CONFIG.address.city}, {SITE_CONFIG.address.state}{' '}
-                      {SITE_CONFIG.address.zip}
+                      {settings.address.city}, {settings.address.state}{' '}
+                      {settings.address.zip}
                     </a>
                   </div>
                 </li>
@@ -145,10 +143,10 @@ export async function Footer() {
                   <div>
                     <p className="font-medium">Call Us</p>
                     <a
-                      href={`tel:${SITE_CONFIG.phone.replace(/\D/g, '')}`}
+                      href={`tel:${settings.phone.replace(/\D/g, '')}`}
                       className="text-sm text-muted-foreground hover:text-primary transition-colors font-bold"
                     >
-                      {SITE_CONFIG.phone}
+                      {settings.phone}
                     </a>
                   </div>
                 </li>
@@ -159,10 +157,10 @@ export async function Footer() {
                   <div>
                     <p className="font-medium">Email</p>
                     <a
-                      href={`mailto:${SITE_CONFIG.email}`}
+                      href={`mailto:${settings.email}`}
                       className="text-sm text-muted-foreground hover:text-primary transition-colors"
                     >
-                      {SITE_CONFIG.email}
+                      {settings.email}
                     </a>
                   </div>
                 </li>
@@ -176,26 +174,23 @@ export async function Footer() {
                 Hours
               </h3>
               <div className="space-y-2">
-                {Object.entries(SITE_CONFIG.hours).map(([day, hours]) => {
-                  const isOpen = hours !== 'Private Parties Only'
-                  return (
-                    <div
-                      key={day}
-                      className={`flex justify-between items-center py-1.5 px-3 rounded-lg ${
-                        isOpen ? 'bg-primary/5' : ''
+                {settings.hours.map((day) => (
+                  <div
+                    key={day.key}
+                    className={`flex justify-between items-center py-1.5 px-3 rounded-lg ${
+                      day.isOpen ? 'bg-primary/5' : ''
+                    }`}
+                  >
+                    <span className="text-sm font-medium capitalize">{day.label}</span>
+                    <span
+                      className={`text-sm ${
+                        day.isOpen ? 'text-primary font-bold' : 'text-muted-foreground/60'
                       }`}
                     >
-                      <span className="text-sm font-medium capitalize">{day}</span>
-                      <span
-                        className={`text-sm ${
-                          isOpen ? 'text-primary font-bold' : 'text-muted-foreground/60'
-                        }`}
-                      >
-                        {hours}
-                      </span>
-                    </div>
-                  )
-                })}
+                      {day.hours}
+                    </span>
+                  </div>
+                ))}
                 {isOpenToday ? (
                   <Badge className="w-full justify-center mt-3 bg-gradient-skate text-white border-0">
                     <Clock className="size-3 mr-1" />
@@ -215,7 +210,7 @@ export async function Footer() {
           <div className="mt-12 pt-8 border-t border-border/50">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-sm text-muted-foreground">
-                © {currentYear} {SITE_CONFIG.name}. All rights reserved.
+                © {currentYear} {settings.businessName}. All rights reserved.
                 <span className="mx-2">•</span>
                 <a
                   href="https://mosscreekdigital.com/"
